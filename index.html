@@ -434,6 +434,14 @@
             word-break: break-all;
             color: var(--primary);
             margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: all;
+        }
+
+        .share-link:hover {
+            border-color: var(--primary);
+            background: var(--white);
         }
 
         .share-buttons {
@@ -853,15 +861,28 @@
             },
 
             copyToClipboard: async (text) => {
-                if (navigator.clipboard) {
-                    await navigator.clipboard.writeText(text);
-                } else {
-                    const textArea = document.createElement('textarea');
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
+                try {
+                    // 현대적인 Clipboard API 시도
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(text);
+                        return true;
+                    } else {
+                        // Fallback 방법
+                        const textArea = document.createElement('textarea');
+                        textArea.value = text;
+                        textArea.style.position = 'fixed';
+                        textArea.style.left = '-999999px';
+                        textArea.style.top = '-999999px';
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        const result = document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        return result;
+                    }
+                } catch (err) {
+                    console.error('복사 실패:', err);
+                    return false;
                 }
             },
 
@@ -1135,7 +1156,7 @@
             });
 
             // 카카오톡 공유
-            document.getElementById('kakaoShareBtn').addEventListener('click', () => {
+            document.getElementById('kakaoShareBtn').addEventListener('click', async () => {
                 const userNameElement = document.querySelector('#resultStats .stat-label');
                 const userName = userNameElement ? userNameElement.textContent : '익명';
                 const link = document.getElementById('shareLink').textContent;
@@ -1158,25 +1179,49 @@ ${link}
                             text: shareText
                         });
                     } else {
-                        Utils.copyToClipboard(shareText);
-                        Utils.showNotification('🎈 카카오톡 공유 내용이 복사되었어요!\n\n카톡에 붙여넣기 해서 친구들에게 보내주세요! 🌻');
+                        const success = await Utils.copyToClipboard(shareText);
+                        if (success) {
+                            Utils.showNotification('🎈 카카오톡 공유 내용이 복사되었어요!\n\n카톡에 붙여넣기 해서 친구들에게 보내주세요! 🌻');
+                        } else {
+                            Utils.showNotification('🎈 공유하기를 위해 링크를 선택해주세요!\n\nCtrl+C로 복사해서 카톡에 보내주세요! 🌻');
+                        }
                     }
                 } else {
-                    Utils.copyToClipboard(shareText);
-                    Utils.showNotification('🎈 카카오톡 공유 내용이 복사되었어요!\n\n카톡에 붙여넣기 해서 친구들에게 보내주세요! 🌻');
+                    const success = await Utils.copyToClipboard(shareText);
+                    if (success) {
+                        Utils.showNotification('🎈 카카오톡 공유 내용이 복사되었어요!\n\n카톡에 붙여넣기 해서 친구들에게 보내주세요! 🌻');
+                    } else {
+                        Utils.showNotification('🎈 공유하기를 위해 링크를 선택해주세요!\n\nCtrl+C로 복사해서 카톡에 보내주세요! 🌻');
+                    }
                 }
             });
 
             // 링크 복사
             document.getElementById('copyLinkBtn').addEventListener('click', async () => {
                 const link = document.getElementById('shareLink').textContent;
-                await Utils.copyToClipboard(link);
-                Utils.showNotification(
-                    '🎯 링크가 복사되었습니다!\n\n' +
-                    '🌻 카톡, 슬랙, 이메일 어디든 보내주세요!\n' +
-                    '동료들이 클릭 한 번으로 바로 참여할 수 있어요 💝\n\n' +
-                    '분명 따뜻한 응원을 많이 받으실 거예요! 🌈'
-                );
+                const success = await Utils.copyToClipboard(link);
+                
+                if (success) {
+                    Utils.showNotification(
+                        '🎯 링크가 복사되었습니다!\n\n' +
+                        '🌻 카톡, 슬랙, 이메일 어디든 보내주세요!\n' +
+                        '동료들이 클릭 한 번으로 바로 참여할 수 있어요 💝\n\n' +
+                        '분명 따뜻한 응원을 많이 받으실 거예요! 🌈'
+                    );
+                } else {
+                    // 복사 실패 시 링크를 선택 상태로 만들어서 사용자가 직접 복사할 수 있게 함
+                    const linkElement = document.getElementById('shareLink');
+                    const range = document.createRange();
+                    range.selectNode(linkElement);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    
+                    Utils.showNotification(
+                        '📋 링크가 선택되었습니다!\n\n' +
+                        'Ctrl+C (또는 Cmd+C)를 눌러서 복사해주세요 🙂\n' +
+                        '그리고 동료들에게 공유해보세요! 💝'
+                    );
+                }
             });
 
             // 새 설문 만들기
@@ -1184,6 +1229,21 @@ ${link}
                 if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
                     window.history.replaceState({}, document.title, window.location.pathname);
                     location.reload();
+                }
+            });
+
+            // 링크 영역 클릭으로도 복사 가능
+            document.addEventListener('click', async (e) => {
+                if (e.target.id === 'shareLink') {
+                    const link = e.target.textContent;
+                    const success = await Utils.copyToClipboard(link);
+                    
+                    if (success) {
+                        Utils.showNotification('📋 링크가 복사되었습니다! 🎯');
+                    } else {
+                        // 이미 선택되어 있으므로 사용자에게 알림만
+                        Utils.showNotification('📋 Ctrl+C를 눌러서 복사해주세요! 🙂');
+                    }
                 }
             });
 
