@@ -660,3 +660,293 @@
 
         // 격려 메시지들
         const encouragementMessages = [
+            "💕 동료들이 당신을 이렇게 생각하고 있었다니!<br>정말 사랑스럽고 특별한 존재시네요 ✨",
+            "🌟 이 결과를 보니 당신이 얼마나 소중한 사람인지<br>다시 한번 느끼게 되어요 💎",
+            "✨ 동료들의 따뜻한 시선에서 발견된<br>당신의 빛나는 모습들이 정말 아름다워요 🌈",
+            "💫 이런 평가를 받는다는 건<br>당신이 얼마나 멋진 사람인지 보여주는 거예요! 🏆"
+        ];
+
+        // 앱 상태
+        let currentSurvey = null;
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let surveys = {}; // 메모리에 저장
+
+        // URL 파라미터에서 사용자 이름 추출
+        function getUserFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('user');
+        }
+
+        // 고유 ID 생성 함수
+        function generateSurveyId(userName) {
+            return btoa(encodeURIComponent(userName)).replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+        }
+
+        // 설문 생성
+        function createSurvey() {
+            const userName = document.getElementById('userName').value.trim();
+            
+            if (!userName) {
+                alert('닉네임을 입력해주세요! 😊');
+                return;
+            }
+            
+            const surveyId = generateSurveyId(userName);
+            
+            // 설문 데이터 저장
+            surveys[surveyId] = {
+                name: userName,
+                responses: [],
+                traits: {},
+                createdAt: new Date().toISOString()
+            };
+            
+            // 결과 화면으로 이동
+            showResults(surveyId, userName);
+        }
+
+        // 설문 시작 (URL에서 사용자 이름이 있을 때)
+        function startSurveyFromUrl() {
+            const userName = getUserFromUrl();
+            if (!userName) return;
+            
+            const surveyId = generateSurveyId(userName);
+            
+            // 해당 설문이 없으면 생성
+            if (!surveys[surveyId]) {
+                surveys[surveyId] = {
+                    name: userName,
+                    responses: [],
+                    traits: {},
+                    createdAt: new Date().toISOString()
+                };
+            }
+            
+            currentSurvey = surveyId;
+            currentQuestionIndex = 0;
+            answers = [];
+            
+            // 설문 화면 표시
+            document.querySelector('.setup-section').style.display = 'none';
+            document.querySelector('.survey-section').classList.add('active');
+            
+            // 대상자 이름 표시
+            document.getElementById('targetName').textContent = `💝 ${decodeURIComponent(userName)} 님`;
+            
+            showQuestion();
+        }
+
+        // 질문 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('currentQuestion').innerHTML = question.text;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `
+                    <span class="option-emoji">${option.emoji}</span>
+                    <span class="option-text">${option.text}</span>
+                `;
+                optionDiv.onclick = () => selectOption(index, optionDiv);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            updateProgress();
+        }
+
+        // 옵션 선택
+        function selectOption(index, element) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            const question = questions[currentQuestionIndex];
+            answers[currentQuestionIndex] = question.options[index].trait;
+            
+            // 로딩 애니메이션 표시
+            document.getElementById('loadingAnimation').style.display = 'block';
+            document.querySelector('.question-container').style.opacity = '0.5';
+            
+            // 0.8초 후 다음 질문으로 자동 진행
+            setTimeout(() => {
+                document.getElementById('loadingAnimation').style.display = 'none';
+                document.querySelector('.question-container').style.opacity = '1';
+                nextQuestion();
+            }, 800);
+        }
+
+        // 다음 질문
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                submitSurvey();
+            }
+        }
+
+        // 진행률 업데이트
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.querySelector('.progress-fill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${currentQuestionIndex + 1}/${questions.length} 질문`;
+        }
+
+        // 설문 제출
+        function submitSurvey() {
+            // 응답 저장
+            surveys[currentSurvey].responses.push({
+                answers: answers,
+                timestamp: new Date().toISOString()
+            });
+            
+            // 특성별 집계
+            answers.forEach(trait => {
+                if (!surveys[currentSurvey].traits[trait]) {
+                    surveys[currentSurvey].traits[trait] = 0;
+                }
+                surveys[currentSurvey].traits[trait]++;
+            });
+            
+            // 완료 메시지
+            alert('🎉 소중한 응원 메시지를 보내주셔서 감사합니다!\n\n당신의 따뜻한 마음이 누군가에게 큰 힘이 될 거예요 💕\n\n당신도 동료들에게 나의 모습을 물어보고 싶다면\n새 창에서 테스트를 시작해보세요! ✨');
+            
+            // 3초 후 자동으로 새 테스트 페이지로 이동
+            setTimeout(() => {
+                window.open(window.location.origin + window.location.pathname, '_blank');
+                window.close();
+            }, 3000);
+        }
+
+        // 결과 표시
+        function showResults(surveyId, userName) {
+            const survey = surveys[surveyId];
+            const totalResponses = survey.responses.length;
+            
+            // 통계 표시
+            const statsContainer = document.getElementById('surveyStats');
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalResponses}</div>
+                    <div class="stat-label">응원 메시지</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">💕</div>
+                    <div class="stat-label">${userName}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">✨</div>
+                    <div class="stat-label">매력 발견</div>
+                </div>
+            `;
+            
+            // 결과 설명
+            const resultDescription = document.getElementById('resultDescription');
+            if (totalResponses === 0) {
+                resultDescription.innerHTML = `
+                    <p><strong>아직 동료들의 따뜻한 시선을 기다리고 있어요!</strong></p>
+                    <p>링크를 공유해서 동료들이<br>
+                    당신에 대해 어떻게 생각하는지 알아보세요 🚀</p>
+                    <p>분명 예상보다 훨씬 사랑받고 있는<br>
+                    자신을 발견하게 될 거예요! ✨</p>
+                `;
+            } else {
+                const randomMessage = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+                resultDescription.innerHTML = `<p>${randomMessage}</p>`;
+            }
+            
+            // 결과 내용
+            const resultContainer = document.getElementById('resultContent');
+            if (totalResponses === 0) {
+                resultContainer.innerHTML = '';
+            } else {
+                // 특성별 퍼센트 계산 및 표시
+                const sortedTraits = Object.entries(survey.traits)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5); // 상위 5개만 표시
+                
+                resultContainer.innerHTML = sortedTraits.map(([trait, count]) => {
+                    const percentage = Math.round((count / totalResponses) * 100);
+                    const traitInfo = traitDescriptions[trait];
+                    return `
+                        <div class="trait-result">
+                            <div class="trait-info">
+                                <div class="trait-name">💎 ${traitInfo.name}</div>
+                                <div class="trait-desc">${traitInfo.desc}</div>
+                            </div>
+                            <div class="trait-percentage">${percentage}%</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // 공유 링크 (사용자 이름을 URL 파라미터로)
+            const currentUrl = window.location.origin + window.location.pathname;
+            const shareUrl = `${currentUrl}?user=${encodeURIComponent(userName)}`;
+            document.getElementById('shareLink').textContent = shareUrl;
+            
+            // 결과 섹션 표시
+            document.querySelector('.setup-section').style.display = 'none';
+            document.querySelector('.result-section').classList.add('active');
+        }
+
+        // 링크 복사
+        function copyLink() {
+            const link = document.getElementById('shareLink').textContent;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showCopySuccess();
+                });
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = link;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopySuccess();
+            }
+        }
+
+        function showCopySuccess() {
+            alert('✅ 링크가 복사되었습니다!\n\n🔥 카톡, 슬랙, 이메일 어디든 보내주세요!\n동료들이 클릭 한 번으로 바로 참여할 수 있어요 💕\n\n분명 따뜻한 응원을 많이 받으실 거예요! ✨');
+        }
+
+        // 새 설문 만들기
+        function createNewSurvey() {
+            if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
+                // URL에서 파라미터 제거
+                window.history.replaceState({}, document.title, window.location.pathname);
+                location.reload();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', () => {
+            const userName = getUserFromUrl();
+            
+            if (userName) {
+                // URL에 사용자 이름이 있으면 설문 참여 모드
+                startSurveyFromUrl();
+            } else {
+                // 없으면 설문 생성 모드
+                document.querySelector('.setup-section').classList.add('active');
+            }
+        });
+
+        // 페이지 이탈 방지 (설문 진행 중일 때)
+        window.addEventListener('beforeunload', (e) => {
+            if (currentSurvey && currentQuestionIndex > 0 && currentQuestionIndex < questions.length) {
+                e.preventDefault();
+                e.returnValue = '설문이 아직 완료되지 않았습니다. 정말 나가시겠어요?';
+            }
+        });
+    </script>
+</body>
+</html>
