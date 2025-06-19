@@ -692,6 +692,7 @@
         // 애플리케이션 상태
         const AppState = {
             currentUser: null,
+            currentUserName: null, // 현재 사용자명 저장
             currentQuestionIndex: 0,
             answers: [],
             surveys: {},
@@ -1059,10 +1060,17 @@
                 // 특성 결과
                 this.displayTraits(survey.traits, totalResponses);
                 
-                // 공유 링크 설정을 DOM 렌더링 후에 실행
+                // 공유 링크 즉시 설정 + 재시도 로직
+                this.setupSharing(userName);
+                
+                // DOM 안정화를 위한 추가 시도
                 setTimeout(() => {
                     this.setupSharing(userName);
-                }, 50);
+                }, 100);
+                
+                setTimeout(() => {
+                    this.setupSharing(userName);
+                }, 300);
             },
 
             displayStats: (totalResponses, userName) => {
@@ -1127,11 +1135,25 @@
             },
 
             setupSharing: (userName) => {
+                // URL 생성 (현재 페이지 + 사용자 파라미터)
                 const currentUrl = window.location.origin + window.location.pathname;
                 const shareUrl = `${currentUrl}?user=${encodeURIComponent(userName)}`;
+                
+                // 링크 요소 찾기 및 설정
                 const shareLinkElement = document.getElementById('shareLink');
                 if (shareLinkElement) {
                     shareLinkElement.textContent = shareUrl;
+                    // 링크가 설정되었는지 확인
+                    console.log('공유 링크 설정 완료:', shareUrl);
+                } else {
+                    console.error('shareLink 요소를 찾을 수 없습니다.');
+                    // 요소가 없으면 다시 시도
+                    setTimeout(() => {
+                        const retryElement = document.getElementById('shareLink');
+                        if (retryElement) {
+                            retryElement.textContent = shareUrl;
+                        }
+                    }, 200);
                 }
             }
         };
@@ -1148,6 +1170,8 @@
                     return;
                 }
                 
+                console.log('설문 생성 - 사용자명:', userName); // 디버깅
+                
                 const surveyId = Utils.generateSurveyId(userName);
                 AppState.surveys[surveyId] = {
                     name: userName,
@@ -1155,6 +1179,9 @@
                     traits: {},
                     createdAt: new Date().toISOString()
                 };
+                
+                // 사용자명을 전역에 저장 (링크 생성용)
+                AppState.currentUserName = userName;
                 
                 // 약간의 지연을 두고 결과 화면 표시 (DOM 안정화)
                 setTimeout(() => {
@@ -1165,15 +1192,26 @@
             // 카카오톡 공유
             document.getElementById('kakaoShareBtn').addEventListener('click', async () => {
                 const userNameElement = document.querySelector('#resultStats .stat-label');
-                const userName = userNameElement ? userNameElement.textContent : '익명';
-                const linkElement = document.getElementById('shareLink');
+                const userName = userNameElement ? userNameElement.textContent : (AppState.currentUserName || '익명');
                 
-                if (!linkElement || !linkElement.textContent) {
+                let linkElement = document.getElementById('shareLink');
+                let link = linkElement ? linkElement.textContent : '';
+                
+                // 링크가 비어있으면 직접 생성
+                if (!link && AppState.currentUserName) {
+                    const currentUrl = window.location.origin + window.location.pathname;
+                    link = `${currentUrl}?user=${encodeURIComponent(AppState.currentUserName)}`;
+                    
+                    // 링크 요소에도 업데이트
+                    if (linkElement) {
+                        linkElement.textContent = link;
+                    }
+                }
+                
+                if (!link) {
                     Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.\n잠시만 기다려주세요!');
                     return;
                 }
-                
-                const link = linkElement.textContent;
                 
                 const shareText = `🌻 동료들이 보는 나의 진짜 모습 테스트
 
@@ -1212,13 +1250,27 @@ ${link}
 
             // 링크 복사
             document.getElementById('copyLinkBtn').addEventListener('click', async () => {
-                const linkElement = document.getElementById('shareLink');
-                if (!linkElement || !linkElement.textContent) {
+                let linkElement = document.getElementById('shareLink');
+                let link = linkElement ? linkElement.textContent : '';
+                
+                // 링크가 비어있으면 직접 생성
+                if (!link && AppState.currentUserName) {
+                    const currentUrl = window.location.origin + window.location.pathname;
+                    link = `${currentUrl}?user=${encodeURIComponent(AppState.currentUserName)}`;
+                    
+                    // 링크 요소에도 업데이트
+                    if (linkElement) {
+                        linkElement.textContent = link;
+                    }
+                    console.log('링크 강제 생성:', link);
+                }
+                
+                if (!link) {
                     Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.\n잠시만 기다려주세요!');
                     return;
                 }
                 
-                const link = linkElement.textContent;
+                console.log('복사할 링크:', link);
                 const success = await Utils.copyToClipboard(link);
                 
                 if (success) {
@@ -1230,10 +1282,12 @@ ${link}
                     );
                 } else {
                     // 복사 실패 시 링크를 선택 상태로 만들어서 사용자가 직접 복사할 수 있게 함
-                    const range = document.createRange();
-                    range.selectNode(linkElement);
-                    window.getSelection().removeAllRanges();
-                    window.getSelection().addRange(range);
+                    if (linkElement) {
+                        const range = document.createRange();
+                        range.selectNode(linkElement);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                    }
                     
                     Utils.showNotification(
                         '📋 링크가 선택되었습니다!\n\n' +
@@ -1254,12 +1308,20 @@ ${link}
             // 링크 영역 클릭으로도 복사 가능
             document.addEventListener('click', async (e) => {
                 if (e.target.id === 'shareLink') {
-                    if (!e.target.textContent) {
+                    let link = e.target.textContent;
+                    
+                    // 링크가 비어있으면 직접 생성
+                    if (!link && AppState.currentUserName) {
+                        const currentUrl = window.location.origin + window.location.pathname;
+                        link = `${currentUrl}?user=${encodeURIComponent(AppState.currentUserName)}`;
+                        e.target.textContent = link;
+                    }
+                    
+                    if (!link) {
                         Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.');
                         return;
                     }
                     
-                    const link = e.target.textContent;
                     const success = await Utils.copyToClipboard(link);
                     
                     if (success) {
