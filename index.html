@@ -508,41 +508,219 @@
             }
         }
 
-        /* 반응형 디자인 */
+        .participant-counter {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f8faff, #f0f3ff);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .count-display {
+            margin-bottom: 1rem;
+        }
+
+        .count-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            line-height: 1;
+        }
+
+        .count-label {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+
+        .count-description {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .count-description span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .detailed-report {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--gray-200);
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .report-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .report-subtitle {
+            color: var(--gray-600);
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .personality-summary {
+            background: linear-gradient(135deg, #f8faff, #fef7ff);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .summary-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+        }
+
+        .summary-text {
+            color: var(--gray-700);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .trait-analysis {
+            margin-bottom: 2rem;
+        }
+
+        .analysis-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .top-traits {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .trait-item-detailed {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 2px solid var(--gray-100);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trait-item-detailed::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .trait-item-detailed:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .trait-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .trait-name-detailed {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .trait-percentage-detailed {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .trait-description-detailed {
+            color: var(--gray-600);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .trait-meaning {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1rem;
+            color: var(--gray-700);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .closing-message {
+            background: linear-gradient(135deg, #fff8f0, #fef7ff);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+            border: 1px solid #fde5ff;
+        }
+
+        .closing-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+        }
+
+        .closing-text {
+            color: var(--gray-700);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        /* 반응형 */
         @media (max-width: 640px) {
-            .app-container {
-                margin: 0.5rem;
-                border-radius: 16px;
+            .detailed-report {
+                padding: 1.5rem;
             }
 
-            .app-header {
-                padding: 1.5rem 1rem;
-            }
-
-            .app-content {
-                padding: 1.5rem 1rem;
-            }
-
-            .app-title {
+            .report-title {
                 font-size: 1.5rem;
             }
 
-            .result-stats {
-                grid-template-columns: repeat(2, 1fr);
+            .count-number {
+                font-size: 2.5rem;
             }
 
-            .share-buttons {
-                grid-template-columns: 1fr;
-            }
-
-            .trait-item {
+            .trait-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
 
-            .trait-percentage {
-                margin-left: 0;
+            .trait-percentage-detailed {
                 align-self: flex-end;
             }
         }
@@ -582,10 +760,10 @@
 
     <div class="app-container">
         <header class="app-header">
-            <h1 class="app-title">💝 동료들이 보는 나</h1>
+            <h1 class="app-title">친구들이 보는 나</h1>
             <p class="app-subtitle">
-                동료들의 따뜻한 시선으로 발견하는<br>
-                나의 숨겨진 매력과 빛나는 모습들 ✨
+                소중한 사람들의 시선으로 발견하는<br>
+                나의 숨겨진 매력과 특별한 모습들
             </p>
         </header>
 
@@ -593,31 +771,37 @@
             <!-- 설문 생성 화면 -->
             <div id="setupScreen" class="screen active">
                 <div class="encouragement-card">
-                    💫 <strong>당신은 이미 충분히 특별하고 소중한 존재예요!</strong><br>
-                    동료들의 시선에서 발견될 당신의 반짝이는 모습들이 정말 기대돼요 ✨
+                    <h3 style="margin-bottom: 1rem; color: #667eea;">당신은 이미 충분히 특별한 존재입니다</h3>
+                    <p>
+                        친구들의 시선에서 발견될<br>
+                        당신의 반짝이는 모습들이 정말 기대돼요
+                    </p>
                 </div>
                 
                 <form id="setupForm">
                     <div class="form-group">
-                        <label for="userName" class="form-label">🌟 내 닉네임 (실명도 괜찮아요!)</label>
+                        <label for="userName" class="form-label">닉네임</label>
                         <input 
                             type="text" 
                             id="userName" 
                             class="form-input"
-                            placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등"
+                            placeholder="예: 따뜻한 김민수, 햇살 같은 지영이"
                             required
                         >
                     </div>
                     
                     <button type="submit" class="btn">
-                        🚀 내 전용 링크 만들기
+                        내 전용 링크 만들기
                     </button>
                 </form>
                 
                 <div class="encouragement-card">
-                    💡 <strong>링크를 만들면 동료들이 클릭 한 번으로<br>
-                    바로 당신에 대한 설문에 참여할 수 있어요!</strong><br>
-                    카톡이나 슬랙으로 링크만 보내면 끝! 🎯
+                    <h3 style="margin-bottom: 1rem; color: #667eea;">간단한 링크 공유로 시작하세요</h3>
+                    <p>
+                        링크를 만들면 친구들이 클릭 한 번으로<br>
+                        바로 당신에 대한 설문에 참여할 수 있어요<br>
+                        카톡이나 메신저로 링크만 보내면 끝!
+                    </p>
                 </div>
             </div>
 
@@ -626,16 +810,16 @@
                 <div class="survey-intro">
                     <div id="targetName" class="target-name"></div>
                     <div class="survey-description">
-                        <strong>이 소중한 분에 대해<br>
-                        당신이 느끼는 솔직한 생각을 들려주세요!</strong> 💝<br>
-                        당신의 따뜻한 시선이 누군가에게는 큰 힘이 될 거예요 🌈
+                        이 소중한 분에 대해<br>
+                        당신이 느끼는 솔직한 생각을 들려주세요<br>
+                        당신의 따뜻한 시선이 누군가에게는 큰 힘이 될 거예요
                     </div>
                 </div>
                 
                 <div class="progress-container">
                     <div class="progress-info">
                         <span id="progressText" class="progress-text">1/10 질문</span>
-                        <span class="progress-text">🎯</span>
+                        <span class="progress-text">📝</span>
                     </div>
                     <div class="progress-bar">
                         <div id="progressFill" class="progress-fill"></div>
@@ -648,54 +832,71 @@
                 </div>
 
                 <div id="loadingScreen" class="loading-screen">
-                    <div class="loading-dots">답변을 저장하고 있어요... ✨</div>
+                    <div class="loading-dots">답변을 저장하고 있어요</div>
                 </div>
             </div>
 
             <!-- 설문 완료 화면 -->
             <div id="surveyCompleteScreen" class="screen">
                 <div class="encouragement-card">
-                    🎉 <strong>설문 완료! 정말 고마워요!</strong><br>
-                    당신의 따뜻한 응답이 누군가에게 큰 힘이 될 거예요 💝
+                    <h3 style="margin-bottom: 1rem; color: #667eea;">설문 완료</h3>
+                    <p>
+                        소중한 마음을 전해주셔서 감사합니다.<br>
+                        당신의 진심어린 응답이 누군가에게<br>
+                        큰 힘과 위로가 될 것입니다.
+                    </p>
                 </div>
 
                 <div class="result-card">
                     <div class="result-header">
-                        <h2 class="result-title">🌟 지금까지의 결과를<br>확인해보세요!</h2>
+                        <h2 class="result-title">현재 참여 현황</h2>
                         <div class="result-description">
                             <div id="completeTargetName" class="target-name"></div>
-                            <p>님의 실시간 평가 결과를 바로 확인할 수 있어요! 📊</p>
+                            <p>님의 설문에 참여해주신 분들</p>
                         </div>
                     </div>
                     
-                    <button id="viewResultsBtn" class="btn">
-                        👀 실시간 결과 보기
+                    <div id="participantCount" class="participant-counter">
+                        <div class="count-display">
+                            <span class="count-number">0</span>
+                            <span class="count-label">명 참여</span>
+                        </div>
+                        <div class="count-description">
+                            결과 개봉까지 <span id="remainingCount">3</span>명 더 필요해요
+                        </div>
+                    </div>
+                    
+                    <button id="viewResultsBtn" class="btn" style="display: none;">
+                        결과 확인하기
                     </button>
                 </div>
 
                 <div class="encouragement-card">
-                    ✨ <strong>당신도 친구들에게 물어보고 싶지 않나요?</strong><br>
-                    나만의 링크를 만들어서 동료들이 보는<br>
-                    나의 진짜 모습을 발견해보세요! 🎯
+                    <h3 style="margin-bottom: 1rem; color: #667eea;">나만의 설문 만들기</h3>
+                    <p>
+                        친구들이 바라보는 당신의 모습이<br>
+                        궁금하지 않으신가요?<br>
+                        지금 바로 나만의 링크를 만들어보세요.
+                    </p>
                 </div>
 
                 <div class="form-group">
-                    <label for="newUserName" class="form-label">🌟 내 닉네임</label>
+                    <label for="newUserName" class="form-label">닉네임</label>
                     <input 
                         type="text" 
                         id="newUserName" 
                         class="form-input"
-                        placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등"
+                        placeholder="예: 따뜻한 김민수, 햇살 같은 지영이"
                     >
                 </div>
                 
                 <button id="createMyLinkBtn" class="btn">
-                    🚀 내 전용 링크 만들기
+                    내 전용 링크 만들기
                 </button>
 
                 <div class="share-buttons" style="margin-top: 1rem;">
                     <button id="restartBtn" class="btn btn-secondary">
-                        🔄 다른 친구 평가하기
+                        다른 친구 설문하기
                     </button>
                 </div>
             </div>
@@ -704,39 +905,35 @@
             <div id="resultScreen" class="screen">
                 <div id="resultStats" class="result-stats"></div>
                 
-                <div class="result-card">
-                    <div class="result-header">
-                        <h2 class="result-title">✨ 동료들이 발견한<br>나의 빛나는 모습들</h2>
-                        <div id="resultDescription" class="result-description"></div>
-                    </div>
-                    <div id="traitsList" class="trait-list"></div>
-                </div>
+                <div id="resultContent"></div>
                 
                 <div class="share-section">
                     <p class="share-description">
-                        🎯 <strong>더 많은 동료들에게 사랑받는 내 모습 발견하기</strong><br>
-                        아래 링크를 공유해서 더 많은 따뜻한 시선들을 모아보세요! 💝
+                        더 많은 친구들과 함께하고 싶다면<br>
+                        아래 링크를 공유해서 더 많은 따뜻한 시선들을 모아보세요
                     </p>
                     <div id="shareLink" class="share-link"></div>
                     
                     <div class="share-buttons">
                         <button id="kakaoShareBtn" class="share-btn kakao">
-                            💬 카톡 공유
+                            카카오톡 공유
                         </button>
                         <button id="copyLinkBtn" class="share-btn copy">
-                            📋 링크 복사
+                            링크 복사
                         </button>
                     </div>
 
-                    <div class="encouragement-card">
-                        💡 <strong>결과를 나중에 다시 보고 싶다면?</strong><br>
-                        이 링크를 북마크해두세요! 언제든 최신 결과를 확인할 수 있어요 🔖<br><br>
-                        <strong>📊 당사자 전용 결과 보기:</strong><br>
-                        <div id="ownerLink" class="share-link" style="margin-top: 0.5rem; font-size: 0.85rem;"></div>
+                    <div class="encouragement-card" style="margin-top: 2rem;">
+                        <h3 style="margin-bottom: 1rem; color: #667eea;">언제든 다시 확인하세요</h3>
+                        <p>
+                            이 링크를 북마크해두시면<br>
+                            언제든 최신 결과를 확인할 수 있어요
+                        </p>
+                        <div id="ownerLink" class="share-link" style="margin-top: 1rem; font-size: 0.85rem;"></div>
                     </div>
                     
-                    <button id="newSurveyBtn" class="btn btn-secondary">
-                        🌟 새로운 매력 발굴하기
+                    <button id="newSurveyBtn" class="btn btn-secondary" style="margin-top: 1rem;">
+                        새로운 매력 발굴하기
                     </button>
                 </div>
             </div>
@@ -751,145 +948,145 @@
             currentQuestionIndex: 0,
             answers: [],
             surveys: {},
-            isAnswering: false
+            isAnswering: false,
+            minParticipants: 3 // 결과 개봉을 위한 최소 참여자 수
         };
 
-        // 설문 질문 데이터 (현실적이고 박진감 넘치는 내용)
+        // 설문 질문 데이터 (친구들 대상, 따뜻하고 재미있는 상황)
         const QUESTIONS = [
             {
-                text: "🔥 월요일 아침 9시,<br>급하게 회의실로 뛰어가는 이 사람의 모습은?",
+                text: "새벽 2시, 갑자기 단톡에서<br>고민 상담을 시작하는 친구가 있다면",
                 options: [
-                    { emoji: "🏃‍♂️", text: "번개처럼 뛰어가서 이미 PPT 준비 완료", trait: "speedy" },
-                    { emoji: "😱", text: "뛰면서도 '아 망했다...' 중얼중얼", trait: "humorous" },
-                    { emoji: "😎", text: "여유롭게 걸어가며 '괜찮아 다 될 거야~'", trait: "calm" },
-                    { emoji: "📋", text: "뛰면서도 체크리스트 확인하는 완벽주의자", trait: "organized" }
+                    { emoji: "💭", text: "3초 안에 답장하며 진심어린 조언을 건네는 사람", trait: "empathetic" },
+                    { emoji: "🤗", text: "따뜻한 위로의 말로 마음을 다독여주는 사람", trait: "comforting" },
+                    { emoji: "☕", text: "내일 만나서 커피 한 잔 하며 천천히 들어보자는 사람", trait: "thoughtful" },
+                    { emoji: "🎵", text: "힐링되는 음악이나 영상을 공유해주는 사람", trait: "healing" }
                 ]
             },
             {
-                text: "💣 갑자기 클라이언트가<br>'내일까지 이거 다시 해주세요' 할 때",
+                text: "친구들과 여행 계획을 세울 때<br>이 사람의 역할은",
                 options: [
-                    { emoji: "🚀", text: "눈빛이 반짝이며 '도전 받아들임!' 모드", trait: "passionate" },
-                    { emoji: "🧘", text: "심호흡 후 차근차근 계획 세우기", trait: "analytical" },
-                    { emoji: "💪", text: "'우리 함께 하면 못할 게 없어!' 팀워크 발동", trait: "collaborative" },
-                    { emoji: "🎭", text: "'에이~ 이런 일이!' 하지만 결국 다 해내는", trait: "adaptable" }
+                    { emoji: "📋", text: "벌써 맛집 리스트와 일정표를 완벽하게 준비한 플래너", trait: "organized" },
+                    { emoji: "💡", text: "남들이 생각 못한 숨은 명소를 발굴해내는 탐험가", trait: "creative" },
+                    { emoji: "🌈", text: "모든 친구의 의견을 조율하며 화합을 이끄는 중재자", trait: "harmonious" },
+                    { emoji: "🎒", text: "어디든 좋다며 순수하게 기대하는 여행 러버", trait: "easygoing" }
                 ]
             },
             {
-                text: "🍕 점심시간 메뉴 정할 때<br>이 사람의 역할은?",
+                text: "친구 생일 깜짝 파티를 준비할 때<br>가장 먼저 하는 일은",
                 options: [
-                    { emoji: "🎪", text: "'오늘은 치킨이다!' 분위기 리더", trait: "entertainer" },
-                    { emoji: "🤗", text: "'다들 뭐 먹고 싶어?' 모든 의견 수렴", trait: "listener" },
-                    { emoji: "📱", text: "이미 맛집 5곳 검색해서 리스트 완성", trait: "informative" },
-                    { emoji: "😋", text: "'아무거나 맛있으면 돼~' 순수한 먹방러", trait: "approachable" }
+                    { emoji: "🎨", text: "손수 만든 특별한 선물이나 영상을 준비하는 것", trait: "artistic" },
+                    { emoji: "📞", text: "모든 친구들에게 연락해서 참여를 독려하는 것", trait: "social" },
+                    { emoji: "🔍", text: "주인공이 진짜 좋아할 만한 것들을 리서치하는 것", trait: "attentive" },
+                    { emoji: "🎪", text: "재밌는 게임이나 이벤트 아이디어를 기획하는 것", trait: "entertaining" }
                 ]
             },
             {
-                text: "📊 발표 5분 전,<br>갑자기 노트북이 먹통이 된다면?",
+                text: "갑자기 비가 쏟아지는 날<br>우산 없는 친구를 만났을 때",
                 options: [
-                    { emoji: "⚡", text: "3초 만에 플랜B 실행하는 위기관리 마스터", trait: "problemsolver" },
-                    { emoji: "🎤", text: "'PPT 없어도 내가 곧 PPT!' 즉석 프레젠테이션", trait: "presenter" },
-                    { emoji: "🤝", text: "'괜찮아, 우리가 도와줄게!' 팀원들 총출동", trait: "supportive" },
-                    { emoji: "😅", text: "'이럴 줄 알고 USB에 백업했지!' 만반의 준비", trait: "wise" }
+                    { emoji: "☂️", text: "당연하다는 듯 자신의 우산을 같이 쓰자고 하는 사람", trait: "generous" },
+                    { emoji: "🏃", text: "빠르게 주변 편의점이나 카페를 찾아 안내하는 사람", trait: "practical" },
+                    { emoji: "🎭", text: "비 맞는 상황도 재밌게 만들어버리는 긍정러", trait: "optimistic" },
+                    { emoji: "🚗", text: "바로 차를 가져오거나 택시를 불러주는 해결사", trait: "reliable" }
                 ]
             },
             {
-                text: "🎉 프로젝트 성공했을 때<br>가장 먼저 하는 말은?",
+                text: "친구가 새로운 도전을 하겠다고 할 때<br>가장 먼저 나오는 반응은",
                 options: [
-                    { emoji: "🥳", text: "'야호! 우리가 해냈다!' 폭발적 기쁨", trait: "joyful" },
-                    { emoji: "👏", text: "'모두 수고했어! 정말 대단해!' 팀원 치하", trait: "motivating" },
-                    { emoji: "🍻", text: "'이런 날엔 회식이지!' 분위기 메이커", trait: "harmonious" },
-                    { emoji: "💎", text: "'다음엔 더 잘할 수 있을 거야' 성장 마인드", trait: "inspiring" }
+                    { emoji: "🔥", text: "와 대박! 진짜 멋있다! 응원할게!", trait: "supportive" },
+                    { emoji: "🤔", text: "신중하게 장단점을 함께 고민해보자는 조언", trait: "wise" },
+                    { emoji: "💪", text: "나도 함께 도전해볼까? 같이 하면 더 재밌을 것 같은데", trait: "adventurous" },
+                    { emoji: "📚", text: "관련 정보나 경험담을 찾아서 공유해주는 것", trait: "helpful" }
                 ]
             },
             {
-                text: "😰 후배가 실수로<br>중요한 파일을 날렸을 때",
+                text: "친구들과 맛집에 갔는데<br>음식이 예상과 달라서 실망스러울 때",
                 options: [
-                    { emoji: "🛡️", text: "'괜찮아, 이런 일 누구에게나 있어' 든든한 선배", trait: "comforting" },
-                    { emoji: "🔧", text: "'복구 방법이 있어!' 즉시 해결책 제시", trait: "efficient" },
-                    { emoji: "🎓", text: "'이걸로 배우는 거야' 교육적 접근", trait: "wise" },
-                    { emoji: "☕", text: "'일단 커피 한 잔 하고 천천히 생각해보자'", trait: "stable" }
+                    { emoji: "😄", text: "이것도 추억이지! 하며 분위기를 밝게 만드는 사람", trait: "cheerful" },
+                    { emoji: "📸", text: "그래도 인증샷은 예쁘게 찍어주는 사진 작가", trait: "positive" },
+                    { emoji: "🍰", text: "다음엔 내가 진짜 맛있는 곳 추천해줄게! 하는 사람", trait: "caring" },
+                    { emoji: "🎈", text: "음식보다 함께 있는 시간이 더 소중하다고 말하는 사람", trait: "philosophical" }
                 ]
             },
             {
-                text: "📱 단톡방에서<br>이 사람의 대표적인 모습은?",
+                text: "친구가 힘든 일로 많이 우울해할 때<br>가장 자연스럽게 하는 행동은",
                 options: [
-                    { emoji: "💬", text: "메시지 와도 3초 안에 답장하는 빛의 속도", trait: "responsive" },
-                    { emoji: "😂", text: "적절한 이모지와 밈으로 분위기 업!", trait: "playful" },
-                    { emoji: "📝", text: "중요한 정보는 깔끔하게 정리해서 공유", trait: "professional" },
-                    { emoji: "👀", text: "조용히 지켜보다가 핵심만 딱 한 마디", trait: "insightful" }
+                    { emoji: "👂", text: "밤새워서라도 끝까지 이야기를 들어주는 것", trait: "devoted" },
+                    { emoji: "🎁", text: "작은 선물이나 편지로 마음을 전하는 것", trait: "affectionate" },
+                    { emoji: "🚶", text: "함께 산책하거나 드라이브를 제안하는 것", trait: "therapeutic" },
+                    { emoji: "☀️", text: "자연스럽게 일상 이야기로 기분 전환을 도와주는 것", trait: "uplifting" }
                 ]
             },
             {
-                text: "🌙 야근할 때<br>이 사람의 진짜 모습은?",
+                text: "단톡방에서 이 사람의<br>대표적인 모습은",
                 options: [
-                    { emoji: "💡", text: "'아이디어가 떠올랐어!' 밤에 더 창의적", trait: "creative" },
-                    { emoji: "🍕", text: "'배고프지? 치킨 시킬까?' 케어 담당", trait: "caring" },
-                    { emoji: "🎵", text: "음악 틀고 혼자만의 업무 리듬 타기", trait: "introspective" },
-                    { emoji: "⚡", text: "야근이야말로 진짜 실력 발휘하는 시간", trait: "reliable" }
+                    { emoji: "⚡", text: "누가 뭔가 올리면 바로바로 반응해주는 빠른 소통러", trait: "responsive" },
+                    { emoji: "💫", text: "분위기에 맞는 완벽한 짤이나 이모티콘을 구사하는 센스쟁이", trait: "witty" },
+                    { emoji: "📝", text: "중요한 정보는 깔끔하게 정리해서 공유하는 정리왕", trait: "informative" },
+                    { emoji: "🌸", text: "조용히 지켜보다가 따뜻한 한마디로 감동을 주는 사람", trait: "gentle" }
                 ]
             },
             {
-                text: "🎯 갑자기 상사가<br>'이거 어떻게 생각해?' 물어볼 때",
+                text: "친구들 사이에서 갈등이 생겼을 때<br>이 사람의 모습은",
                 options: [
-                    { emoji: "🧠", text: "데이터 기반으로 논리적 분석 시작", trait: "analytical" },
-                    { emoji: "💫", text: "'이런 관점은 어떨까요?' 참신한 아이디어", trait: "innovative" },
-                    { emoji: "🤔", text: "'좀 더 생각해보고 말씀드릴게요' 신중파", trait: "composed" },
-                    { emoji: "🎪", text: "'재밌는 질문이네요!' 긍정적 반응", trait: "enthusiastic" }
+                    { emoji: "🕊️", text: "양쪽 이야기를 들어보며 중재 역할을 하는 평화주의자", trait: "mediator" },
+                    { emoji: "🤲", text: "모두의 마음을 이해하려고 노력하는 공감 전문가", trait: "understanding" },
+                    { emoji: "🌿", text: "시간이 해결해줄 거라며 자연스럽게 분위기를 바꾸는 사람", trait: "peaceful" },
+                    { emoji: "💝", text: "각자 개별적으로 만나서 마음을 달래주는 케어테이커", trait: "nurturing" }
                 ]
             },
             {
-                text: "🏆 동료로서 이 사람의<br>가장 소중한 점은?",
+                text: "이 사람과 함께 있으면<br>가장 자주 느끼게 되는 감정은",
                 options: [
-                    { emoji: "🌟", text: "힘들 때 옆에 있어주는 따뜻한 마음", trait: "precious" },
-                    { emoji: "🔥", text: "어떤 상황에서도 믿고 맡길 수 있는 신뢰", trait: "trustworthy" },
-                    { emoji: "✨", text: "함께 있으면 일이 더 즐거워지는 매력", trait: "harmonious" },
-                    { emoji: "🎈", text: "보는 것만으로도 에너지가 충전되는 존재", trait: "energetic" }
+                    { emoji: "✨", text: "따뜻함과 안정감, 마치 고향 같은 편안함", trait: "comforting" },
+                    { emoji: "🎈", text: "즐거움과 유쾌함, 시간 가는 줄 모르는 재미", trait: "joyful" },
+                    { emoji: "🌟", text: "영감과 동기부여, 나도 더 나은 사람이 되고 싶은 마음", trait: "inspiring" },
+                    { emoji: "🤍", text: "깊은 신뢰와 믿음, 무엇이든 털어놓고 싶은 마음", trait: "trustworthy" }
                 ]
             }
         ];
 
-        // 특성 설명 데이터
+        // 특성 설명 데이터 (MZ감성, 트렌디한 키워드)
         const TRAIT_DESCRIPTIONS = {
-            energetic: { name: "에너지 충전기", desc: "당신의 활기찬 모습이 모두에게 힘을 줘요" },
-            calm: { name: "평온한 마음", desc: "차분하고 안정감 있는 당신의 존재가 소중해요" },
-            efficient: { name: "효율성 마스터", desc: "빠르고 정확한 당신의 능력에 모두가 감탄해요" },
-            steady: { name: "꾸준한 노력가", desc: "묵묵히 최선을 다하는 당신의 모습이 아름다워요" },
-            speedy: { name: "스피드 킹", desc: "빛의 속도로 일을 처리하는 당신이 놀라워요" },
-            wise: { name: "지혜로운 조언자", desc: "깊이 있는 생각으로 모두를 이끄는 멘토" },
-            collaborative: { name: "협업의 달인", desc: "함께 일할 때 진가를 발휘하는 팀플레이어" },
-            creative: { name: "창의력 폭발", desc: "참신한 아이디어로 모두를 놀라게 하는 크리에이터" },
-            presenter: { name: "발표 천재", desc: "당신의 프레젠테이션은 언제나 인상 깊어요" },
-            insightful: { name: "인사이트 킹", desc: "핵심을 찌르는 통찰력의 소유자" },
-            concise: { name: "요약의 달인", desc: "복잡한 내용을 명확하게 정리하는 능력자" },
-            listener: { name: "경청 마스터", desc: "모든 이야기를 따뜻하게 들어주는 사람" },
-            entertainer: { name: "분위기 메이커", desc: "당신 덕분에 회사가 즐거워져요" },
-            introspective: { name: "사색하는 철학자", desc: "깊이 있는 사고를 하는 지적인 매력" },
-            informative: { name: "정보 공유 마스터", desc: "유용한 정보로 모두를 도와주는 친절한 사람" },
-            approachable: { name: "인간 카페", desc: "누구나 편하게 다가갈 수 있는 따뜻함" },
-            adaptable: { name: "적응력 갑", desc: "어떤 상황에도 유연하게 대처하는 능력자" },
-            analytical: { name: "분석의 달인", desc: "체계적인 사고로 완벽한 해답을 찾아내요" },
-            protective: { name: "든든한 보호자", desc: "팀원들을 챙기는 따뜻한 리더십" },
-            stable: { name: "멘탈 갑", desc: "흔들리지 않는 안정감으로 모두의 버팀목" },
-            motivating: { name: "동기부여 마스터", desc: "당신의 응원이 큰 힘이 되어요" },
-            comforting: { name: "힐링 요정", desc: "따뜻한 위로로 마음을 치유해주는 사람" },
-            problemsolver: { name: "문제해결 천재", desc: "어려운 상황도 척척 해결하는 능력자" },
-            humorous: { name: "웃음 제조기", desc: "유머로 모든 스트레스를 날려버려요" },
-            innovative: { name: "혁신적 사고", desc: "새로운 관점으로 모두를 놀라게 해요" },
-            trustworthy: { name: "신뢰도 MAX", desc: "당신만큼 믿을 만한 사람을 찾기 어려워요" },
-            harmonious: { name: "화합의 중심", desc: "팀 분위기를 화기애애하게 만드는 마법사" },
-            responsive: { name: "소통 마스터", desc: "빠른 응답으로 원활한 소통을 이끄는 프로" },
-            professional: { name: "비즈니스 매너", desc: "항상 정중하고 세련된 커뮤니케이션" },
-            playful: { name: "재미있는 대화", desc: "유머와 재치로 대화를 즐겁게 만드는 사람" },
-            passionate: { name: "열정 바이러스", desc: "당신의 열정이 모두에게 전염되어요" },
-            organized: { name: "체계적 계획", desc: "완벽한 계획과 준비로 모두를 안심시켜요" },
-            supportive: { name: "든든한 지원군", desc: "언제나 팀원들을 도와주는 따뜻한 마음" },
-            composed: { name: "침착한 리더", desc: "어떤 상황에서도 차분함을 유지하는 멘탈" },
-            reliable: { name: "믿음직한 동반자", desc: "같은 팀이라서 정말 다행인 든든한 존재" },
-            inspiring: { name: "영감을 주는 사람", desc: "당신을 보면 저절로 동기부여가 되어요" },
-            joyful: { name: "행복 바이러스", desc: "당신의 밝은 에너지가 모두를 웃게 만들어요" },
-            precious: { name: "소중한 보물", desc: "만나서 정말 다행인 특별한 사람" },
-            enthusiastic: { name: "열정 가득", desc: "항상 긍정적이고 열정적인 에너지를 보여줘요" },
-            caring: { name: "배려의 달인", desc: "언제나 다른 사람을 먼저 생각하는 따뜻한 마음" }
+            empathetic: { name: "감성 리더", desc: "타인의 마음을 읽고 공감하는 천부적인 능력의 소유자" },
+            comforting: { name: "힐링 메이커", desc: "존재 자체로 위로가 되는 마음의 안식처" },
+            thoughtful: { name: "깊이 있는 사색가", desc: "신중하고 깊이 있게 생각하며 지혜로운 조언을 건네는 사람" },
+            healing: { name: "바이브 큐레이터", desc: "상황에 맞는 완벽한 분위기를 연출하는 센스의 달인" },
+            organized: { name: "플래닝 마스터", desc: "체계적이고 완벽한 계획으로 모든 것을 성공으로 이끄는 기획자" },
+            creative: { name: "아이디어 벤처", desc: "남들이 생각지 못한 창의적 아이디어로 새로운 가치를 만드는 혁신가" },
+            harmonious: { name: "팀 밸런서", desc: "서로 다른 의견들을 조화롭게 만드는 관계의 마에스트로" },
+            easygoing: { name: "플렉서블 소울", desc: "어떤 상황에도 유연하게 적응하며 긍정적 에너지를 발산하는 자유로운 영혼" },
+            artistic: { name: "크리에이티브 디렉터", desc: "감성과 미적 감각으로 특별한 순간을 만들어내는 예술가" },
+            social: { name: "네트워킹 마스터", desc: "사람들을 연결하고 모으는 천재적인 사회적 능력을 가진 커넥터" },
+            attentive: { name: "디테일 스페셜리스트", desc: "상대방의 작은 부분까지 세심하게 배려하는 관찰의 달인" },
+            entertaining: { name: "펀 프로듀서", desc: "평범한 일상을 특별한 이벤트로 바꾸는 재미의 연출가" },
+            generous: { name: "기브 앤 기브", desc: "자신의 것을 나누는 일에 주저하지 않는 너그러운 마음의 소유자" },
+            practical: { name: "솔루션 파인더", desc: "어떤 문제든 현실적이고 효과적인 해결책을 찾아내는 문제 해결사" },
+            optimistic: { name: "포지티브 바이러스", desc: "어떤 상황도 밝게 바라보며 주변에 희망을 전파하는 긍정 에너지" },
+            reliable: { name: "트러스트 빌더", desc: "약속과 신뢰를 지키는 일에 있어서는 절대적인 믿음을 주는 사람" },
+            supportive: { name: "치어리딩 캡틴", desc: "다른 사람의 도전과 성장을 응원하고 지지하는 든든한 서포터" },
+            wise: { name: "인사이트 메이커", desc: "깊은 통찰력으로 상황을 분석하고 현명한 판단을 내리는 지혜의 보고" },
+            adventurous: { name: "체인지 메이커", desc: "새로운 도전을 두려워하지 않고 변화를 즐기는 모험가 정신" },
+            helpful: { name: "인포메이션 허브", desc: "필요한 정보와 도움을 언제나 제공할 준비가 되어있는 지식 공유자" },
+            cheerful: { name: "무드 업 스페셜리스트", desc: "어떤 순간도 즐겁게 만드는 타고난 분위기 메이커" },
+            positive: { name: "브라이트 에너지", desc: "밝고 긍정적인 시각으로 세상을 바라보는 햇살 같은 존재" },
+            caring: { name: "케어 테이커", desc: "다른 사람을 돌보고 배려하는 일을 자연스럽게 하는 따뜻한 마음" },
+            philosophical: { name: "밸류 큐레이터", desc: "삶의 본질적 가치를 중시하고 의미 있는 관점을 제시하는 철학자" },
+            devoted: { name: "로열티 퍼스트", desc: "소중한 사람을 위해서라면 모든 것을 아끼지 않는 헌신적인 마음" },
+            affectionate: { name: "하트 메신저", desc: "마음을 표현하고 전달하는 일에 특별한 재능을 가진 감정 전달자" },
+            therapeutic: { name: "소울 케어", desc: "자연스럽고 치유적인 방법으로 마음의 상처를 돌보는 마음의 의사" },
+            uplifting: { name: "스피릿 부스터", desc: "자연스럽게 상대방의 기분을 좋게 만드는 정신적 에너지 충전기" },
+            responsive: { name: "커뮤니케이션 프로", desc: "빠르고 정확한 소통으로 관계를 원활하게 만드는 대화의 전문가" },
+            witty: { name: "센스 오브 휴머", desc: "절묘한 타이밍과 센스로 모든 상황을 재미있게 만드는 유머 큐레이터" },
+            informative: { name: "인텔리전스 허브", desc: "체계적이고 유용한 정보로 모두의 생활을 편리하게 만드는 정보 전문가" },
+            gentle: { name: "젠틀 터치", desc: "부드럽고 따뜻한 말 한마디로 깊은 감동을 주는 마음의 터치" },
+            mediator: { name: "피스 메이커", desc: "갈등과 대립을 조화롭게 해결하는 관계 조정의 전문가" },
+            understanding: { name: "엠패시 마스터", desc: "모든 입장을 이해하고 공감하는 뛰어난 정서적 지능의 소유자" },
+            peaceful: { name: "하모니 큐레이터", desc: "자연스럽게 평화로운 분위기를 만들어내는 안정감의 제공자" },
+            nurturing: { name: "그로우스 서포터", desc: "다른 사람의 성장과 발전을 세심하게 돌보고 키워주는 마음의 정원사" },
+            joyful: { name: "해피니스 바이러스", desc: "주변 모든 사람에게 기쁨과 즐거움을 전파하는 행복의 전도사" },
+            inspiring: { name: "모티베이션 부스터", desc: "다른 사람에게 영감과 동기를 불러일으키는 삶의 멘토" },
+            trustworthy: { name: "컨피던스 빌더", desc: "절대적인 신뢰와 믿음을 바탕으로 한 관계의 기반을 만드는 사람" }
         };
 
         // 격려 메시지
@@ -995,10 +1192,12 @@
 
             viewResults: (userName) => {
                 const surveyId = Utils.generateSurveyId(userName);
-                if (AppState.surveys[surveyId] && AppState.surveys[surveyId].responses.length > 0) {
+                if (AppState.surveys[surveyId] && AppState.surveys[surveyId].responses.length >= AppState.minParticipants) {
                     this.showResults(surveyId, userName);
                 } else {
-                    Utils.showNotification('아직 응답이 없습니다! 😊\n링크를 더 많이 공유해보세요! 🎯');
+                    const currentCount = AppState.surveys[surveyId] ? AppState.surveys[surveyId].responses.length : 0;
+                    const needed = AppState.minParticipants - currentCount;
+                    Utils.showNotification(`결과 확인을 위해 ${needed}명이 더 참여해야 합니다.\n\n현재 ${currentCount}명이 참여했어요.\n링크를 더 많이 공유해주세요!`);
                 }
             }
         };
@@ -1118,6 +1317,30 @@
                 const survey = AppState.surveys[surveyId];
                 if (survey) {
                     document.getElementById('completeTargetName').textContent = survey.name;
+                    this.updateParticipantCount(survey);
+                }
+            },
+
+            updateParticipantCount: (survey) => {
+                const participantCount = survey.responses.length;
+                const remaining = Math.max(0, AppState.minParticipants - participantCount);
+                
+                // 참여자 수 업데이트
+                document.querySelector('.count-number').textContent = participantCount;
+                document.getElementById('remainingCount').textContent = remaining;
+                
+                // 개봉 조건 확인
+                const viewResultsBtn = document.getElementById('viewResultsBtn');
+                const countDescription = document.querySelector('.count-description');
+                
+                if (participantCount >= AppState.minParticipants) {
+                    viewResultsBtn.style.display = 'block';
+                    countDescription.innerHTML = '🎉 결과 개봉 조건이 충족되었습니다!';
+                    countDescription.style.color = '#10b981';
+                    countDescription.style.fontWeight = '600';
+                } else {
+                    viewResultsBtn.style.display = 'none';
+                    countDescription.innerHTML = `결과 개봉까지 <span>${remaining}</span>명 더 필요해요`;
                 }
             }
         };
@@ -1133,26 +1356,20 @@
                 
                 const totalResponses = survey.responses.length;
 
+                // 개봉 조건 확인
+                if (totalResponses < AppState.minParticipants) {
+                    Utils.showNotification(`결과 확인을 위해 ${AppState.minParticipants - totalResponses}명이 더 참여해야 합니다.\n\n링크를 더 많이 공유해주세요!`);
+                    return;
+                }
+
                 // 통계 표시
                 this.displayStats(totalResponses, userName);
                 
-                // 결과 설명
-                this.displayDescription(totalResponses);
+                // 상세 결과 보고서 생성
+                this.generateDetailedReport(survey, userName);
                 
-                // 특성 결과
-                this.displayTraits(survey.traits, totalResponses);
-                
-                // 공유 링크 즉시 설정 + 재시도 로직
+                // 공유 링크 설정
                 this.setupSharing(userName);
-                
-                // DOM 안정화를 위한 추가 시도
-                setTimeout(() => {
-                    this.setupSharing(userName);
-                }, 100);
-                
-                setTimeout(() => {
-                    this.setupSharing(userName);
-                }, 300);
             },
 
             displayStats: (totalResponses, userName) => {
@@ -1160,60 +1377,134 @@
                 statsContainer.innerHTML = `
                     <div class="stat-card">
                         <div class="stat-number">${totalResponses}</div>
-                        <div class="stat-label">응원 메시지</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">💕</div>
-                        <div class="stat-label">${userName}</div>
+                        <div class="stat-label">참여자</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">✨</div>
-                        <div class="stat-label">매력 발견</div>
+                        <div class="stat-label">${userName}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">📊</div>
+                        <div class="stat-label">분석 완료</div>
                     </div>
                 `;
             },
 
-            displayDescription: (totalResponses) => {
-                const resultDescription = document.getElementById('resultDescription');
+            generateDetailedReport: (survey, userName) => {
+                const resultContainer = document.getElementById('resultContent');
+                const totalResponses = survey.responses.length;
                 
                 if (totalResponses === 0) {
-                    resultDescription.innerHTML = `
-                        <p><strong>아직 동료들의 따뜻한 시선을 기다리고 있어요!</strong></p>
-                        <p>링크를 공유해서 동료들이 당신에 대해 어떻게 생각하는지 알아보세요 🚀</p>
-                        <p>분명 예상보다 훨씬 사랑받고 있는 자신을 발견하게 될 거예요! ✨</p>
-                    `;
-                } else {
-                    const randomMessage = ENCOURAGEMENT_MESSAGES[Math.floor(Math.random() * ENCOURAGEMENT_MESSAGES.length)];
-                    resultDescription.innerHTML = `<p>${randomMessage}</p>`;
-                }
-            },
-
-            displayTraits: (traits, totalResponses) => {
-                const traitsContainer = document.getElementById('traitsList');
-                
-                if (totalResponses === 0) {
-                    traitsContainer.innerHTML = '';
+                    resultContainer.innerHTML = this.getEmptyResultHTML();
                     return;
                 }
 
-                const sortedTraits = Object.entries(traits)
+                // 상위 특성 분석
+                const sortedTraits = Object.entries(survey.traits)
                     .sort((a, b) => b[1] - a[1])
                     .slice(0, 5);
 
-                traitsContainer.innerHTML = sortedTraits.map(([trait, count]) => {
-                    const percentage = Math.round((count / totalResponses) * 100);
-                    const traitInfo = TRAIT_DESCRIPTIONS[trait];
-                    
-                    return `
-                        <div class="trait-item">
-                            <div class="trait-info">
-                                <div class="trait-name">💎 ${traitInfo.name}</div>
-                                <div class="trait-desc">${traitInfo.desc}</div>
-                            </div>
-                            <div class="trait-percentage">${percentage}%</div>
+                const topTrait = sortedTraits[0];
+                const topTraitInfo = TRAIT_DESCRIPTIONS[topTrait[0]];
+                
+                resultContainer.innerHTML = `
+                    <div class="detailed-report">
+                        <div class="report-header">
+                            <h2 class="report-title">${userName}님의<br>성향 분석 보고서</h2>
+                            <p class="report-subtitle">
+                                ${totalResponses}명의 소중한 분들이 전해준<br>
+                                진심어린 마음을 바탕으로 작성되었습니다
+                            </p>
                         </div>
-                    `;
-                }).join('');
+
+                        <div class="personality-summary">
+                            <h3 class="summary-title">당신을 한 문장으로 표현하면</h3>
+                            <p class="summary-text">
+                                "${this.generatePersonalitySummary(sortedTraits, userName)}"
+                            </p>
+                        </div>
+
+                        <div class="trait-analysis">
+                            <h3 class="analysis-title">친구들이 발견한 당신의 특별한 면들</h3>
+                            <div class="top-traits">
+                                ${sortedTraits.map(([trait, count]) => {
+                                    const percentage = Math.round((count / totalResponses) * 100);
+                                    const traitInfo = TRAIT_DESCRIPTIONS[trait];
+                                    return `
+                                        <div class="trait-item-detailed">
+                                            <div class="trait-header">
+                                                <div class="trait-name-detailed">${traitInfo.name}</div>
+                                                <div class="trait-percentage-detailed">${percentage}%</div>
+                                            </div>
+                                            <div class="trait-description-detailed">${traitInfo.desc}</div>
+                                            <div class="trait-meaning">
+                                                ${this.getTraitMeaning(trait, percentage)}
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <div class="closing-message">
+                            <h3 class="closing-title">마음을 전하며</h3>
+                            <p class="closing-text">
+                                ${this.generateClosingMessage(userName, totalResponses)}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            },
+
+            generatePersonalitySummary: (traits, userName) => {
+                const summaries = {
+                    empathetic: `${userName}님은 마음을 읽는 감성의 마법사입니다. 상대방의 작은 감정 변화도 놓치지 않고, 따뜻한 공감으로 마음의 다리를 놓는 분이에요.`,
+                    comforting: `${userName}님은 세상의 모든 상처를 어루만질 수 있는 치유의 손길을 가진 분입니다. 그저 곁에 있는 것만으로도 큰 위로가 되는 특별한 존재입니다.`,
+                    thoughtful: `${userName}님은 깊이 있는 사고와 신중함으로 주변을 돌보는 지혜로운 분입니다. 성급한 판단보다는 깊은 성찰로 가장 좋은 답을 찾아내는 사람이에요.`,
+                    healing: `${userName}님은 상황에 맞는 완벽한 분위기를 연출하는 감성 큐레이터입니다. 어떤 순간이든 그에 어울리는 특별한 무드를 만들어내는 센스의 소유자예요.`,
+                    organized: `${userName}님은 완벽한 계획과 체계로 모든 것을 성공으로 이끄는 기획의 마에스트로입니다. 빈틈없는 준비와 세심한 배려로 신뢰를 쌓아가는 분이에요.`,
+                    creative: `${userName}님은 세상을 새로운 시각으로 바라보는 창의적 사고의 개척자입니다. 평범한 일상에서도 특별한 아이디어를 발견해내는 혁신가의 DNA를 가지고 있어요.`,
+                    harmonious: `${userName}님은 서로 다른 마음들을 하나로 묶는 관계의 마에스트로입니다. 갈등과 대립을 조화롭게 해결하며, 모두가 함께 웃을 수 있는 분위기를 만드는 분이에요.`,
+                    trustworthy: `${userName}님은 약속과 신뢰를 생명처럼 소중히 여기는 믿음의 기둥입니다. 어떤 상황에서도 흔들리지 않는 일관성으로 주변 사람들에게 안정감을 주는 존재예요.`
+                };
+                
+                const mainTrait = traits[0][0];
+                return summaries[mainTrait] || `${userName}님은 독특하고 특별한 매력을 가진 소중한 분입니다. 주변 사람들에게 긍정적인 영향을 주며, 함께 있으면 더 나은 사람이 되고 싶게 만드는 영감을 주는 존재예요.`;
+            },
+
+            getTraitMeaning: (trait, percentage) => {
+                const meanings = {
+                    empathetic: "타인의 감정에 깊이 공감하며, 상대방의 마음을 이해하는 능력이 뛰어난 분입니다.",
+                    comforting: "자연스럽고 따뜻한 위로로 상처받은 마음을 치유하는 특별한 재능을 가지고 있습니다.",
+                    thoughtful: "신중하고 깊이 있는 사고로 현명한 판단을 내리며, 주변을 배려하는 마음이 깊습니다.",
+                    healing: "분위기를 읽고 상황에 맞는 완벽한 무드를 연출하는 감성적 지능이 높은 분입니다.",
+                    organized: "체계적이고 완벽한 계획으로 목표를 달성하며, 주변 사람들에게 안정감을 주는 분입니다.",
+                    creative: "독창적이고 혁신적인 아이디어로 새로운 가치를 창조하는 창의적 사고의 소유자입니다.",
+                    harmonious: "갈등을 조화롭게 해결하고 모든 사람이 함께할 수 있는 분위기를 만드는 능력이 뛰어납니다.",
+                    trustworthy: "일관성 있는 행동과 약속 이행으로 주변 사람들에게 절대적인 신뢰를 받는 분입니다."
+                };
+                
+                return meanings[trait] || "독특하고 매력적인 성향으로 주변 사람들에게 긍정적인 영향을 주는 분입니다.";
+            },
+
+            generateClosingMessage: (userName, count) => {
+                return `${count}명의 소중한 분들이 ${userName}님에 대해 전해준 이야기는 단순한 평가가 아닌, 
+                        진심어린 마음의 선물입니다. 이 결과가 ${userName}님께 작은 위로와 큰 힘이 되기를 바라며, 
+                        앞으로도 지금처럼 아름다운 마음으로 세상을 밝혀주시길 응원합니다. 
+                        당신은 이미 충분히 특별하고 소중한 존재입니다.`;
+            },
+
+            getEmptyResultHTML: () => {
+                return `
+                    <div class="encouragement-card">
+                        <h3 style="margin-bottom: 1rem; color: #667eea;">아직 기다리고 있어요</h3>
+                        <p>
+                            소중한 친구들의 마음을 기다리고 있습니다.<br>
+                            링크를 더 많이 공유해서<br>
+                            따뜻한 시선들을 모아보세요.
+                        </p>
+                    </div>
+                `;
             },
 
             setupSharing: (userName) => {
@@ -1235,7 +1526,7 @@
                     ownerLinkElement.addEventListener('click', async () => {
                         const success = await Utils.copyToClipboard(ownerUrl);
                         if (success) {
-                            Utils.showNotification('📊 당사자 전용 링크가 복사되었습니다!\n\n이 링크로 언제든 결과를 확인할 수 있어요! 🔖');
+                            Utils.showNotification('당사자 전용 링크가 복사되었습니다.\n언제든 결과를 확인할 수 있어요.');
                         }
                     });
                 }
@@ -1357,30 +1648,26 @@ ${link}
                     const currentUrl = window.location.origin + window.location.pathname;
                     link = `${currentUrl}?user=${encodeURIComponent(AppState.currentUserName)}`;
                     
-                    // 링크 요소에도 업데이트
                     if (linkElement) {
                         linkElement.textContent = link;
                     }
-                    console.log('링크 강제 생성:', link);
                 }
                 
                 if (!link) {
-                    Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.\n잠시만 기다려주세요!');
+                    Utils.showNotification('링크가 아직 생성되지 않았습니다.\n잠시만 기다려주세요.');
                     return;
                 }
                 
-                console.log('복사할 링크:', link);
                 const success = await Utils.copyToClipboard(link);
                 
                 if (success) {
                     Utils.showNotification(
-                        '🎯 링크가 복사되었습니다!\n\n' +
-                        '🌻 카톡, 슬랙, 이메일 어디든 보내주세요!\n' +
-                        '동료들이 클릭 한 번으로 바로 참여할 수 있어요 💝\n\n' +
-                        '분명 따뜻한 응원을 많이 받으실 거예요! 🌈'
+                        '링크가 복사되었습니다.\n\n' +
+                        '카톡, 메신저, 이메일 어디든 보내주세요.\n' +
+                        '친구들이 클릭 한 번으로 바로 참여할 수 있어요.\n\n' +
+                        '분명 따뜻한 응원을 많이 받으실 거예요.'
                     );
                 } else {
-                    // 복사 실패 시 링크를 선택 상태로 만들어서 사용자가 직접 복사할 수 있게 함
                     if (linkElement) {
                         const range = document.createRange();
                         range.selectNode(linkElement);
@@ -1389,9 +1676,9 @@ ${link}
                     }
                     
                     Utils.showNotification(
-                        '📋 링크가 선택되었습니다!\n\n' +
-                        'Ctrl+C (또는 Cmd+C)를 눌러서 복사해주세요 🙂\n' +
-                        '그리고 동료들에게 공유해보세요! 💝'
+                        '링크가 선택되었습니다.\n\n' +
+                        'Ctrl+C (또는 Cmd+C)를 눌러서 복사해주세요.\n' +
+                        '그리고 친구들에게 공유해보세요.'
                     );
                 }
             });
@@ -1409,7 +1696,7 @@ ${link}
                 const newUserName = document.getElementById('newUserName').value.trim();
                 
                 if (!newUserName) {
-                    Utils.showNotification('닉네임을 입력해주세요! 😊');
+                    Utils.showNotification('닉네임을 입력해주세요.');
                     return;
                 }
                 
@@ -1426,7 +1713,7 @@ ${link}
             });
 
             document.getElementById('restartBtn').addEventListener('click', () => {
-                if (confirm('새로운 친구를 평가하시겠어요? 🌟')) {
+                if (confirm('새로운 친구를 평가하시겠어요?')) {
                     window.history.replaceState({}, document.title, window.location.pathname);
                     location.reload();
                 }
@@ -1434,7 +1721,7 @@ ${link}
 
             // 새 설문 만들기
             document.getElementById('newSurveyBtn').addEventListener('click', () => {
-                if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
+                if (confirm('새로운 설문을 만드시겠어요?')) {
                     window.history.replaceState({}, document.title, window.location.pathname);
                     location.reload();
                 }
@@ -1445,7 +1732,6 @@ ${link}
                 if (e.target.id === 'shareLink') {
                     let link = e.target.textContent;
                     
-                    // 링크가 비어있으면 직접 생성
                     if (!link && AppState.currentUserName) {
                         const currentUrl = window.location.origin + window.location.pathname;
                         link = `${currentUrl}?user=${encodeURIComponent(AppState.currentUserName)}`;
@@ -1453,17 +1739,16 @@ ${link}
                     }
                     
                     if (!link) {
-                        Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.');
+                        Utils.showNotification('링크가 아직 생성되지 않았습니다.');
                         return;
                     }
                     
                     const success = await Utils.copyToClipboard(link);
                     
                     if (success) {
-                        Utils.showNotification('📋 링크가 복사되었습니다! 🎯');
+                        Utils.showNotification('링크가 복사되었습니다.');
                     } else {
-                        // 이미 선택되어 있으므로 사용자에게 알림만
-                        Utils.showNotification('📋 Ctrl+C를 눌러서 복사해주세요! 🙂');
+                        Utils.showNotification('Ctrl+C를 눌러서 복사해주세요.');
                     }
                 }
             });
