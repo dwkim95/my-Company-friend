@@ -881,7 +881,6 @@
                         return result;
                     }
                 } catch (err) {
-                    console.error('복사 실패:', err);
                     return false;
                 }
             },
@@ -1060,8 +1059,10 @@
                 // 특성 결과
                 this.displayTraits(survey.traits, totalResponses);
                 
-                // 공유 링크
-                this.setupSharing(userName);
+                // 공유 링크 설정을 DOM 렌더링 후에 실행
+                setTimeout(() => {
+                    this.setupSharing(userName);
+                }, 50);
             },
 
             displayStats: (totalResponses, userName) => {
@@ -1128,7 +1129,10 @@
             setupSharing: (userName) => {
                 const currentUrl = window.location.origin + window.location.pathname;
                 const shareUrl = `${currentUrl}?user=${encodeURIComponent(userName)}`;
-                document.getElementById('shareLink').textContent = shareUrl;
+                const shareLinkElement = document.getElementById('shareLink');
+                if (shareLinkElement) {
+                    shareLinkElement.textContent = shareUrl;
+                }
             }
         };
 
@@ -1152,14 +1156,24 @@
                     createdAt: new Date().toISOString()
                 };
                 
-                ScreenManager.showResults(surveyId, userName);
+                // 약간의 지연을 두고 결과 화면 표시 (DOM 안정화)
+                setTimeout(() => {
+                    ScreenManager.showResults(surveyId, userName);
+                }, 100);
             });
 
             // 카카오톡 공유
             document.getElementById('kakaoShareBtn').addEventListener('click', async () => {
                 const userNameElement = document.querySelector('#resultStats .stat-label');
                 const userName = userNameElement ? userNameElement.textContent : '익명';
-                const link = document.getElementById('shareLink').textContent;
+                const linkElement = document.getElementById('shareLink');
+                
+                if (!linkElement || !linkElement.textContent) {
+                    Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.\n잠시만 기다려주세요!');
+                    return;
+                }
+                
+                const link = linkElement.textContent;
                 
                 const shareText = `🌻 동료들이 보는 나의 진짜 모습 테스트
 
@@ -1198,7 +1212,13 @@ ${link}
 
             // 링크 복사
             document.getElementById('copyLinkBtn').addEventListener('click', async () => {
-                const link = document.getElementById('shareLink').textContent;
+                const linkElement = document.getElementById('shareLink');
+                if (!linkElement || !linkElement.textContent) {
+                    Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.\n잠시만 기다려주세요!');
+                    return;
+                }
+                
+                const link = linkElement.textContent;
                 const success = await Utils.copyToClipboard(link);
                 
                 if (success) {
@@ -1210,7 +1230,6 @@ ${link}
                     );
                 } else {
                     // 복사 실패 시 링크를 선택 상태로 만들어서 사용자가 직접 복사할 수 있게 함
-                    const linkElement = document.getElementById('shareLink');
                     const range = document.createRange();
                     range.selectNode(linkElement);
                     window.getSelection().removeAllRanges();
@@ -1235,6 +1254,11 @@ ${link}
             // 링크 영역 클릭으로도 복사 가능
             document.addEventListener('click', async (e) => {
                 if (e.target.id === 'shareLink') {
+                    if (!e.target.textContent) {
+                        Utils.showNotification('⚠️ 링크가 아직 생성되지 않았습니다.');
+                        return;
+                    }
+                    
                     const link = e.target.textContent;
                     const success = await Utils.copyToClipboard(link);
                     
