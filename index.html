@@ -3,266 +3,381 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💕 동료들이 보는 나의 진짜 모습</title>
+    <title>💝 동료들이 보는 나의 진짜 모습</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+        }
+
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
             background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
+            animation: gradientFlow 15s ease infinite;
             min-height: 100vh;
-            padding: 20px;
-            position: relative;
+            padding: 1rem;
+            line-height: 1.6;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
-        .container {
-            max-width: 500px;
+        .app-container {
+            max-width: 480px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(20px);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            overflow: hidden;
             position: relative;
-            z-index: 10;
         }
 
-        .header {
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 2rem 1.5rem;
             text-align: center;
-            padding: 40px 30px 30px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .title {
-            font-size: 2rem;
+        .app-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-60px) translateY(-60px); }
+        }
+
+        .app-title {
+            font-size: 1.75rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 15px;
-            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .subtitle {
-            color: #666;
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
+        .app-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
-        .content {
-            padding: 30px;
+        .app-content {
+            padding: 2rem 1.5rem;
         }
 
-        .setup-section, .survey-section, .result-section {
+        .screen {
             display: none;
+            animation: fadeIn 0.3s ease-in-out;
         }
 
-        .setup-section.active, .survey-section.active, .result-section.active {
+        .screen.active {
             display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 1.5rem;
         }
 
-        .form-group label {
+        .form-label {
             display: block;
-            margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
         }
 
-        .form-group input {
+        .form-input {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e8ff;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
             border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
-            background: #f8faff;
+            transition: all 0.2s ease;
+            background: var(--gray-50);
         }
 
-        .form-group input:focus {
+        .form-input:focus {
             outline: none;
-            border-color: #667eea;
-            background: white;
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .btn {
             width: 100%;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            border-radius: 12px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
-        .btn.secondary {
-            background: #f3f4f6;
-            color: #374151;
-            border: 2px solid #e5e7eb;
+        .btn:active {
+            transform: translateY(0);
         }
 
-        .btn.secondary:hover {
-            background: #e5e7eb;
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 2px solid var(--gray-200);
         }
 
-        .question-container {
-            margin-bottom: 30px;
+        .btn-secondary:hover {
+            background: var(--gray-200);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .question {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            text-align: center;
+        .progress-container {
+            margin-bottom: 2rem;
         }
 
-        .options {
-            display: grid;
-            gap: 12px;
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }
 
-        .option {
-            background: #f8faff;
-            border: 2px solid #e1e8ff;
-            border-radius: 12px;
-            padding: 18px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-            line-height: 1.4;
-        }
-
-        .option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .option:hover::before {
-            left: 100%;
-        }
-
-        .option:hover {
-            border-color: #667eea;
-            background: #f0f3ff;
-            transform: translateY(-2px);
-        }
-
-        .option.selected {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            transform: scale(1.02);
-        }
-
-        .option-emoji {
-            font-size: 1.5rem;
-            margin-right: 12px;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .option-text {
-            display: inline-block;
-            vertical-align: middle;
-            max-width: calc(100% - 2.5rem);
+        .progress-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
         }
 
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e1e8ff;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background: var(--gray-200);
+            border-radius: 4px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
             transition: width 0.5s ease;
             width: 0%;
         }
 
-        .progress-text {
-            text-align: center;
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .result-card {
-            background: #f8faff;
+        .question-card {
+            background: var(--gray-50);
             border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid #e1e8ff;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-200);
         }
 
-        .result-title {
-            font-size: 1.4rem;
+        .question-title {
+            font-size: 1.2rem;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 20px;
+            color: var(--gray-800);
             text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .option-card {
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            transform: scale(1.02);
+        }
+
+        .option-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .option-emoji {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            font-weight: 500;
             line-height: 1.3;
         }
 
-        .result-description {
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 25px;
+        .survey-intro {
             text-align: center;
-            font-size: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .trait-result {
+        .target-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .survey-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .loading-screen {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .loading-dots {
+            color: var(--primary);
+            font-size: 1.1rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .result-card {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-200);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .trait-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .trait-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding: 15px;
-            background: white;
+            background: var(--white);
+            padding: 1rem;
             border-radius: 12px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--primary);
         }
 
         .trait-info {
@@ -270,137 +385,152 @@
         }
 
         .trait-name {
-            font-weight: 700;
-            color: #333;
-            font-size: 1rem;
-            margin-bottom: 4px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
         }
 
         .trait-desc {
             font-size: 0.85rem;
-            color: #666;
-            line-height: 1.4;
+            color: var(--gray-600);
         }
 
         .trait-percentage {
             font-weight: 700;
-            color: #667eea;
-            font-size: 1.2rem;
-            margin-left: 15px;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-left: 1rem;
         }
 
-        .share-section {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #e1e8ff;
-        }
-
-        .share-text {
-            color: #666;
-            margin-bottom: 15px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .share-link {
-            background: #f8faff;
-            border: 2px solid #e1e8ff;
-            border-radius: 12px;
-            padding: 15px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            word-break: break-all;
-            color: #667eea;
-        }
-
-        .encouragement {
+        .encouragement-card {
             background: linear-gradient(135deg, #fff8f0, #fef7ff);
             border: 1px solid #fde5ff;
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
             color: #8b5a3c;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            text-align: center;
-        }
-
-        .encouragement strong {
-            color: #667eea;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            text-align: center;
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .survey-intro {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .target-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .survey-desc {
-            color: #666;
             line-height: 1.6;
         }
 
-        /* 반응형 */
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                border-radius: 20px;
+        .share-section {
+            margin-top: 2rem;
+        }
+
+        .share-description {
+            text-align: center;
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .share-link {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .share-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .share-btn {
+            padding: 0.875rem 1rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .share-btn.kakao {
+            background: #fee500;
+            color: #3c1e1e;
+        }
+
+        .share-btn.copy {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .floating-emojis {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: floatAround 12s ease-in-out infinite;
+        }
+
+        @keyframes floatAround {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
             }
-            
-            .header {
-                padding: 30px 25px 25px;
+            50% { 
+                transform: translateY(-30px) rotate(15deg);
+                opacity: 0.6;
             }
-            
-            .content {
-                padding: 25px;
-            }
-            
-            .title {
-                font-size: 1.7rem;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 640px) {
+            .app-container {
+                margin: 0.5rem;
+                border-radius: 16px;
             }
 
-            .option {
-                padding: 15px;
+            .app-header {
+                padding: 1.5rem 1rem;
             }
 
-            .trait-result {
+            .app-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .app-title {
+                font-size: 1.5rem;
+            }
+
+            .result-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .trait-item {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 0.5rem;
             }
 
             .trait-percentage {
@@ -409,472 +539,548 @@
             }
         }
 
-        .floating-emoji {
-            position: fixed;
-            font-size: 2rem;
-            opacity: 0.4;
-            pointer-events: none;
-            z-index: 1;
-            animation: float 8s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { 
-                transform: translateY(0px) rotate(0deg);
-                opacity: 0.3;
-            }
-            50% { 
-                transform: translateY(-20px) rotate(10deg);
-                opacity: 0.6;
+        /* 접근성 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
 
-        .welcome-screen {
-            text-align: center;
-        }
-
-        .loading-animation {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            color: #667eea;
-            font-size: 1.2rem;
-        }
-
-        .loading-dots {
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
     </style>
 </head>
 <body>
-    <!-- 떠다니는 이모지들 -->
-    <div class="floating-emoji" style="top: 10%; left: 10%; animation-delay: 0s;">💕</div>
-    <div class="floating-emoji" style="top: 20%; right: 15%; animation-delay: 2s;">✨</div>
-    <div class="floating-emoji" style="bottom: 30%; left: 20%; animation-delay: 4s;">🥰</div>
-    <div class="floating-emoji" style="bottom: 20%; right: 10%; animation-delay: 6s;">💫</div>
-    <div class="floating-emoji" style="top: 50%; left: 5%; animation-delay: 1s;">🌟</div>
+    <!-- 떠다니는 이모지 배경 -->
+    <div class="floating-emojis">
+        <div class="floating-emoji" style="top: 10%; left: 10%; animation-delay: 0s;">🌻</div>
+        <div class="floating-emoji" style="top: 20%; right: 15%; animation-delay: 2s;">🎈</div>
+        <div class="floating-emoji" style="bottom: 30%; left: 20%; animation-delay: 4s;">🍀</div>
+        <div class="floating-emoji" style="bottom: 20%; right: 10%; animation-delay: 6s;">🌈</div>
+        <div class="floating-emoji" style="top: 50%; left: 5%; animation-delay: 1s;">🎯</div>
+        <div class="floating-emoji" style="top: 60%; right: 8%; animation-delay: 3s;">⭐</div>
+    </div>
 
-    <div class="container">
-        <div class="header">
-            <h1 class="title">💕 동료들이 보는 나</h1>
-            <p class="subtitle">
-                <strong>진짜 소중한 당신을 위한 특별한 시간</strong> ✨<br>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">💝 동료들이 보는 나</h1>
+            <p class="app-subtitle">
                 동료들의 따뜻한 시선으로 발견하는<br>
-                나의 숨겨진 매력과 빛나는 모습들 💎
+                나의 숨겨진 매력과 빛나는 모습들 ✨
             </p>
-        </div>
+        </header>
 
-        <div class="content">
-            <!-- 초기 설정 화면 -->
-            <div class="setup-section active">
-                <div class="welcome-screen">
-                    <div class="encouragement">
-                        💫 <strong>당신은 이미 충분히 특별하고 소중한 존재예요!</strong><br>
-                        동료들의 시선에서 발견될<br>
-                        당신의 반짝이는 모습들이 정말 기대돼요 ✨
-                    </div>
-                    
+        <main class="app-content">
+            <!-- 설문 생성 화면 -->
+            <div id="setupScreen" class="screen active">
+                <div class="encouragement-card">
+                    💫 <strong>당신은 이미 충분히 특별하고 소중한 존재예요!</strong><br>
+                    동료들의 시선에서 발견될 당신의 반짝이는 모습들이 정말 기대돼요 ✨
+                </div>
+                
+                <form id="setupForm">
                     <div class="form-group">
-                        <label for="userName">🌟 내 닉네임 (실명도 괜찮아요!)</label>
-                        <input type="text" id="userName" placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등">
+                        <label for="userName" class="form-label">🌟 내 닉네임 (실명도 괜찮아요!)</label>
+                        <input 
+                            type="text" 
+                            id="userName" 
+                            class="form-input"
+                            placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등"
+                            required
+                        >
                     </div>
                     
-                    <button class="btn" onclick="createSurvey()">🚀 내 전용 링크 만들기</button>
-                    
-                    <div class="encouragement">
-                        💡 <strong>링크를 만들면 동료들이 클릭 한 번으로<br>
-                        바로 당신에 대한 설문에 참여할 수 있어요!</strong><br>
-                        카톡이나 슬랙으로 링크만 보내면 끝! 🎯
-                    </div>
+                    <button type="submit" class="btn">
+                        🚀 내 전용 링크 만들기
+                    </button>
+                </form>
+                
+                <div class="encouragement-card">
+                    💡 <strong>링크를 만들면 동료들이 클릭 한 번으로<br>
+                    바로 당신에 대한 설문에 참여할 수 있어요!</strong><br>
+                    카톡이나 슬랙으로 링크만 보내면 끝! 🎯
                 </div>
             </div>
 
             <!-- 설문 참여 화면 -->
-            <div class="survey-section">
+            <div id="surveyScreen" class="screen">
                 <div class="survey-intro">
-                    <div class="target-name" id="targetName"></div>
-                    <div class="survey-desc">
+                    <div id="targetName" class="target-name"></div>
+                    <div class="survey-description">
                         <strong>이 소중한 분에 대해<br>
-                        당신이 느끼는 솔직한 생각을 들려주세요!</strong> 💕<br>
-                        당신의 따뜻한 시선이<br>
-                        누군가에게는 큰 힘이 될 거예요 ✨
+                        당신이 느끼는 솔직한 생각을 들려주세요!</strong> 💝<br>
+                        당신의 따뜻한 시선이 누군가에게는 큰 힘이 될 거예요 🌈
                     </div>
                 </div>
                 
-                <div class="progress-text" id="progressText">1/8 질문</div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span id="progressText" class="progress-text">1/10 질문</span>
+                        <span class="progress-text">🎯</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
                 </div>
                 
-                <div class="question-container">
-                    <div class="question" id="currentQuestion"></div>
-                    <div class="options" id="optionsContainer"></div>
+                <div class="question-card">
+                    <h2 id="questionTitle" class="question-title"></h2>
+                    <div id="optionsContainer" class="options-grid"></div>
                 </div>
 
-                <div class="loading-animation" id="loadingAnimation">
+                <div id="loadingScreen" class="loading-screen">
                     <div class="loading-dots">답변을 저장하고 있어요... ✨</div>
                 </div>
             </div>
 
             <!-- 결과 화면 -->
-            <div class="result-section">
-                <div class="stats" id="surveyStats"></div>
+            <div id="resultScreen" class="screen">
+                <div id="resultStats" class="result-stats"></div>
                 
                 <div class="result-card">
-                    <div class="result-title">✨ 동료들이 발견한<br>나의 빛나는 모습들</div>
-                    <div class="result-description" id="resultDescription"></div>
-                    <div id="resultContent"></div>
+                    <div class="result-header">
+                        <h2 class="result-title">✨ 동료들이 발견한<br>나의 빛나는 모습들</h2>
+                        <div id="resultDescription" class="result-description"></div>
+                    </div>
+                    <div id="traitsList" class="trait-list"></div>
                 </div>
                 
                 <div class="share-section">
-                    <p class="share-text">
-                        🔗 <strong>더 많은 동료들에게<br>사랑받는 내 모습 발견하기</strong><br>
-                        아래 링크를 공유해서<br>
-                        더 많은 따뜻한 시선들을 모아보세요! 💝
+                    <p class="share-description">
+                        🎯 <strong>더 많은 동료들에게 사랑받는 내 모습 발견하기</strong><br>
+                        아래 링크를 공유해서 더 많은 따뜻한 시선들을 모아보세요! 💝
                     </p>
-                    <div class="share-link" id="shareLink"></div>
-                    <button class="btn secondary" onclick="copyLink()">📋 링크 복사해서 공유하기</button>
-                    <button class="btn" onclick="createNewSurvey()">🆕 새로운 매력 발굴하기</button>
+                    <div id="shareLink" class="share-link"></div>
+                    
+                    <div class="share-buttons">
+                        <button id="kakaoShareBtn" class="share-btn kakao">
+                            💬 카톡 공유
+                        </button>
+                        <button id="copyLinkBtn" class="share-btn copy">
+                            📋 링크 복사
+                        </button>
+                    </div>
+                    
+                    <button id="newSurveyBtn" class="btn btn-secondary">
+                        🌟 새로운 매력 발굴하기
+                    </button>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        // MZ감성 넘치는 재미있는 설문 질문들
-        const questions = [
+        // 애플리케이션 상태
+        const AppState = {
+            currentUser: null,
+            currentQuestionIndex: 0,
+            answers: [],
+            surveys: {},
+            isAnswering: false
+        };
+
+        // 설문 질문 데이터
+        const QUESTIONS = [
             {
-                text: "🌅 첫 출근할 때부터 지금까지,<br>이 사람의 오라는?",
+                text: "🌅 아침 출근할 때<br>이 사람의 에너지는?",
                 options: [
-                    { emoji: "☀️", text: "365일 비타민D 풀충전 햇살 인간", trait: "sunshine" },
-                    { emoji: "🌙", text: "차분하고 신비로운 달빛 감성", trait: "mysterious" },
-                    { emoji: "⚡", text: "에너지 드링크 체질 번개맨", trait: "energetic" },
-                    { emoji: "🌸", text: "보기만 해도 기분 좋아지는 벚꽃 엔딩", trait: "healing" }
+                    { emoji: "☀️", text: "365일 비타민D 풀충전 햇살 인간", trait: "energetic" },
+                    { emoji: "🌙", text: "은은하게 빛나는 달빛 감성", trait: "calm" },
+                    { emoji: "⚡", text: "번개처럼 빠른 모닝 루틴 마스터", trait: "efficient" },
+                    { emoji: "🌸", text: "천천히 하지만 확실한 꽃길 워커", trait: "steady" }
                 ]
             },
             {
-                text: "💼 업무 스타일을<br>동물로 비유하면?",
+                text: "💼 업무 처리 스타일을<br>동물로 비유하면?",
                 options: [
                     { emoji: "🐆", text: "치타처럼 빠르고 정확한 스피드러너", trait: "speedy" },
                     { emoji: "🦉", text: "올빼미처럼 꼼꼼하고 현명한 전략가", trait: "wise" },
-                    { emoji: "🐝", text: "꿀벌처럼 부지런하고 협동적인 팀플레이어", trait: "teamwork" },
-                    { emoji: "🦋", text: "나비처럼 창의적이고 아름다운 아이디어 메이커", trait: "creative" }
+                    { emoji: "🐝", text: "꿀벌처럼 부지런한 협업 마스터", trait: "collaborative" },
+                    { emoji: "🦄", text: "유니콘처럼 창의적이고 특별한 아이디어 메이커", trait: "creative" }
                 ]
             },
             {
-                text: "🗣️ 회의할 때<br>이 사람의 포지션은?",
+                text: "🗣️ 회의 시간에<br>이 사람의 역할은?",
                 options: [
-                    { emoji: "🎤", text: "마이크 잡으면 TED 토크 급 발표력", trait: "presenter" },
-                    { emoji: "🧠", text: "한 마디 하면 모두가 '아하!' 하는 인사이트 킹", trait: "insightful" },
-                    { emoji: "😌", text: "분위기 읽고 적재적소에 타이밍 갑", trait: "tactful" },
-                    { emoji: "👂", text: "경청의 달인, 모든 말을 다 받아주는 든든한 앵커", trait: "listener" }
+                    { emoji: "🎤", text: "마이크 잡으면 TED 토크급 발표왕", trait: "presenter" },
+                    { emoji: "💡", text: "한마디로 모두를 '아하!' 하게 만드는 인사이트 킹", trait: "insightful" },
+                    { emoji: "🎯", text: "핵심만 딱딱 짚어내는 요약의 달인", trait: "concise" },
+                    { emoji: "👂", text: "모든 의견을 따뜻하게 들어주는 리스닝 마스터", trait: "listener" }
                 ]
             },
             {
-                text: "☕ 점심시간 or 쉬는 시간의<br>이 사람은?",
+                text: "☕ 점심시간이나 쉬는 시간의<br>이 사람은?",
                 options: [
-                    { emoji: "🎪", text: "어디서든 웃음 꽃이 피는 분위기 메이커", trait: "entertainer" },
-                    { emoji: "📱", text: "소소한 일상 TMI로 재미를 주는 스토리텔러", trait: "storyteller" },
-                    { emoji: "🧘‍♀️", text: "혼자만의 시간으로 에너지 충전하는 힐러", trait: "recharger" },
-                    { emoji: "🤗", text: "누구든 편하게 다가갈 수 있는 인간 카페", trait: "approachable" }
+                    { emoji: "🎪", text: "어디서든 웃음꽃이 피는 엔터테이너", trait: "entertainer" },
+                    { emoji: "📚", text: "혼자만의 시간으로 에너지 충전하는 힐러", trait: "introspective" },
+                    { emoji: "🍰", text: "맛집 정보와 TMI로 재미를 주는 정보통", trait: "informative" },
+                    { emoji: "🤗", text: "누구든 편하게 찾아올 수 있는 인간 카페", trait: "approachable" }
                 ]
             },
             {
-                text: "💥 갑작스러운 변수가<br>생겼을 때?",
+                text: "🔥 갑작스러운 업무 변화나<br>위기 상황이 생기면?",
                 options: [
-                    { emoji: "🏃‍♀️", text: "1초 만에 플랜B 꺼내는 만능 해결사", trait: "flexible" },
-                    { emoji: "🧮", text: "차근차근 분석하고 완벽한 해답 제시하는 전략가", trait: "analytical" },
-                    { emoji: "🤝", text: "팀원들 챙기면서 함께 헤쳐나가는 리더쉽", trait: "caring" },
-                    { emoji: "🧊", text: "어떤 상황에도 흔들리지 않는 멘탈 갑 of 갑", trait: "stable" }
+                    { emoji: "🚀", text: "1초 만에 플랜B 꺼내는 신속 대응 마스터", trait: "adaptable" },
+                    { emoji: "🧠", text: "차근차근 분석해서 완벽한 솔루션 제시", trait: "analytical" },
+                    { emoji: "🛡️", text: "팀원들 다 챙기면서 함께 헤쳐나가는 리더", trait: "protective" },
+                    { emoji: "🧊", text: "태산이 무너져도 흔들리지 않는 멘탈 갑", trait: "stable" }
                 ]
             },
             {
-                text: "🌟 동료들이 힘들 때<br>이 사람이 해주는 역할은?",
+                text: "🌟 동료가 힘들어할 때<br>이 사람의 대응법은?",
                 options: [
-                    { emoji: "🔥", text: "다시 일어설 수 있는 용기를 주는 동기부여 마스터", trait: "motivator" },
-                    { emoji: "🤗", text: "따뜻한 위로로 마음을 어루만져주는 힐링 요정", trait: "comforter" },
-                    { emoji: "💡", text: "실질적인 해결책을 찾아주는 문제해결 천재", trait: "problemsolver" },
-                    { emoji: "😄", text: "웃음으로 스트레스를 날려버리는 개그맨", trait: "comedian" }
+                    { emoji: "🔥", text: "다시 일어설 용기를 불어넣어주는 치어리더", trait: "motivating" },
+                    { emoji: "🤗", text: "따뜻한 위로와 공감으로 마음을 달래주는 힐러", trait: "comforting" },
+                    { emoji: "💡", text: "구체적이고 실질적인 해결방안 제시하는 솔버", trait: "problemsolver" },
+                    { emoji: "🎭", text: "웃음과 유머로 분위기 전환시키는 무드메이커", trait: "humorous" }
                 ]
             },
             {
-                text: "🎯 이 사람의<br>가장 킬링 포인트는?",
+                text: "🎯 업무에서 이 사람의<br>가장 돋보이는 강점은?",
                 options: [
-                    { emoji: "💎", text: "믿고 맡길 수 있는 신뢰도 MAX 인간", trait: "trustworthy" },
-                    { emoji: "🎨", text: "생각지도 못한 참신한 아이디어로 놀라게 하는 크리에이터", trait: "innovative" },
-                    { emoji: "❤️", text: "진심이 느껴지는 따뜻한 마음의 소유자", trait: "warmhearted" },
-                    { emoji: "🔥", text: "열정이 전염되는 에너지 바이러스", trait: "passionate" }
+                    { emoji: "⚡", text: "번개같은 일처리 속도와 정확성", trait: "efficient" },
+                    { emoji: "🎨", text: "남들이 생각 못한 창의적 아이디어", trait: "innovative" },
+                    { emoji: "💎", text: "어떤 상황에서도 믿고 맡길 수 있는 신뢰도", trait: "trustworthy" },
+                    { emoji: "🌈", text: "팀 분위기를 화기애애하게 만드는 매력", trait: "harmonious" }
                 ]
             },
             {
-                text: "💫 한 줄로 정의하는<br>이 사람은?",
+                text: "📱 디지털 커뮤니케이션에서<br>이 사람의 특징은?",
                 options: [
-                    { emoji: "🏆", text: "같은 팀이라서 다행이다 싶은 든든한 동반자", trait: "reliable" },
-                    { emoji: "🌈", text: "있는 것만으로도 주변이 밝아지는 행운의 요정", trait: "lucky" },
-                    { emoji: "🧙‍♀️", text: "불가능을 가능으로 만드는 업무 마법사", trait: "magical" },
-                    { emoji: "💝", text: "만나서 정말 다행이라는 생각이 드는 소중한 사람", trait: "precious" }
+                    { emoji: "⚡", text: "메시지 오면 3초 안에 답장하는 빛의 속도", trait: "responsive" },
+                    { emoji: "📝", text: "항상 정중하고 정확한 비즈니스 매너", trait: "professional" },
+                    { emoji: "😄", text: "이모지와 유머로 대화를 즐겁게 만드는 재미꾼", trait: "playful" },
+                    { emoji: "🎯", text: "핵심만 간단명료하게 전달하는 효율성", trait: "concise" }
+                ]
+            },
+            {
+                text: "🏆 프로젝트 마감 전날,<br>이 사람의 모습은?",
+                options: [
+                    { emoji: "🔥", text: "마지막까지 열정적으로 완벽을 추구하는 열혈파", trait: "passionate" },
+                    { emoji: "😌", text: "여유롭게 체크리스트 점검하는 계획파", trait: "organized" },
+                    { emoji: "🤝", text: "팀원들 도와주느라 바쁜 든든한 지원군", trait: "supportive" },
+                    { emoji: "🧘", text: "침착하게 마무리하는 멘탈 관리 마스터", trait: "composed" }
+                ]
+            },
+            {
+                text: "💝 동료로서 이 사람을<br>한 문장으로 표현한다면?",
+                options: [
+                    { emoji: "🏆", text: "같은 팀이어서 든든하고 자랑스러운 에이스", trait: "reliable" },
+                    { emoji: "🌟", text: "있는 것만으로도 팀이 빛나게 만드는 보석", trait: "inspiring" },
+                    { emoji: "🎪", text: "일상을 즐겁게 만들어주는 행복 바이러스", trait: "joyful" },
+                    { emoji: "💎", text: "만나서 정말 다행인 인생 선배님", trait: "precious" }
                 ]
             }
         ];
 
-        // 특성별 따뜻한 설명
-        const traitDescriptions = {
-            sunshine: { name: "햇살 비타민", desc: "당신이 있는 곳은 언제나 따뜻하고 밝아요" },
-            mysterious: { name: "달빛 감성", desc: "신비로우면서도 차분한 매력의 소유자" },
-            energetic: { name: "에너지 충전기", desc: "당신의 에너지가 모두에게 전해져요" },
-            healing: { name: "힐링 요정", desc: "보기만 해도 마음이 편안해지는 존재" },
-            speedy: { name: "스피드 마스터", desc: "빠르면서도 정확한 당신의 능력에 감탄해요" },
-            wise: { name: "지혜의 현자", desc: "깊이 있는 사고로 모두를 이끄는 리더" },
-            teamwork: { name: "협업 달인", desc: "함께 일할 때 진가를 발휘하는 팀플레이어" },
-            creative: { name: "창의력 폭발", desc: "아름다운 아이디어로 모두를 놀라게 해요" },
-            presenter: { name: "발표 천재", desc: "당신의 발표는 언제나 인상 깊어요" },
+        // 특성 설명 데이터
+        const TRAIT_DESCRIPTIONS = {
+            energetic: { name: "에너지 충전기", desc: "당신의 활기찬 모습이 모두에게 힘을 줘요" },
+            calm: { name: "평온한 마음", desc: "차분하고 안정감 있는 당신의 존재가 소중해요" },
+            efficient: { name: "효율성 마스터", desc: "빠르고 정확한 당신의 능력에 모두가 감탄해요" },
+            steady: { name: "꾸준한 노력가", desc: "묵묵히 최선을 다하는 당신의 모습이 아름다워요" },
+            speedy: { name: "스피드 킹", desc: "빛의 속도로 일을 처리하는 당신이 놀라워요" },
+            wise: { name: "지혜로운 조언자", desc: "깊이 있는 생각으로 모두를 이끄는 멘토" },
+            collaborative: { name: "협업의 달인", desc: "함께 일할 때 진가를 발휘하는 팀플레이어" },
+            creative: { name: "창의력 폭발", desc: "참신한 아이디어로 모두를 놀라게 하는 크리에이터" },
+            presenter: { name: "발표 천재", desc: "당신의 프레젠테이션은 언제나 인상 깊어요" },
             insightful: { name: "인사이트 킹", desc: "핵심을 찌르는 통찰력의 소유자" },
-            tactful: { name: "센스 만점", desc: "완벽한 타이밍으로 분위기를 읽어내요" },
-            listener: { name: "경청의 달인", desc: "모든 이야기를 따뜻하게 들어주는 사람" },
+            concise: { name: "요약의 달인", desc: "복잡한 내용을 명확하게 정리하는 능력자" },
+            listener: { name: "경청 마스터", desc: "모든 이야기를 따뜻하게 들어주는 사람" },
             entertainer: { name: "분위기 메이커", desc: "당신 덕분에 회사가 즐거워져요" },
-            storyteller: { name: "스토리텔러", desc: "재미있는 이야기로 모두를 웃게 만들어요" },
-            recharger: { name: "에너지 충전 마스터", desc: "혼자만의 시간도 소중히 여기는 지혜" },
+            introspective: { name: "사색하는 철학자", desc: "깊이 있는 사고를 하는 지적인 매력" },
+            informative: { name: "정보 공유 마스터", desc: "유용한 정보로 모두를 도와주는 친절한 사람" },
             approachable: { name: "인간 카페", desc: "누구나 편하게 다가갈 수 있는 따뜻함" },
-            flexible: { name: "만능 해결사", desc: "어떤 상황에도 유연하게 대처하는 능력자" },
+            adaptable: { name: "적응력 갑", desc: "어떤 상황에도 유연하게 대처하는 능력자" },
             analytical: { name: "분석의 달인", desc: "체계적인 사고로 완벽한 해답을 찾아내요" },
-            caring: { name: "배려 깊은 리더", desc: "모두를 챙기며 함께 나아가는 진정한 리더" },
-            stable: { name: "멘탈 갑", desc: "흔들리지 않는 안정감으로 모두의 든든한 버팀목" },
-            motivator: { name: "동기부여 마스터", desc: "당신의 말 한마디가 큰 힘이 되어요" },
-            comforter: { name: "힐링 요정", desc: "따뜻한 위로로 상처받은 마음을 치유해줘요" },
-            problemsolver: { name: "문제해결 천재", desc: "어려운 문제도 척척 해결하는 능력자" },
-            comedian: { name: "웃음 제조기", desc: "웃음으로 모든 스트레스를 날려버려요" },
+            protective: { name: "든든한 보호자", desc: "팀원들을 챙기는 따뜻한 리더십" },
+            stable: { name: "멘탈 갑", desc: "흔들리지 않는 안정감으로 모두의 버팀목" },
+            motivating: { name: "동기부여 마스터", desc: "당신의 응원이 큰 힘이 되어요" },
+            comforting: { name: "힐링 요정", desc: "따뜻한 위로로 마음을 치유해주는 사람" },
+            problemsolver: { name: "문제해결 천재", desc: "어려운 상황도 척척 해결하는 능력자" },
+            humorous: { name: "웃음 제조기", desc: "유머로 모든 스트레스를 날려버려요" },
+            innovative: { name: "혁신적 사고", desc: "새로운 관점으로 모두를 놀라게 해요" },
             trustworthy: { name: "신뢰도 MAX", desc: "당신만큼 믿을 만한 사람을 찾기 어려워요" },
-            innovative: { name: "아이디어 크리에이터", desc: "참신한 발상으로 모두를 놀라게 해요" },
-            warmhearted: { name: "따뜻한 마음", desc: "진심이 느껴지는 당신의 마음이 소중해요" },
+            harmonious: { name: "화합의 중심", desc: "팀 분위기를 화기애애하게 만드는 마법사" },
+            responsive: { name: "소통 마스터", desc: "빠른 응답으로 원활한 소통을 이끄는 프로" },
+            professional: { name: "비즈니스 매너", desc: "항상 정중하고 세련된 커뮤니케이션" },
+            playful: { name: "재미있는 대화", desc: "유머와 재치로 대화를 즐겁게 만드는 사람" },
             passionate: { name: "열정 바이러스", desc: "당신의 열정이 모두에게 전염되어요" },
-            reliable: { name: "든든한 동반자", desc: "같은 팀이라서 정말 다행이에요" },
-            lucky: { name: "행운의 요정", desc: "당신이 있으면 모든 일이 잘 풀려요" },
-            magical: { name: "업무 마법사", desc: "불가능을 가능으로 만드는 마법 같은 능력" },
+            organized: { name: "체계적 계획", desc: "완벽한 계획과 준비로 모두를 안심시켜요" },
+            supportive: { name: "든든한 지원군", desc: "언제나 팀원들을 도와주는 따뜻한 마음" },
+            composed: { name: "침착한 리더", desc: "어떤 상황에서도 차분함을 유지하는 멘탈" },
+            reliable: { name: "믿음직한 동반자", desc: "같은 팀이라서 정말 다행인 든든한 존재" },
+            inspiring: { name: "영감을 주는 사람", desc: "당신을 보면 저절로 동기부여가 되어요" },
+            joyful: { name: "행복 바이러스", desc: "당신의 밝은 에너지가 모두를 웃게 만들어요" },
             precious: { name: "소중한 보물", desc: "만나서 정말 다행인 특별한 사람" }
         };
 
-        // 격려 메시지들
-        const encouragementMessages = [
-            "💕 동료들이 당신을 이렇게 생각하고 있었다니!<br>정말 사랑스럽고 특별한 존재시네요 ✨",
-            "🌟 이 결과를 보니 당신이 얼마나 소중한 사람인지<br>다시 한번 느끼게 되어요 💎",
-            "✨ 동료들의 따뜻한 시선에서 발견된<br>당신의 빛나는 모습들이 정말 아름다워요 🌈",
-            "💫 이런 평가를 받는다는 건<br>당신이 얼마나 멋진 사람인지 보여주는 거예요! 🏆"
+        // 격려 메시지
+        const ENCOURAGEMENT_MESSAGES = [
+            "🌻 동료들이 당신을 이렇게 생각하고 있었다니!<br>정말 사랑스럽고 특별한 존재시네요 ✨",
+            "🎈 이 결과를 보니 당신이 얼마나 소중한 사람인지<br>다시 한번 느끼게 되어요 🌟",
+            "🌈 동료들의 따뜻한 시선에서 발견된<br>당신의 빛나는 모습들이 정말 아름다워요 💝",
+            "🎯 이런 평가를 받는다는 건<br>당신이 얼마나 멋진 사람인지 보여주는 거예요! 🏆"
         ];
 
-        // 앱 상태
-        let currentSurvey = null;
-        let currentQuestionIndex = 0;
-        let answers = [];
-        let surveys = {}; // 메모리에 저장
+        // 유틸리티 함수들
+        const Utils = {
+            generateSurveyId: (userName) => {
+                return btoa(encodeURIComponent(userName)).replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            },
 
-        // URL 파라미터에서 사용자 이름 추출
-        function getUserFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('user');
-        }
+            getUserFromUrl: () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('user');
+            },
 
-        // 고유 ID 생성 함수
-        function generateSurveyId(userName) {
-            return btoa(encodeURIComponent(userName)).replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-        }
+            showScreen: (screenId) => {
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active');
+                });
+                document.getElementById(screenId).classList.add('active');
+            },
 
-        // 설문 생성
-        function createSurvey() {
-            const userName = document.getElementById('userName').value.trim();
-            
-            if (!userName) {
-                alert('닉네임을 입력해주세요! 😊');
-                return;
+            copyToClipboard: async (text) => {
+                if (navigator.clipboard) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                }
+            },
+
+            showNotification: (message) => {
+                alert(message);
             }
-            
-            const surveyId = generateSurveyId(userName);
-            
-            // 설문 데이터 저장
-            surveys[surveyId] = {
-                name: userName,
-                responses: [],
-                traits: {},
-                createdAt: new Date().toISOString()
-            };
-            
-            // 결과 화면으로 이동
-            showResults(surveyId, userName);
-        }
+        };
 
-        // 설문 시작 (URL에서 사용자 이름이 있을 때)
-        function startSurveyFromUrl() {
-            const userName = getUserFromUrl();
-            if (!userName) return;
-            
-            const surveyId = generateSurveyId(userName);
-            
-            // 해당 설문이 없으면 생성
-            if (!surveys[surveyId]) {
-                surveys[surveyId] = {
+        // 화면 관리자
+        const ScreenManager = {
+            showSetup: () => {
+                Utils.showScreen('setupScreen');
+            },
+
+            showSurvey: (userName) => {
+                document.getElementById('targetName').innerHTML = `💝 ${decodeURIComponent(userName)} 님`;
+                Utils.showScreen('surveyScreen');
+                SurveyManager.startSurvey();
+            },
+
+            showResults: (surveyId, userName) => {
+                Utils.showScreen('resultScreen');
+                ResultManager.displayResults(surveyId, userName);
+            }
+        };
+
+        // 설문 관리자
+        const SurveyManager = {
+            startSurvey: () => {
+                AppState.currentQuestionIndex = 0;
+                AppState.answers = [];
+                AppState.isAnswering = false;
+                this.showCurrentQuestion();
+            },
+
+            showCurrentQuestion: () => {
+                const question = QUESTIONS[AppState.currentQuestionIndex];
+                const questionTitle = document.getElementById('questionTitle');
+                const optionsContainer = document.getElementById('optionsContainer');
+                
+                questionTitle.innerHTML = question.text;
+                optionsContainer.innerHTML = '';
+
+                question.options.forEach((option, index) => {
+                    const optionCard = document.createElement('div');
+                    optionCard.className = 'option-card';
+                    optionCard.innerHTML = `
+                        <div class="option-content">
+                            <span class="option-emoji">${option.emoji}</span>
+                            <span class="option-text">${option.text}</span>
+                        </div>
+                    `;
+                    optionCard.addEventListener('click', () => this.selectOption(index, optionCard));
+                    optionsContainer.appendChild(optionCard);
+                });
+
+                this.updateProgress();
+            },
+
+            selectOption: (index, element) => {
+                if (AppState.isAnswering) return;
+                
+                AppState.isAnswering = true;
+                
+                // 시각적 피드백
+                document.querySelectorAll('.option-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                element.classList.add('selected');
+
+                // 답변 저장
+                const question = QUESTIONS[AppState.currentQuestionIndex];
+                AppState.answers[AppState.currentQuestionIndex] = question.options[index].trait;
+
+                // 로딩 화면 표시
+                document.getElementById('loadingScreen').style.display = 'block';
+
+                // 다음 질문으로 진행
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    this.nextQuestion();
+                    AppState.isAnswering = false;
+                }, 1000);
+            },
+
+            nextQuestion: () => {
+                AppState.currentQuestionIndex++;
+                
+                if (AppState.currentQuestionIndex < QUESTIONS.length) {
+                    this.showCurrentQuestion();
+                } else {
+                    this.submitSurvey();
+                }
+            },
+
+            updateProgress: () => {
+                const progress = ((AppState.currentQuestionIndex + 1) / QUESTIONS.length) * 100;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+                document.getElementById('progressText').textContent = `${AppState.currentQuestionIndex + 1}/${QUESTIONS.length} 질문`;
+            },
+
+            submitSurvey: () => {
+                const surveyId = AppState.currentUser;
+                
+                // 설문이 없으면 생성
+                if (!AppState.surveys[surveyId]) {
+                    AppState.surveys[surveyId] = {
+                        name: Utils.getUserFromUrl(),
+                        responses: [],
+                        traits: {},
+                        createdAt: new Date().toISOString()
+                    };
+                }
+
+                // 응답 저장
+                AppState.surveys[surveyId].responses.push({
+                    answers: AppState.answers,
+                    timestamp: new Date().toISOString()
+                });
+
+                // 특성별 집계
+                AppState.answers.forEach(trait => {
+                    if (!AppState.surveys[surveyId].traits[trait]) {
+                        AppState.surveys[surveyId].traits[trait] = 0;
+                    }
+                    AppState.surveys[surveyId].traits[trait]++;
+                });
+
+                // 완료 메시지
+                Utils.showNotification(
+                    '🎈 소중한 응원 메시지를 보내주셔서 감사합니다!\n\n' +
+                    '당신의 따뜻한 마음이 누군가에게 큰 힘이 될 거예요 💝\n\n' +
+                    '당신도 동료들에게 나의 모습을 물어보고 싶다면\n' +
+                    '새 창에서 테스트를 시작해보세요! 🌻'
+                );
+
+                // 새 창에서 테스트 열기
+                setTimeout(() => {
+                    window.open(window.location.origin + window.location.pathname, '_blank');
+                    window.close();
+                }, 3000);
+            }
+        };
+
+        // 결과 관리자
+        const ResultManager = {
+            displayResults: (surveyId, userName) => {
+                const survey = AppState.surveys[surveyId] || {
                     name: userName,
                     responses: [],
-                    traits: {},
-                    createdAt: new Date().toISOString()
+                    traits: {}
                 };
-            }
-            
-            currentSurvey = surveyId;
-            currentQuestionIndex = 0;
-            answers = [];
-            
-            // 설문 화면 표시
-            document.querySelector('.setup-section').style.display = 'none';
-            document.querySelector('.survey-section').classList.add('active');
-            
-            // 대상자 이름 표시
-            document.getElementById('targetName').textContent = `💝 ${decodeURIComponent(userName)} 님`;
-            
-            showQuestion();
-        }
-
-        // 질문 표시
-        function showQuestion() {
-            const question = questions[currentQuestionIndex];
-            document.getElementById('currentQuestion').innerHTML = question.text;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.innerHTML = `
-                    <span class="option-emoji">${option.emoji}</span>
-                    <span class="option-text">${option.text}</span>
-                `;
-                optionDiv.onclick = () => selectOption(index, optionDiv);
-                optionsContainer.appendChild(optionDiv);
-            });
-            
-            updateProgress();
-        }
-
-        // 옵션 선택
-        function selectOption(index, element) {
-            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            
-            const question = questions[currentQuestionIndex];
-            answers[currentQuestionIndex] = question.options[index].trait;
-            
-            // 로딩 애니메이션 표시
-            document.getElementById('loadingAnimation').style.display = 'block';
-            document.querySelector('.question-container').style.opacity = '0.5';
-            
-            // 0.8초 후 다음 질문으로 자동 진행
-            setTimeout(() => {
-                document.getElementById('loadingAnimation').style.display = 'none';
-                document.querySelector('.question-container').style.opacity = '1';
-                nextQuestion();
-            }, 800);
-        }
-
-        // 다음 질문
-        function nextQuestion() {
-            currentQuestionIndex++;
-            
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                submitSurvey();
-            }
-        }
-
-        // 진행률 업데이트
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-            document.querySelector('.progress-fill').style.width = progress + '%';
-            document.getElementById('progressText').textContent = `${currentQuestionIndex + 1}/${questions.length} 질문`;
-        }
-
-        // 설문 제출
-        function submitSurvey() {
-            // 응답 저장
-            surveys[currentSurvey].responses.push({
-                answers: answers,
-                timestamp: new Date().toISOString()
-            });
-            
-            // 특성별 집계
-            answers.forEach(trait => {
-                if (!surveys[currentSurvey].traits[trait]) {
-                    surveys[currentSurvey].traits[trait] = 0;
-                }
-                surveys[currentSurvey].traits[trait]++;
-            });
-            
-            // 완료 메시지
-            alert('🎉 소중한 응원 메시지를 보내주셔서 감사합니다!\n\n당신의 따뜻한 마음이 누군가에게 큰 힘이 될 거예요 💕\n\n당신도 동료들에게 나의 모습을 물어보고 싶다면\n새 창에서 테스트를 시작해보세요! ✨');
-            
-            // 3초 후 자동으로 새 테스트 페이지로 이동
-            setTimeout(() => {
-                window.open(window.location.origin + window.location.pathname, '_blank');
-                window.close();
-            }, 3000);
-        }
-
-        // 결과 표시
-        function showResults(surveyId, userName) {
-            const survey = surveys[surveyId];
-            const totalResponses = survey.responses.length;
-            
-            // 통계 표시
-            const statsContainer = document.getElementById('surveyStats');
-            statsContainer.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-number">${totalResponses}</div>
-                    <div class="stat-label">응원 메시지</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">💕</div>
-                    <div class="stat-label">${userName}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">✨</div>
-                    <div class="stat-label">매력 발견</div>
-                </div>
-            `;
-            
-            // 결과 설명
-            const resultDescription = document.getElementById('resultDescription');
-            if (totalResponses === 0) {
-                resultDescription.innerHTML = `
-                    <p><strong>아직 동료들의 따뜻한 시선을 기다리고 있어요!</strong></p>
-                    <p>링크를 공유해서 동료들이<br>
-                    당신에 대해 어떻게 생각하는지 알아보세요 🚀</p>
-                    <p>분명 예상보다 훨씬 사랑받고 있는<br>
-                    자신을 발견하게 될 거예요! ✨</p>
-                `;
-            } else {
-                const randomMessage = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
-                resultDescription.innerHTML = `<p>${randomMessage}</p>`;
-            }
-            
-            // 결과 내용
-            const resultContainer = document.getElementById('resultContent');
-            if (totalResponses === 0) {
-                resultContainer.innerHTML = '';
-            } else {
-                // 특성별 퍼센트 계산 및 표시
-                const sortedTraits = Object.entries(survey.traits)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 5); // 상위 5개만 표시
                 
-                resultContainer.innerHTML = sortedTraits.map(([trait, count]) => {
+                const totalResponses = survey.responses.length;
+
+                // 통계 표시
+                this.displayStats(totalResponses, userName);
+                
+                // 결과 설명
+                this.displayDescription(totalResponses);
+                
+                // 특성 결과
+                this.displayTraits(survey.traits, totalResponses);
+                
+                // 공유 링크
+                this.setupSharing(userName);
+            },
+
+            displayStats: (totalResponses, userName) => {
+                const statsContainer = document.getElementById('resultStats');
+                statsContainer.innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-number">${totalResponses}</div>
+                        <div class="stat-label">응원 메시지</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">💕</div>
+                        <div class="stat-label">${userName}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">✨</div>
+                        <div class="stat-label">매력 발견</div>
+                    </div>
+                `;
+            },
+
+            displayDescription: (totalResponses) => {
+                const resultDescription = document.getElementById('resultDescription');
+                
+                if (totalResponses === 0) {
+                    resultDescription.innerHTML = `
+                        <p><strong>아직 동료들의 따뜻한 시선을 기다리고 있어요!</strong></p>
+                        <p>링크를 공유해서 동료들이 당신에 대해 어떻게 생각하는지 알아보세요 🚀</p>
+                        <p>분명 예상보다 훨씬 사랑받고 있는 자신을 발견하게 될 거예요! ✨</p>
+                    `;
+                } else {
+                    const randomMessage = ENCOURAGEMENT_MESSAGES[Math.floor(Math.random() * ENCOURAGEMENT_MESSAGES.length)];
+                    resultDescription.innerHTML = `<p>${randomMessage}</p>`;
+                }
+            },
+
+            displayTraits: (traits, totalResponses) => {
+                const traitsContainer = document.getElementById('traitsList');
+                
+                if (totalResponses === 0) {
+                    traitsContainer.innerHTML = '';
+                    return;
+                }
+
+                const sortedTraits = Object.entries(traits)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5);
+
+                traitsContainer.innerHTML = sortedTraits.map(([trait, count]) => {
                     const percentage = Math.round((count / totalResponses) * 100);
-                    const traitInfo = traitDescriptions[trait];
+                    const traitInfo = TRAIT_DESCRIPTIONS[trait];
+                    
                     return `
-                        <div class="trait-result">
+                        <div class="trait-item">
                             <div class="trait-info">
                                 <div class="trait-name">💎 ${traitInfo.name}</div>
                                 <div class="trait-desc">${traitInfo.desc}</div>
@@ -883,70 +1089,196 @@
                         </div>
                     `;
                 }).join('');
+            },
+
+            setupSharing: (userName) => {
+                const currentUrl = window.location.origin + window.location.pathname;
+                const shareUrl = `${currentUrl}?user=${encodeURIComponent(userName)}`;
+                document.getElementById('shareLink').textContent = shareUrl;
             }
-            
-            // 공유 링크 (사용자 이름을 URL 파라미터로)
-            const currentUrl = window.location.origin + window.location.pathname;
-            const shareUrl = `${currentUrl}?user=${encodeURIComponent(userName)}`;
-            document.getElementById('shareLink').textContent = shareUrl;
-            
-            // 결과 섹션 표시
-            document.querySelector('.setup-section').style.display = 'none';
-            document.querySelector('.result-section').classList.add('active');
-        }
+        };
 
-        // 링크 복사
-        function copyLink() {
-            const link = document.getElementById('shareLink').textContent;
-            
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showCopySuccess();
-                });
-            } else {
-                const textArea = document.createElement('textarea');
-                textArea.value = link;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showCopySuccess();
-            }
-        }
+        // 이벤트 리스너 설정
+        const setupEventListeners = () => {
+            // 설문 생성 폼
+            document.getElementById('setupForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const userName = document.getElementById('userName').value.trim();
+                
+                if (!userName) {
+                    Utils.showNotification('닉네임을 입력해주세요! 😊');
+                    return;
+                }
+                
+                const surveyId = Utils.generateSurveyId(userName);
+                AppState.surveys[surveyId] = {
+                    name: userName,
+                    responses: [],
+                    traits: {},
+                    createdAt: new Date().toISOString()
+                };
+                
+                ScreenManager.showResults(surveyId, userName);
+            });
 
-        function showCopySuccess() {
-            alert('✅ 링크가 복사되었습니다!\n\n🔥 카톡, 슬랙, 이메일 어디든 보내주세요!\n동료들이 클릭 한 번으로 바로 참여할 수 있어요 💕\n\n분명 따뜻한 응원을 많이 받으실 거예요! ✨');
-        }
+            // 카카오톡 공유
+            document.getElementById('kakaoShareBtn').addEventListener('click', () => {
+                const userName = document.querySelector('.stat-label').textContent;
+                const link = document.getElementById('shareLink').textContent;
+                
+                const shareText = `🌻 동료들이 보는 나의 진짜 모습 테스트
 
-        // 새 설문 만들기
-        function createNewSurvey() {
-            if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
-                // URL에서 파라미터 제거
-                window.history.replaceState({}, document.title, window.location.pathname);
-                location.reload();
-            }
-        }
+${userName}님이 동료들의 시선에서 발견하고 싶어해요!
 
-        // 페이지 로드 시 초기화
-        window.addEventListener('load', () => {
-            const userName = getUserFromUrl();
+클릭 한 번으로 바로 참여 가능 🎈
+따뜻한 시선으로 응원해주세요~
+
+${link}
+
+#동료테스트 #회사생활 #직장인 #팀워크`;
+
+                if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: '동료들이 보는 나의 진짜 모습',
+                            text: shareText
+                        });
+                    } else {
+                        Utils.copyToClipboard(shareText);
+                        Utils.showNotification('🎈 카카오톡 공유 내용이 복사되었어요!\n\n카톡에 붙여넣기 해서 친구들에게 보내주세요! 🌻');
+                    }
+                } else {
+                    Utils.copyToClipboard(shareText);
+                    Utils.showNotification('🎈 카카오톡 공유 내용이 복사되었어요!\n\n카톡에 붙여넣기 해서 친구들에게 보내주세요! 🌻');
+                }
+            });
+
+            // 링크 복사
+            document.getElementById('copyLinkBtn').addEventListener('click', async () => {
+                const link = document.getElementById('shareLink').textContent;
+                await Utils.copyToClipboard(link);
+                Utils.showNotification(
+                    '🎯 링크가 복사되었습니다!\n\n' +
+                    '🌻 카톡, 슬랙, 이메일 어디든 보내주세요!\n' +
+                    '동료들이 클릭 한 번으로 바로 참여할 수 있어요 💝\n\n' +
+                    '분명 따뜻한 응원을 많이 받으실 거예요! 🌈'
+                );
+            });
+
+            // 새 설문 만들기
+            document.getElementById('newSurveyBtn').addEventListener('click', () => {
+                if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    location.reload();
+                }
+            });
+
+            // 페이지 이탈 방지
+            window.addEventListener('beforeunload', (e) => {
+                if (AppState.currentUser && AppState.currentQuestionIndex > 0 && AppState.currentQuestionIndex < QUESTIONS.length) {
+                    e.preventDefault();
+                    e.returnValue = '설문이 아직 완료되지 않았습니다. 정말 나가시겠어요?';
+                }
+            });
+        };
+
+        // 애플리케이션 초기화
+        const initializeApp = () => {
+            const userName = Utils.getUserFromUrl();
             
             if (userName) {
-                // URL에 사용자 이름이 있으면 설문 참여 모드
-                startSurveyFromUrl();
+                // 설문 참여 모드
+                const surveyId = Utils.generateSurveyId(userName);
+                AppState.currentUser = surveyId;
+                ScreenManager.showSurvey(userName);
             } else {
-                // 없으면 설문 생성 모드
-                document.querySelector('.setup-section').classList.add('active');
+                // 설문 생성 모드
+                ScreenManager.showSetup();
+            }
+        };
+
+        // DOM 로드 시 실행
+        document.addEventListener('DOMContentLoaded', () => {
+            setupEventListeners();
+            initializeApp();
+        });
+
+        // SurveyManager 메서드 바인딩 수정
+        Object.setPrototypeOf(SurveyManager, {
+            showCurrentQuestion() {
+                const question = QUESTIONS[AppState.currentQuestionIndex];
+                const questionTitle = document.getElementById('questionTitle');
+                const optionsContainer = document.getElementById('optionsContainer');
+                
+                questionTitle.innerHTML = question.text;
+                optionsContainer.innerHTML = '';
+
+                question.options.forEach((option, index) => {
+                    const optionCard = document.createElement('div');
+                    optionCard.className = 'option-card';
+                    optionCard.innerHTML = `
+                        <div class="option-content">
+                            <span class="option-emoji">${option.emoji}</span>
+                            <span class="option-text">${option.text}</span>
+                        </div>
+                    `;
+                    optionCard.addEventListener('click', () => SurveyManager.selectOption(index, optionCard));
+                    optionsContainer.appendChild(optionCard);
+                });
+
+                SurveyManager.updateProgress();
+            },
+
+            selectOption(index, element) {
+                if (AppState.isAnswering) return;
+                
+                AppState.isAnswering = true;
+                
+                // 시각적 피드백
+                document.querySelectorAll('.option-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                element.classList.add('selected');
+
+                // 답변 저장
+                const question = QUESTIONS[AppState.currentQuestionIndex];
+                AppState.answers[AppState.currentQuestionIndex] = question.options[index].trait;
+
+                // 로딩 화면 표시
+                document.getElementById('loadingScreen').style.display = 'block';
+
+                // 다음 질문으로 진행
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    SurveyManager.nextQuestion();
+                    AppState.isAnswering = false;
+                }, 1000);
+            },
+
+            nextQuestion() {
+                AppState.currentQuestionIndex++;
+                
+                if (AppState.currentQuestionIndex < QUESTIONS.length) {
+                    SurveyManager.showCurrentQuestion();
+                } else {
+                    SurveyManager.submitSurvey();
+                }
+            },
+
+            updateProgress() {
+                const progress = ((AppState.currentQuestionIndex + 1) / QUESTIONS.length) * 100;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+                document.getElementById('progressText').textContent = `${AppState.currentQuestionIndex + 1}/${QUESTIONS.length} 질문`;
             }
         });
 
-        // 페이지 이탈 방지 (설문 진행 중일 때)
-        window.addEventListener('beforeunload', (e) => {
-            if (currentSurvey && currentQuestionIndex > 0 && currentQuestionIndex < questions.length) {
-                e.preventDefault();
-                e.returnValue = '설문이 아직 완료되지 않았습니다. 정말 나가시겠어요?';
-            }
-        });
+        // startSurvey 메서드 수정
+        SurveyManager.startSurvey = function() {
+            AppState.currentQuestionIndex = 0;
+            AppState.answers = [];
+            AppState.isAnswering = false;
+            SurveyManager.showCurrentQuestion();
+        };
     </script>
 </body>
 </html>
