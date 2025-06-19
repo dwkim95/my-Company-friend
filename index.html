@@ -652,6 +652,54 @@
                 </div>
             </div>
 
+            <!-- 설문 완료 화면 -->
+            <div id="surveyCompleteScreen" class="screen">
+                <div class="encouragement-card">
+                    🎉 <strong>설문 완료! 정말 고마워요!</strong><br>
+                    당신의 따뜻한 응답이 누군가에게 큰 힘이 될 거예요 💝
+                </div>
+
+                <div class="result-card">
+                    <div class="result-header">
+                        <h2 class="result-title">🌟 지금까지의 결과를<br>확인해보세요!</h2>
+                        <div class="result-description">
+                            <div id="completeTargetName" class="target-name"></div>
+                            <p>님의 실시간 평가 결과를 바로 확인할 수 있어요! 📊</p>
+                        </div>
+                    </div>
+                    
+                    <button id="viewResultsBtn" class="btn">
+                        👀 실시간 결과 보기
+                    </button>
+                </div>
+
+                <div class="encouragement-card">
+                    ✨ <strong>당신도 친구들에게 물어보고 싶지 않나요?</strong><br>
+                    나만의 링크를 만들어서 동료들이 보는<br>
+                    나의 진짜 모습을 발견해보세요! 🎯
+                </div>
+
+                <div class="form-group">
+                    <label for="newUserName" class="form-label">🌟 내 닉네임</label>
+                    <input 
+                        type="text" 
+                        id="newUserName" 
+                        class="form-input"
+                        placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등"
+                    >
+                </div>
+                
+                <button id="createMyLinkBtn" class="btn">
+                    🚀 내 전용 링크 만들기
+                </button>
+
+                <div class="share-buttons" style="margin-top: 1rem;">
+                    <button id="restartBtn" class="btn btn-secondary">
+                        🔄 다른 친구 평가하기
+                    </button>
+                </div>
+            </div>
+
             <!-- 결과 화면 -->
             <div id="resultScreen" class="screen">
                 <div id="resultStats" class="result-stats"></div>
@@ -679,6 +727,13 @@
                             📋 링크 복사
                         </button>
                     </div>
+
+                    <div class="encouragement-card">
+                        💡 <strong>결과를 나중에 다시 보고 싶다면?</strong><br>
+                        이 링크를 북마크해두세요! 언제든 최신 결과를 확인할 수 있어요 🔖<br><br>
+                        <strong>📊 당사자 전용 결과 보기:</strong><br>
+                        <div id="ownerLink" class="share-link" style="margin-top: 0.5rem; font-size: 0.85rem;"></div>
+                    </div>
                     
                     <button id="newSurveyBtn" class="btn btn-secondary">
                         🌟 새로운 매력 발굴하기
@@ -699,96 +754,96 @@
             isAnswering: false
         };
 
-        // 설문 질문 데이터
+        // 설문 질문 데이터 (현실적이고 박진감 넘치는 내용)
         const QUESTIONS = [
             {
-                text: "🌅 아침 출근할 때<br>이 사람의 에너지는?",
+                text: "🔥 월요일 아침 9시,<br>급하게 회의실로 뛰어가는 이 사람의 모습은?",
                 options: [
-                    { emoji: "☀️", text: "365일 비타민D 풀충전 햇살 인간", trait: "energetic" },
-                    { emoji: "🌙", text: "은은하게 빛나는 달빛 감성", trait: "calm" },
-                    { emoji: "⚡", text: "번개처럼 빠른 모닝 루틴 마스터", trait: "efficient" },
-                    { emoji: "🌸", text: "천천히 하지만 확실한 꽃길 워커", trait: "steady" }
+                    { emoji: "🏃‍♂️", text: "번개처럼 뛰어가서 이미 PPT 준비 완료", trait: "speedy" },
+                    { emoji: "😱", text: "뛰면서도 '아 망했다...' 중얼중얼", trait: "humorous" },
+                    { emoji: "😎", text: "여유롭게 걸어가며 '괜찮아 다 될 거야~'", trait: "calm" },
+                    { emoji: "📋", text: "뛰면서도 체크리스트 확인하는 완벽주의자", trait: "organized" }
                 ]
             },
             {
-                text: "💼 업무 처리 스타일을<br>동물로 비유하면?",
+                text: "💣 갑자기 클라이언트가<br>'내일까지 이거 다시 해주세요' 할 때",
                 options: [
-                    { emoji: "🐆", text: "치타처럼 빠르고 정확한 스피드러너", trait: "speedy" },
-                    { emoji: "🦉", text: "올빼미처럼 꼼꼼하고 현명한 전략가", trait: "wise" },
-                    { emoji: "🐝", text: "꿀벌처럼 부지런한 협업 마스터", trait: "collaborative" },
-                    { emoji: "🦄", text: "유니콘처럼 창의적이고 특별한 아이디어 메이커", trait: "creative" }
+                    { emoji: "🚀", text: "눈빛이 반짝이며 '도전 받아들임!' 모드", trait: "passionate" },
+                    { emoji: "🧘", text: "심호흡 후 차근차근 계획 세우기", trait: "analytical" },
+                    { emoji: "💪", text: "'우리 함께 하면 못할 게 없어!' 팀워크 발동", trait: "collaborative" },
+                    { emoji: "🎭", text: "'에이~ 이런 일이!' 하지만 결국 다 해내는", trait: "adaptable" }
                 ]
             },
             {
-                text: "🗣️ 회의 시간에<br>이 사람의 역할은?",
+                text: "🍕 점심시간 메뉴 정할 때<br>이 사람의 역할은?",
                 options: [
-                    { emoji: "🎤", text: "마이크 잡으면 TED 토크급 발표왕", trait: "presenter" },
-                    { emoji: "💡", text: "한마디로 모두를 '아하!' 하게 만드는 인사이트 킹", trait: "insightful" },
-                    { emoji: "🎯", text: "핵심만 딱딱 짚어내는 요약의 달인", trait: "concise" },
-                    { emoji: "👂", text: "모든 의견을 따뜻하게 들어주는 리스닝 마스터", trait: "listener" }
+                    { emoji: "🎪", text: "'오늘은 치킨이다!' 분위기 리더", trait: "entertainer" },
+                    { emoji: "🤗", text: "'다들 뭐 먹고 싶어?' 모든 의견 수렴", trait: "listener" },
+                    { emoji: "📱", text: "이미 맛집 5곳 검색해서 리스트 완성", trait: "informative" },
+                    { emoji: "😋", text: "'아무거나 맛있으면 돼~' 순수한 먹방러", trait: "approachable" }
                 ]
             },
             {
-                text: "☕ 점심시간이나 쉬는 시간의<br>이 사람은?",
+                text: "📊 발표 5분 전,<br>갑자기 노트북이 먹통이 된다면?",
                 options: [
-                    { emoji: "🎪", text: "어디서든 웃음꽃이 피는 엔터테이너", trait: "entertainer" },
-                    { emoji: "📚", text: "혼자만의 시간으로 에너지 충전하는 힐러", trait: "introspective" },
-                    { emoji: "🍰", text: "맛집 정보와 TMI로 재미를 주는 정보통", trait: "informative" },
-                    { emoji: "🤗", text: "누구든 편하게 찾아올 수 있는 인간 카페", trait: "approachable" }
+                    { emoji: "⚡", text: "3초 만에 플랜B 실행하는 위기관리 마스터", trait: "problemsolver" },
+                    { emoji: "🎤", text: "'PPT 없어도 내가 곧 PPT!' 즉석 프레젠테이션", trait: "presenter" },
+                    { emoji: "🤝", text: "'괜찮아, 우리가 도와줄게!' 팀원들 총출동", trait: "supportive" },
+                    { emoji: "😅", text: "'이럴 줄 알고 USB에 백업했지!' 만반의 준비", trait: "wise" }
                 ]
             },
             {
-                text: "🔥 갑작스러운 업무 변화나<br>위기 상황이 생기면?",
+                text: "🎉 프로젝트 성공했을 때<br>가장 먼저 하는 말은?",
                 options: [
-                    { emoji: "🚀", text: "1초 만에 플랜B 꺼내는 신속 대응 마스터", trait: "adaptable" },
-                    { emoji: "🧠", text: "차근차근 분석해서 완벽한 솔루션 제시", trait: "analytical" },
-                    { emoji: "🛡️", text: "팀원들 다 챙기면서 함께 헤쳐나가는 리더", trait: "protective" },
-                    { emoji: "🧊", text: "태산이 무너져도 흔들리지 않는 멘탈 갑", trait: "stable" }
+                    { emoji: "🥳", text: "'야호! 우리가 해냈다!' 폭발적 기쁨", trait: "joyful" },
+                    { emoji: "👏", text: "'모두 수고했어! 정말 대단해!' 팀원 치하", trait: "motivating" },
+                    { emoji: "🍻", text: "'이런 날엔 회식이지!' 분위기 메이커", trait: "harmonious" },
+                    { emoji: "💎", text: "'다음엔 더 잘할 수 있을 거야' 성장 마인드", trait: "inspiring" }
                 ]
             },
             {
-                text: "🌟 동료가 힘들어할 때<br>이 사람의 대응법은?",
+                text: "😰 후배가 실수로<br>중요한 파일을 날렸을 때",
                 options: [
-                    { emoji: "🔥", text: "다시 일어설 용기를 불어넣어주는 치어리더", trait: "motivating" },
-                    { emoji: "🤗", text: "따뜻한 위로와 공감으로 마음을 달래주는 힐러", trait: "comforting" },
-                    { emoji: "💡", text: "구체적이고 실질적인 해결방안 제시하는 솔버", trait: "problemsolver" },
-                    { emoji: "🎭", text: "웃음과 유머로 분위기 전환시키는 무드메이커", trait: "humorous" }
+                    { emoji: "🛡️", text: "'괜찮아, 이런 일 누구에게나 있어' 든든한 선배", trait: "comforting" },
+                    { emoji: "🔧", text: "'복구 방법이 있어!' 즉시 해결책 제시", trait: "efficient" },
+                    { emoji: "🎓", text: "'이걸로 배우는 거야' 교육적 접근", trait: "wise" },
+                    { emoji: "☕", text: "'일단 커피 한 잔 하고 천천히 생각해보자'", trait: "stable" }
                 ]
             },
             {
-                text: "🎯 업무에서 이 사람의<br>가장 돋보이는 강점은?",
+                text: "📱 단톡방에서<br>이 사람의 대표적인 모습은?",
                 options: [
-                    { emoji: "⚡", text: "번개같은 일처리 속도와 정확성", trait: "efficient" },
-                    { emoji: "🎨", text: "남들이 생각 못한 창의적 아이디어", trait: "innovative" },
-                    { emoji: "💎", text: "어떤 상황에서도 믿고 맡길 수 있는 신뢰도", trait: "trustworthy" },
-                    { emoji: "🌈", text: "팀 분위기를 화기애애하게 만드는 매력", trait: "harmonious" }
+                    { emoji: "💬", text: "메시지 와도 3초 안에 답장하는 빛의 속도", trait: "responsive" },
+                    { emoji: "😂", text: "적절한 이모지와 밈으로 분위기 업!", trait: "playful" },
+                    { emoji: "📝", text: "중요한 정보는 깔끔하게 정리해서 공유", trait: "professional" },
+                    { emoji: "👀", text: "조용히 지켜보다가 핵심만 딱 한 마디", trait: "insightful" }
                 ]
             },
             {
-                text: "📱 디지털 커뮤니케이션에서<br>이 사람의 특징은?",
+                text: "🌙 야근할 때<br>이 사람의 진짜 모습은?",
                 options: [
-                    { emoji: "⚡", text: "메시지 오면 3초 안에 답장하는 빛의 속도", trait: "responsive" },
-                    { emoji: "📝", text: "항상 정중하고 정확한 비즈니스 매너", trait: "professional" },
-                    { emoji: "😄", text: "이모지와 유머로 대화를 즐겁게 만드는 재미꾼", trait: "playful" },
-                    { emoji: "🎯", text: "핵심만 간단명료하게 전달하는 효율성", trait: "concise" }
+                    { emoji: "💡", text: "'아이디어가 떠올랐어!' 밤에 더 창의적", trait: "creative" },
+                    { emoji: "🍕", text: "'배고프지? 치킨 시킬까?' 케어 담당", trait: "caring" },
+                    { emoji: "🎵", text: "음악 틀고 혼자만의 업무 리듬 타기", trait: "introspective" },
+                    { emoji: "⚡", text: "야근이야말로 진짜 실력 발휘하는 시간", trait: "reliable" }
                 ]
             },
             {
-                text: "🏆 프로젝트 마감 전날,<br>이 사람의 모습은?",
+                text: "🎯 갑자기 상사가<br>'이거 어떻게 생각해?' 물어볼 때",
                 options: [
-                    { emoji: "🔥", text: "마지막까지 열정적으로 완벽을 추구하는 열혈파", trait: "passionate" },
-                    { emoji: "😌", text: "여유롭게 체크리스트 점검하는 계획파", trait: "organized" },
-                    { emoji: "🤝", text: "팀원들 도와주느라 바쁜 든든한 지원군", trait: "supportive" },
-                    { emoji: "🧘", text: "침착하게 마무리하는 멘탈 관리 마스터", trait: "composed" }
+                    { emoji: "🧠", text: "데이터 기반으로 논리적 분석 시작", trait: "analytical" },
+                    { emoji: "💫", text: "'이런 관점은 어떨까요?' 참신한 아이디어", trait: "innovative" },
+                    { emoji: "🤔", text: "'좀 더 생각해보고 말씀드릴게요' 신중파", trait: "composed" },
+                    { emoji: "🎪", text: "'재밌는 질문이네요!' 긍정적 반응", trait: "enthusiastic" }
                 ]
             },
             {
-                text: "💝 동료로서 이 사람을<br>한 문장으로 표현한다면?",
+                text: "🏆 동료로서 이 사람의<br>가장 소중한 점은?",
                 options: [
-                    { emoji: "🏆", text: "같은 팀이어서 든든하고 자랑스러운 에이스", trait: "reliable" },
-                    { emoji: "🌟", text: "있는 것만으로도 팀이 빛나게 만드는 보석", trait: "inspiring" },
-                    { emoji: "🎪", text: "일상을 즐겁게 만들어주는 행복 바이러스", trait: "joyful" },
-                    { emoji: "💎", text: "만나서 정말 다행인 인생 선배님", trait: "precious" }
+                    { emoji: "🌟", text: "힘들 때 옆에 있어주는 따뜻한 마음", trait: "precious" },
+                    { emoji: "🔥", text: "어떤 상황에서도 믿고 맡길 수 있는 신뢰", trait: "trustworthy" },
+                    { emoji: "✨", text: "함께 있으면 일이 더 즐거워지는 매력", trait: "harmonious" },
+                    { emoji: "🎈", text: "보는 것만으로도 에너지가 충전되는 존재", trait: "energetic" }
                 ]
             }
         ];
@@ -832,7 +887,9 @@
             reliable: { name: "믿음직한 동반자", desc: "같은 팀이라서 정말 다행인 든든한 존재" },
             inspiring: { name: "영감을 주는 사람", desc: "당신을 보면 저절로 동기부여가 되어요" },
             joyful: { name: "행복 바이러스", desc: "당신의 밝은 에너지가 모두를 웃게 만들어요" },
-            precious: { name: "소중한 보물", desc: "만나서 정말 다행인 특별한 사람" }
+            precious: { name: "소중한 보물", desc: "만나서 정말 다행인 특별한 사람" },
+            enthusiastic: { name: "열정 가득", desc: "항상 긍정적이고 열정적인 에너지를 보여줘요" },
+            caring: { name: "배려의 달인", desc: "언제나 다른 사람을 먼저 생각하는 따뜻한 마음" }
         };
 
         // 격려 메시지
@@ -859,6 +916,16 @@
                     screen.classList.remove('active');
                 });
                 document.getElementById(screenId).classList.add('active');
+            },
+
+            // 배열 섞기 함수 (Fisher-Yates 알고리즘)
+            shuffleArray: (array) => {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
             },
 
             copyToClipboard: async (text) => {
@@ -919,6 +986,20 @@
             showResults: (surveyId, userName) => {
                 Utils.showScreen('resultScreen');
                 ResultManager.displayResults(surveyId, userName);
+            },
+
+            showSurveyComplete: (surveyId) => {
+                Utils.showScreen('surveyCompleteScreen');
+                SurveyCompleteManager.displayComplete(surveyId);
+            },
+
+            viewResults: (userName) => {
+                const surveyId = Utils.generateSurveyId(userName);
+                if (AppState.surveys[surveyId] && AppState.surveys[surveyId].responses.length > 0) {
+                    this.showResults(surveyId, userName);
+                } else {
+                    Utils.showNotification('아직 응답이 없습니다! 😊\n링크를 더 많이 공유해보세요! 🎯');
+                }
             }
         };
 
@@ -939,7 +1020,10 @@
                 questionTitle.innerHTML = question.text;
                 optionsContainer.innerHTML = '';
 
-                question.options.forEach((option, index) => {
+                // 보기 순서를 랜덤하게 섞기
+                const shuffledOptions = Utils.shuffleArray(question.options);
+
+                shuffledOptions.forEach((option, index) => {
                     const optionCard = document.createElement('div');
                     optionCard.className = 'option-card';
                     optionCard.innerHTML = `
@@ -948,14 +1032,14 @@
                             <span class="option-text">${option.text}</span>
                         </div>
                     `;
-                    optionCard.addEventListener('click', () => this.selectOption(index, optionCard));
+                    optionCard.addEventListener('click', () => this.selectOption(option, optionCard));
                     optionsContainer.appendChild(optionCard);
                 });
 
                 this.updateProgress();
             },
 
-            selectOption(index, element) {
+            selectOption(selectedOption, element) {
                 if (AppState.isAnswering) return;
                 
                 AppState.isAnswering = true;
@@ -966,19 +1050,18 @@
                 });
                 element.classList.add('selected');
 
-                // 답변 저장
-                const question = QUESTIONS[AppState.currentQuestionIndex];
-                AppState.answers[AppState.currentQuestionIndex] = question.options[index].trait;
+                // 답변 저장 (선택된 옵션의 trait 저장)
+                AppState.answers[AppState.currentQuestionIndex] = selectedOption.trait;
 
                 // 로딩 화면 표시
                 document.getElementById('loadingScreen').style.display = 'block';
 
-                // 다음 질문으로 진행
+                // 다음 질문으로 진행 (딜레이 시간 단축: 1000ms → 500ms)
                 setTimeout(() => {
                     document.getElementById('loadingScreen').style.display = 'none';
                     this.nextQuestion();
                     AppState.isAnswering = false;
-                }, 1000);
+                }, 500);
             },
 
             nextQuestion() {
@@ -1024,19 +1107,18 @@
                     AppState.surveys[surveyId].traits[trait]++;
                 });
 
-                // 완료 메시지
-                Utils.showNotification(
-                    '🎈 소중한 응원 메시지를 보내주셔서 감사합니다!\n\n' +
-                    '당신의 따뜻한 마음이 누군가에게 큰 힘이 될 거예요 💝\n\n' +
-                    '당신도 동료들에게 나의 모습을 물어보고 싶다면\n' +
-                    '새 창에서 테스트를 시작해보세요! 🌻'
-                );
+                // 설문 완료 화면으로 이동
+                ScreenManager.showSurveyComplete(surveyId);
+            }
+        };
 
-                // 새 창에서 테스트 열기
-                setTimeout(() => {
-                    window.open(window.location.origin + window.location.pathname, '_blank');
-                    window.close();
-                }, 3000);
+        // 설문 완료 관리자
+        const SurveyCompleteManager = {
+            displayComplete: (surveyId) => {
+                const survey = AppState.surveys[surveyId];
+                if (survey) {
+                    document.getElementById('completeTargetName').textContent = survey.name;
+                }
             }
         };
 
@@ -1138,20 +1220,37 @@
                 // URL 생성 (현재 페이지 + 사용자 파라미터)
                 const currentUrl = window.location.origin + window.location.pathname;
                 const shareUrl = `${currentUrl}?user=${encodeURIComponent(userName)}`;
+                const ownerUrl = `${currentUrl}?view=results&user=${encodeURIComponent(userName)}`;
                 
                 // 링크 요소 찾기 및 설정
                 const shareLinkElement = document.getElementById('shareLink');
+                const ownerLinkElement = document.getElementById('ownerLink');
+                
                 if (shareLinkElement) {
                     shareLinkElement.textContent = shareUrl;
-                    // 링크가 설정되었는지 확인
-                    console.log('공유 링크 설정 완료:', shareUrl);
-                } else {
-                    console.error('shareLink 요소를 찾을 수 없습니다.');
+                }
+                
+                if (ownerLinkElement) {
+                    ownerLinkElement.textContent = ownerUrl;
+                    ownerLinkElement.addEventListener('click', async () => {
+                        const success = await Utils.copyToClipboard(ownerUrl);
+                        if (success) {
+                            Utils.showNotification('📊 당사자 전용 링크가 복사되었습니다!\n\n이 링크로 언제든 결과를 확인할 수 있어요! 🔖');
+                        }
+                    });
+                }
+                
+                // 링크가 설정되었는지 확인
+                if (!shareLinkElement) {
                     // 요소가 없으면 다시 시도
                     setTimeout(() => {
                         const retryElement = document.getElementById('shareLink');
+                        const retryOwnerElement = document.getElementById('ownerLink');
                         if (retryElement) {
                             retryElement.textContent = shareUrl;
+                        }
+                        if (retryOwnerElement) {
+                            retryOwnerElement.textContent = ownerUrl;
                         }
                     }, 200);
                 }
@@ -1297,6 +1396,42 @@ ${link}
                 }
             });
 
+            // 설문 완료 화면 이벤트들
+            document.getElementById('viewResultsBtn').addEventListener('click', () => {
+                const surveyId = AppState.currentUser;
+                const survey = AppState.surveys[surveyId];
+                if (survey) {
+                    ScreenManager.showResults(surveyId, survey.name);
+                }
+            });
+
+            document.getElementById('createMyLinkBtn').addEventListener('click', () => {
+                const newUserName = document.getElementById('newUserName').value.trim();
+                
+                if (!newUserName) {
+                    Utils.showNotification('닉네임을 입력해주세요! 😊');
+                    return;
+                }
+                
+                const surveyId = Utils.generateSurveyId(newUserName);
+                AppState.surveys[surveyId] = {
+                    name: newUserName,
+                    responses: [],
+                    traits: {},
+                    createdAt: new Date().toISOString()
+                };
+                AppState.currentUserName = newUserName;
+                
+                ScreenManager.showResults(surveyId, newUserName);
+            });
+
+            document.getElementById('restartBtn').addEventListener('click', () => {
+                if (confirm('새로운 친구를 평가하시겠어요? 🌟')) {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    location.reload();
+                }
+            });
+
             // 새 설문 만들기
             document.getElementById('newSurveyBtn').addEventListener('click', () => {
                 if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
@@ -1344,9 +1479,14 @@ ${link}
 
         // 애플리케이션 초기화
         const initializeApp = () => {
-            const userName = Utils.getUserFromUrl();
+            const urlParams = new URLSearchParams(window.location.search);
+            const userName = urlParams.get('user');
+            const viewType = urlParams.get('view');
             
-            if (userName) {
+            if (userName && viewType === 'results') {
+                // 당사자가 결과를 보려는 경우
+                ScreenManager.viewResults(userName);
+            } else if (userName) {
                 // 설문 참여 모드
                 ScreenManager.showSurvey(userName);
             } else {
