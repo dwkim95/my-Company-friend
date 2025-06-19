@@ -878,6 +878,19 @@
 
             showSurvey: (userName) => {
                 document.getElementById('targetName').innerHTML = `💝 ${decodeURIComponent(userName)} 님`;
+                
+                // 설문 데이터 미리 생성
+                const surveyId = Utils.generateSurveyId(userName);
+                if (!AppState.surveys[surveyId]) {
+                    AppState.surveys[surveyId] = {
+                        name: userName,
+                        responses: [],
+                        traits: {},
+                        createdAt: new Date().toISOString()
+                    };
+                }
+                AppState.currentUser = surveyId;
+                
                 Utils.showScreen('surveyScreen');
                 SurveyManager.startSurvey();
             },
@@ -890,14 +903,14 @@
 
         // 설문 관리자
         const SurveyManager = {
-            startSurvey: () => {
+            startSurvey() {
                 AppState.currentQuestionIndex = 0;
                 AppState.answers = [];
                 AppState.isAnswering = false;
                 this.showCurrentQuestion();
             },
 
-            showCurrentQuestion: () => {
+            showCurrentQuestion() {
                 const question = QUESTIONS[AppState.currentQuestionIndex];
                 const questionTitle = document.getElementById('questionTitle');
                 const optionsContainer = document.getElementById('optionsContainer');
@@ -921,7 +934,7 @@
                 this.updateProgress();
             },
 
-            selectOption: (index, element) => {
+            selectOption(index, element) {
                 if (AppState.isAnswering) return;
                 
                 AppState.isAnswering = true;
@@ -947,7 +960,7 @@
                 }, 1000);
             },
 
-            nextQuestion: () => {
+            nextQuestion() {
                 AppState.currentQuestionIndex++;
                 
                 if (AppState.currentQuestionIndex < QUESTIONS.length) {
@@ -957,13 +970,13 @@
                 }
             },
 
-            updateProgress: () => {
+            updateProgress() {
                 const progress = ((AppState.currentQuestionIndex + 1) / QUESTIONS.length) * 100;
                 document.getElementById('progressFill').style.width = `${progress}%`;
                 document.getElementById('progressText').textContent = `${AppState.currentQuestionIndex + 1}/${QUESTIONS.length} 질문`;
             },
 
-            submitSurvey: () => {
+            submitSurvey() {
                 const surveyId = AppState.currentUser;
                 
                 // 설문이 없으면 생성
@@ -1123,7 +1136,8 @@
 
             // 카카오톡 공유
             document.getElementById('kakaoShareBtn').addEventListener('click', () => {
-                const userName = document.querySelector('.stat-label').textContent;
+                const userNameElement = document.querySelector('#resultStats .stat-label');
+                const userName = userNameElement ? userNameElement.textContent : '익명';
                 const link = document.getElementById('shareLink').textContent;
                 
                 const shareText = `🌻 동료들이 보는 나의 진짜 모습 테스트
@@ -1188,8 +1202,6 @@ ${link}
             
             if (userName) {
                 // 설문 참여 모드
-                const surveyId = Utils.generateSurveyId(userName);
-                AppState.currentUser = surveyId;
                 ScreenManager.showSurvey(userName);
             } else {
                 // 설문 생성 모드
@@ -1202,83 +1214,6 @@ ${link}
             setupEventListeners();
             initializeApp();
         });
-
-        // SurveyManager 메서드 바인딩 수정
-        Object.setPrototypeOf(SurveyManager, {
-            showCurrentQuestion() {
-                const question = QUESTIONS[AppState.currentQuestionIndex];
-                const questionTitle = document.getElementById('questionTitle');
-                const optionsContainer = document.getElementById('optionsContainer');
-                
-                questionTitle.innerHTML = question.text;
-                optionsContainer.innerHTML = '';
-
-                question.options.forEach((option, index) => {
-                    const optionCard = document.createElement('div');
-                    optionCard.className = 'option-card';
-                    optionCard.innerHTML = `
-                        <div class="option-content">
-                            <span class="option-emoji">${option.emoji}</span>
-                            <span class="option-text">${option.text}</span>
-                        </div>
-                    `;
-                    optionCard.addEventListener('click', () => SurveyManager.selectOption(index, optionCard));
-                    optionsContainer.appendChild(optionCard);
-                });
-
-                SurveyManager.updateProgress();
-            },
-
-            selectOption(index, element) {
-                if (AppState.isAnswering) return;
-                
-                AppState.isAnswering = true;
-                
-                // 시각적 피드백
-                document.querySelectorAll('.option-card').forEach(card => {
-                    card.classList.remove('selected');
-                });
-                element.classList.add('selected');
-
-                // 답변 저장
-                const question = QUESTIONS[AppState.currentQuestionIndex];
-                AppState.answers[AppState.currentQuestionIndex] = question.options[index].trait;
-
-                // 로딩 화면 표시
-                document.getElementById('loadingScreen').style.display = 'block';
-
-                // 다음 질문으로 진행
-                setTimeout(() => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                    SurveyManager.nextQuestion();
-                    AppState.isAnswering = false;
-                }, 1000);
-            },
-
-            nextQuestion() {
-                AppState.currentQuestionIndex++;
-                
-                if (AppState.currentQuestionIndex < QUESTIONS.length) {
-                    SurveyManager.showCurrentQuestion();
-                } else {
-                    SurveyManager.submitSurvey();
-                }
-            },
-
-            updateProgress() {
-                const progress = ((AppState.currentQuestionIndex + 1) / QUESTIONS.length) * 100;
-                document.getElementById('progressFill').style.width = `${progress}%`;
-                document.getElementById('progressText').textContent = `${AppState.currentQuestionIndex + 1}/${QUESTIONS.length} 질문`;
-            }
-        });
-
-        // startSurvey 메서드 수정
-        SurveyManager.startSurvey = function() {
-            AppState.currentQuestionIndex = 0;
-            AppState.answers = [];
-            AppState.isAnswering = false;
-            SurveyManager.showCurrentQuestion();
-        };
     </script>
 </body>
 </html>
