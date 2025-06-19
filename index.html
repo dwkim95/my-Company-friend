@@ -2,8 +2,52 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💝 동료들이 보는 나의 진짜 모습</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <meta name="description" content="친구들이 바라보는 나의 진짜 모습을 발견해보세요. 따뜻하고 재미있는 성향 분석 테스트로 소중한 관계를 더욱 깊게 이해할 수 있습니다.">
+    <meta name="keywords" content="친구테스트, 성향분석, 인간관계, 심리테스트, 성격테스트, 친구들이보는나">
+    <meta name="author" content="친구들이 보는 나">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph 메타 태그 (소셜 미디어 공유용) -->
+    <meta property="og:title" content="친구들이 보는 나의 진짜 모습">
+    <meta property="og:description" content="친구들의 시선으로 발견하는 나의 숨겨진 매력과 특별한 모습들">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:site_name" content="친구들이 보는 나">
+    <meta property="og:locale" content="ko_KR">
+    
+    <!-- Twitter Card 메타 태그 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="친구들이 보는 나의 진짜 모습">
+    <meta name="twitter:description" content="친구들의 시선으로 발견하는 나의 숨겨진 매력과 특별한 모습들">
+    <meta name="twitter:image" content="">
+    
+    <!-- 모바일 최적화 -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="친구들이 보는 나">
+    
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💝</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💝</text></svg>">
+    
+    <!-- 웹 폰트 최적화 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- CSS 최적화 -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap"></noscript>
+    
+    <!-- 보안 및 성능 -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
+    <title>친구들이 보는 나의 진짜 모습 | 성향 분석 테스트</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap');
         
@@ -700,8 +744,44 @@
             font-size: 1rem;
         }
 
-        /* 반응형 */
+        /* 반응형 디자인 완성 */
         @media (max-width: 640px) {
+            .app-container {
+                margin: 0.5rem;
+                border-radius: 16px;
+            }
+
+            .app-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .app-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .app-title {
+                font-size: 1.5rem;
+            }
+
+            .result-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .trait-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .trait-percentage {
+                margin-left: 0;
+                align-self: flex-end;
+            }
+
             .detailed-report {
                 padding: 1.5rem;
             }
@@ -722,6 +802,141 @@
 
             .trait-percentage-detailed {
                 align-self: flex-end;
+            }
+
+            .personality-summary {
+                padding: 1.5rem;
+            }
+
+            .summary-title {
+                font-size: 1.1rem;
+            }
+
+            .trait-item-detailed {
+                padding: 1.25rem;
+            }
+
+            .closing-message {
+                padding: 1.5rem;
+            }
+
+            .question-title {
+                font-size: 1.1rem;
+            }
+
+            .option-card {
+                padding: 0.875rem;
+            }
+
+            .option-emoji {
+                font-size: 1.25rem;
+            }
+
+            .participant-counter {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                margin: 0.25rem;
+            }
+
+            .app-title {
+                font-size: 1.3rem;
+            }
+
+            .report-title {
+                font-size: 1.3rem;
+            }
+
+            .summary-title, .analysis-title {
+                font-size: 1rem;
+            }
+
+            .trait-name-detailed {
+                font-size: 1rem;
+            }
+
+            .encouragement-card h3 {
+                font-size: 1rem;
+            }
+
+            .form-input {
+                padding: 0.875rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.25rem;
+            }
+        }
+
+        /* 접근성 개선 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .app-container {
+                background: rgba(30, 30, 30, 0.97);
+                color: #f3f4f6;
+            }
+
+            .result-card, .detailed-report {
+                background: #1f2937;
+                color: #f3f4f6;
+            }
+
+            .form-input {
+                background: #374151;
+                color: #f3f4f6;
+                border-color: #4b5563;
+            }
+
+            .encouragement-card {
+                background: linear-gradient(135deg, #1f2937, #374151);
+                color: #f3f4f6;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* 로딩 상태 개선 */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        /* 스크롤 최적화 */
+        .app-container {
+            scroll-behavior: smooth;
+        }
+
+        /* 터치 최적화 */
+        .option-card, .btn, .share-btn {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        /* 고해상도 디스플레이 최적화 */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .app-header {
+                background-image: linear-gradient(135deg, var(--primary), var(--secondary));
             }
         }
 
@@ -1097,26 +1312,58 @@
             "🎯 이런 평가를 받는다는 건<br>당신이 얼마나 멋진 사람인지 보여주는 거예요! 🏆"
         ];
 
-        // 유틸리티 함수들
+        // 유틸리티 함수들 (성능 최적화 및 에러 처리 강화)
         const Utils = {
             generateSurveyId: (userName) => {
-                return btoa(encodeURIComponent(userName)).replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+                try {
+                    if (!userName || typeof userName !== 'string') {
+                        throw new Error('유효하지 않은 사용자명입니다.');
+                    }
+                    const cleanName = userName.trim().slice(0, 50); // 길이 제한
+                    return btoa(encodeURIComponent(cleanName)).replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+                } catch (error) {
+                    console.error('설문 ID 생성 오류:', error);
+                    return btoa(encodeURIComponent('anonymous')).replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+                }
             },
 
             getUserFromUrl: () => {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('user');
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const user = urlParams.get('user');
+                    return user ? decodeURIComponent(user) : null;
+                } catch (error) {
+                    console.error('URL 파라미터 파싱 오류:', error);
+                    return null;
+                }
             },
 
             showScreen: (screenId) => {
-                document.querySelectorAll('.screen').forEach(screen => {
-                    screen.classList.remove('active');
-                });
-                document.getElementById(screenId).classList.add('active');
+                try {
+                    // 모든 화면 숨기기
+                    document.querySelectorAll('.screen').forEach(screen => {
+                        screen.classList.remove('active');
+                    });
+                    
+                    // 요청된 화면 표시
+                    const targetScreen = document.getElementById(screenId);
+                    if (targetScreen) {
+                        targetScreen.classList.add('active');
+                        // 스크롤을 맨 위로
+                        setTimeout(() => {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }, 100);
+                    } else {
+                        console.error('화면을 찾을 수 없습니다:', screenId);
+                    }
+                } catch (error) {
+                    console.error('화면 전환 오류:', error);
+                }
             },
 
-            // 배열 섞기 함수 (Fisher-Yates 알고리즘)
+            // 배열 섞기 함수 (Fisher-Yates 알고리즘) - 성능 최적화
             shuffleArray: (array) => {
+                if (!Array.isArray(array)) return [];
                 const shuffled = [...array];
                 for (let i = shuffled.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -1126,6 +1373,11 @@
             },
 
             copyToClipboard: async (text) => {
+                if (!text || typeof text !== 'string') {
+                    console.error('복사할 텍스트가 유효하지 않습니다.');
+                    return false;
+                }
+
                 try {
                     // 현대적인 Clipboard API 시도
                     if (navigator.clipboard && window.isSecureContext) {
@@ -1138,20 +1390,62 @@
                         textArea.style.position = 'fixed';
                         textArea.style.left = '-999999px';
                         textArea.style.top = '-999999px';
+                        textArea.style.opacity = '0';
                         document.body.appendChild(textArea);
                         textArea.focus();
                         textArea.select();
+                        
                         const result = document.execCommand('copy');
                         document.body.removeChild(textArea);
                         return result;
                     }
                 } catch (err) {
+                    console.error('클립보드 복사 실패:', err);
                     return false;
                 }
             },
 
             showNotification: (message) => {
-                alert(message);
+                if (!message) return;
+                
+                try {
+                    // 모바일에서 더 나은 알림을 위한 처리
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate(100);
+                    }
+                    alert(message);
+                } catch (error) {
+                    console.error('알림 표시 오류:', error);
+                }
+            },
+
+            // 데이터 검증 유틸리티
+            validateSurveyData: (survey) => {
+                return survey && 
+                       typeof survey === 'object' && 
+                       survey.name && 
+                       Array.isArray(survey.responses) && 
+                       typeof survey.traits === 'object';
+            },
+
+            // 안전한 DOM 요소 접근
+            safeGetElement: (id) => {
+                try {
+                    return document.getElementById(id);
+                } catch (error) {
+                    console.error(`요소를 찾을 수 없습니다: ${id}`, error);
+                    return null;
+                }
+            },
+
+            // 메모리 정리
+            cleanup: () => {
+                try {
+                    // 이벤트 리스너 정리 (필요시)
+                    window.removeEventListener('beforeunload', AppState.beforeUnloadHandler);
+                } catch (error) {
+                    console.error('정리 작업 오류:', error);
+                }
             }
         };
 
@@ -1202,112 +1496,182 @@
             }
         };
 
-        // 설문 관리자
+        // 설문 관리자 (에러 처리 및 성능 최적화)
         const SurveyManager = {
             startSurvey() {
-                AppState.currentQuestionIndex = 0;
-                AppState.answers = [];
-                AppState.isAnswering = false;
-                this.showCurrentQuestion();
+                try {
+                    AppState.currentQuestionIndex = 0;
+                    AppState.answers = [];
+                    AppState.isAnswering = false;
+                    this.showCurrentQuestion();
+                } catch (error) {
+                    console.error('설문 시작 오류:', error);
+                    Utils.showNotification('설문을 시작하는 중 오류가 발생했습니다.');
+                }
             },
 
             showCurrentQuestion() {
-                const question = QUESTIONS[AppState.currentQuestionIndex];
-                const questionTitle = document.getElementById('questionTitle');
-                const optionsContainer = document.getElementById('optionsContainer');
-                
-                questionTitle.innerHTML = question.text;
-                optionsContainer.innerHTML = '';
+                try {
+                    if (AppState.currentQuestionIndex >= QUESTIONS.length) {
+                        console.error('잘못된 질문 인덱스:', AppState.currentQuestionIndex);
+                        return;
+                    }
 
-                // 보기 순서를 랜덤하게 섞기
-                const shuffledOptions = Utils.shuffleArray(question.options);
+                    const question = QUESTIONS[AppState.currentQuestionIndex];
+                    const questionTitle = Utils.safeGetElement('questionTitle');
+                    const optionsContainer = Utils.safeGetElement('optionsContainer');
+                    
+                    if (!questionTitle || !optionsContainer) {
+                        console.error('필수 DOM 요소를 찾을 수 없습니다.');
+                        return;
+                    }
 
-                shuffledOptions.forEach((option, index) => {
-                    const optionCard = document.createElement('div');
-                    optionCard.className = 'option-card';
-                    optionCard.innerHTML = `
-                        <div class="option-content">
-                            <span class="option-emoji">${option.emoji}</span>
-                            <span class="option-text">${option.text}</span>
-                        </div>
-                    `;
-                    optionCard.addEventListener('click', () => this.selectOption(option, optionCard));
-                    optionsContainer.appendChild(optionCard);
-                });
+                    questionTitle.innerHTML = question.text;
+                    optionsContainer.innerHTML = '';
 
-                this.updateProgress();
+                    // 보기 순서를 랜덤하게 섞기
+                    const shuffledOptions = Utils.shuffleArray(question.options);
+
+                    // DocumentFragment 사용으로 성능 최적화
+                    const fragment = document.createDocumentFragment();
+
+                    shuffledOptions.forEach((option) => {
+                        const optionCard = document.createElement('div');
+                        optionCard.className = 'option-card';
+                        optionCard.innerHTML = `
+                            <div class="option-content">
+                                <span class="option-emoji">${option.emoji}</span>
+                                <span class="option-text">${option.text}</span>
+                            </div>
+                        `;
+                        optionCard.addEventListener('click', () => this.selectOption(option, optionCard), { once: true });
+                        fragment.appendChild(optionCard);
+                    });
+
+                    optionsContainer.appendChild(fragment);
+                    this.updateProgress();
+                } catch (error) {
+                    console.error('질문 표시 오류:', error);
+                    Utils.showNotification('질문을 표시하는 중 오류가 발생했습니다.');
+                }
             },
 
             selectOption(selectedOption, element) {
-                if (AppState.isAnswering) return;
+                if (AppState.isAnswering || !selectedOption || !element) return;
                 
-                AppState.isAnswering = true;
-                
-                // 시각적 피드백
-                document.querySelectorAll('.option-card').forEach(card => {
-                    card.classList.remove('selected');
-                });
-                element.classList.add('selected');
+                try {
+                    AppState.isAnswering = true;
+                    
+                    // 시각적 피드백
+                    document.querySelectorAll('.option-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    element.classList.add('selected');
 
-                // 답변 저장 (선택된 옵션의 trait 저장)
-                AppState.answers[AppState.currentQuestionIndex] = selectedOption.trait;
+                    // 답변 저장 (선택된 옵션의 trait 저장)
+                    AppState.answers[AppState.currentQuestionIndex] = selectedOption.trait;
 
-                // 로딩 화면 표시
-                document.getElementById('loadingScreen').style.display = 'block';
+                    // 로딩 화면 표시
+                    const loadingScreen = Utils.safeGetElement('loadingScreen');
+                    if (loadingScreen) {
+                        loadingScreen.style.display = 'block';
+                    }
 
-                // 다음 질문으로 진행 (딜레이 시간 단축: 1000ms → 500ms)
-                setTimeout(() => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                    this.nextQuestion();
+                    // 다음 질문으로 진행 (딜레이 시간 단축: 500ms)
+                    setTimeout(() => {
+                        if (loadingScreen) {
+                            loadingScreen.style.display = 'none';
+                        }
+                        this.nextQuestion();
+                        AppState.isAnswering = false;
+                    }, 500);
+                } catch (error) {
+                    console.error('옵션 선택 오류:', error);
                     AppState.isAnswering = false;
-                }, 500);
+                    Utils.showNotification('답변 처리 중 오류가 발생했습니다.');
+                }
             },
 
             nextQuestion() {
-                AppState.currentQuestionIndex++;
-                
-                if (AppState.currentQuestionIndex < QUESTIONS.length) {
-                    this.showCurrentQuestion();
-                } else {
-                    this.submitSurvey();
+                try {
+                    AppState.currentQuestionIndex++;
+                    
+                    if (AppState.currentQuestionIndex < QUESTIONS.length) {
+                        this.showCurrentQuestion();
+                    } else {
+                        this.submitSurvey();
+                    }
+                } catch (error) {
+                    console.error('다음 질문 진행 오류:', error);
+                    Utils.showNotification('설문 진행 중 오류가 발생했습니다.');
                 }
             },
 
             updateProgress() {
-                const progress = ((AppState.currentQuestionIndex + 1) / QUESTIONS.length) * 100;
-                document.getElementById('progressFill').style.width = `${progress}%`;
-                document.getElementById('progressText').textContent = `${AppState.currentQuestionIndex + 1}/${QUESTIONS.length} 질문`;
+                try {
+                    const progress = ((AppState.currentQuestionIndex + 1) / QUESTIONS.length) * 100;
+                    const progressFill = Utils.safeGetElement('progressFill');
+                    const progressText = Utils.safeGetElement('progressText');
+                    
+                    if (progressFill) {
+                        progressFill.style.width = `${progress}%`;
+                    }
+                    if (progressText) {
+                        progressText.textContent = `${AppState.currentQuestionIndex + 1}/${QUESTIONS.length} 질문`;
+                    }
+                } catch (error) {
+                    console.error('진행률 업데이트 오류:', error);
+                }
             },
 
             submitSurvey() {
-                const surveyId = AppState.currentUser;
-                
-                // 설문이 없으면 생성
-                if (!AppState.surveys[surveyId]) {
-                    AppState.surveys[surveyId] = {
-                        name: Utils.getUserFromUrl(),
-                        responses: [],
-                        traits: {},
-                        createdAt: new Date().toISOString()
-                    };
-                }
-
-                // 응답 저장
-                AppState.surveys[surveyId].responses.push({
-                    answers: AppState.answers,
-                    timestamp: new Date().toISOString()
-                });
-
-                // 특성별 집계
-                AppState.answers.forEach(trait => {
-                    if (!AppState.surveys[surveyId].traits[trait]) {
-                        AppState.surveys[surveyId].traits[trait] = 0;
+                try {
+                    const surveyId = AppState.currentUser;
+                    
+                    if (!surveyId) {
+                        console.error('설문 ID가 없습니다.');
+                        Utils.showNotification('설문 정보를 찾을 수 없습니다.');
+                        return;
                     }
-                    AppState.surveys[surveyId].traits[trait]++;
-                });
 
-                // 설문 완료 화면으로 이동
-                ScreenManager.showSurveyComplete(surveyId);
+                    // 설문이 없으면 생성
+                    if (!AppState.surveys[surveyId]) {
+                        const userName = Utils.getUserFromUrl();
+                        if (!userName) {
+                            console.error('사용자 이름을 찾을 수 없습니다.');
+                            return;
+                        }
+                        
+                        AppState.surveys[surveyId] = {
+                            name: userName,
+                            responses: [],
+                            traits: {},
+                            createdAt: new Date().toISOString()
+                        };
+                    }
+
+                    // 응답 저장
+                    AppState.surveys[surveyId].responses.push({
+                        answers: [...AppState.answers], // 배열 복사
+                        timestamp: new Date().toISOString()
+                    });
+
+                    // 특성별 집계
+                    AppState.answers.forEach(trait => {
+                        if (trait && typeof trait === 'string') {
+                            if (!AppState.surveys[surveyId].traits[trait]) {
+                                AppState.surveys[surveyId].traits[trait] = 0;
+                            }
+                            AppState.surveys[surveyId].traits[trait]++;
+                        }
+                    });
+
+                    // 설문 완료 화면으로 이동
+                    ScreenManager.showSurveyComplete(surveyId);
+                } catch (error) {
+                    console.error('설문 제출 오류:', error);
+                    Utils.showNotification('설문 제출 중 오류가 발생했습니다.');
+                }
             }
         };
 
@@ -1465,7 +1829,38 @@
                     organized: `${userName}님은 완벽한 계획과 체계로 모든 것을 성공으로 이끄는 기획의 마에스트로입니다. 빈틈없는 준비와 세심한 배려로 신뢰를 쌓아가는 분이에요.`,
                     creative: `${userName}님은 세상을 새로운 시각으로 바라보는 창의적 사고의 개척자입니다. 평범한 일상에서도 특별한 아이디어를 발견해내는 혁신가의 DNA를 가지고 있어요.`,
                     harmonious: `${userName}님은 서로 다른 마음들을 하나로 묶는 관계의 마에스트로입니다. 갈등과 대립을 조화롭게 해결하며, 모두가 함께 웃을 수 있는 분위기를 만드는 분이에요.`,
-                    trustworthy: `${userName}님은 약속과 신뢰를 생명처럼 소중히 여기는 믿음의 기둥입니다. 어떤 상황에서도 흔들리지 않는 일관성으로 주변 사람들에게 안정감을 주는 존재예요.`
+                    easygoing: `${userName}님은 자유로운 영혼으로 어떤 상황에도 유연하게 적응하는 분입니다. 경직되지 않는 마음가짐으로 주변 사람들에게 편안함을 선사하는 특별한 매력을 가지고 있어요.`,
+                    artistic: `${userName}님은 일상 속에서도 아름다움을 발견하고 창조하는 예술가적 감성의 소유자입니다. 손길이 닿는 모든 것을 특별하게 만드는 창조적 재능을 가지고 있어요.`,
+                    social: `${userName}님은 사람들을 연결하고 모으는 천재적인 사회적 능력을 가진 커넥터입니다. 자연스럽게 관계의 중심이 되어 모두를 하나로 만드는 특별한 힘을 가지고 있어요.`,
+                    attentive: `${userName}님은 상대방의 작은 부분까지 세심하게 배려하는 관찰의 달인입니다. 남들이 놓치는 디테일까지 챙기는 따뜻한 마음씨로 모두에게 깊은 감동을 주는 분이에요.`,
+                    entertaining: `${userName}님은 평범한 일상을 특별한 이벤트로 바꾸는 재미의 연출가입니다. 창의적인 아이디어와 유쾌한 에너지로 모든 순간을 즐거움으로 물들이는 마법사예요.`,
+                    generous: `${userName}님은 자신의 것을 나누는 일에 주저하지 않는 너그러운 마음의 소유자입니다. 진정한 나눔의 의미를 실천으로 보여주며 모두에게 온기를 전하는 분이에요.`,
+                    practical: `${userName}님은 어떤 문제든 현실적이고 효과적인 해결책을 찾아내는 문제 해결사입니다. 탁월한 판단력과 실행력으로 모든 상황을 슬기롭게 헤쳐나가는 능력자예요.`,
+                    optimistic: `${userName}님은 어떤 상황도 밝게 바라보며 주변에 희망을 전파하는 긍정 에너지의 원천입니다. 불가능해 보이는 일도 가능하게 만드는 믿음의 힘을 가지고 있어요.`,
+                    reliable: `${userName}님은 약속과 신뢰를 생명처럼 소중히 여기는 믿음의 기둥입니다. 어떤 상황에서도 흔들리지 않는 일관성으로 주변 사람들에게 안정감을 주는 존재예요.`,
+                    supportive: `${userName}님은 다른 사람의 도전과 성장을 응원하고 지지하는 든든한 서포터입니다. 조건 없는 격려와 응원으로 주변 사람들이 더 높이 날 수 있도록 도와주는 분이에요.`,
+                    wise: `${userName}님은 깊은 통찰력으로 상황을 분석하고 현명한 판단을 내리는 지혜의 보고입니다. 인생의 경험과 성찰이 만들어낸 깊이 있는 조언으로 많은 이들에게 길잡이가 되는 분이에요.`,
+                    adventurous: `${userName}님은 새로운 도전을 두려워하지 않고 변화를 즐기는 모험가 정신의 소유자입니다. 용기 있는 첫 걸음으로 새로운 가능성을 열어가는 개척자의 마음을 가지고 있어요.`,
+                    helpful: `${userName}님은 필요한 정보와 도움을 언제나 제공할 준비가 되어있는 지식 공유자입니다. 자신의 경험과 지식을 아낌없이 나누며 모두의 성장에 기여하는 소중한 존재예요.`,
+                    cheerful: `${userName}님은 어떤 순간도 즐겁게 만드는 타고난 분위기 메이커입니다. 밝고 유쾌한 에너지로 주변을 환하게 밝히며 모든 이의 하루를 특별하게 만드는 햇살 같은 분이에요.`,
+                    positive: `${userName}님은 밝고 긍정적인 시각으로 세상을 바라보는 햇살 같은 존재입니다. 어려운 상황에서도 희망을 잃지 않는 강인한 마음으로 모두에게 용기를 주는 분이에요.`,
+                    caring: `${userName}님은 다른 사람을 돌보고 배려하는 일을 자연스럽게 하는 따뜻한 마음의 소유자입니다. 작은 관심과 세심한 배려로 주변 사람들의 마음을 따뜻하게 어루만지는 분이에요.`,
+                    philosophical: `${userName}님은 삶의 본질적 가치를 중시하고 의미 있는 관점을 제시하는 철학자적 사고의 소유자입니다. 깊이 있는 성찰과 지혜로운 시각으로 인생의 진정한 의미를 탐구하는 분이에요.`,
+                    devoted: `${userName}님은 소중한 사람을 위해서라면 모든 것을 아끼지 않는 헌신적인 마음의 소유자입니다. 진정한 사랑과 우정이 무엇인지를 행동으로 보여주는 충실한 벗이에요.`,
+                    affectionate: `${userName}님은 마음을 표현하고 전달하는 일에 특별한 재능을 가진 감정 전달자입니다. 진심어린 애정과 따뜻한 표현으로 관계의 깊이를 더해가는 소중한 존재예요.`,
+                    therapeutic: `${userName}님은 자연스럽고 치유적인 방법으로 마음의 상처를 돌보는 마음의 의사입니다. 특별한 기술이 아닌 진심어린 관심과 따뜻함으로 치유의 힘을 발휘하는 분이에요.`,
+                    uplifting: `${userName}님은 자연스럽게 상대방의 기분을 좋게 만드는 정신적 에너지 충전기입니다. 긍정적인 바이브와 격려의 말로 모든 이의 마음을 밝게 만드는 특별한 능력을 가지고 있어요.`,
+                    responsive: `${userName}님은 빠르고 정확한 소통으로 관계를 원활하게 만드는 대화의 전문가입니다. 상대방의 말에 진심으로 귀 기울이고 적절한 반응을 보이는 소통의 달인이에요.`,
+                    witty: `${userName}님은 절묘한 타이밍과 센스로 모든 상황을 재미있게 만드는 유머 큐레이터입니다. 지적이면서도 재치있는 표현으로 모든 순간을 특별하게 만드는 매력적인 분이에요.`,
+                    informative: `${userName}님은 체계적이고 유용한 정보로 모두의 생활을 편리하게 만드는 정보 전문가입니다. 필요한 정보를 정확하고 이해하기 쉽게 전달하는 소통의 프로페셔널이에요.`,
+                    gentle: `${userName}님은 부드럽고 따뜻한 말 한마디로 깊은 감동을 주는 마음의 터치 마스터입니다. 조용하지만 강력한 영향력으로 모든 이의 마음에 평안을 선사하는 특별한 분이에요.`,
+                    mediator: `${userName}님은 갈등과 대립을 조화롭게 해결하는 관계 조정의 전문가입니다. 모든 입장을 공정하게 바라보며 평화로운 해결책을 찾아내는 외교관적 재능을 가지고 있어요.`,
+                    understanding: `${userName}님은 모든 입장을 이해하고 공감하는 뛰어난 정서적 지능의 소유자입니다. 편견 없는 열린 마음으로 모든 이의 이야기를 따뜻하게 받아들이는 포용력의 대가예요.`,
+                    peaceful: `${userName}님은 자연스럽게 평화로운 분위기를 만들어내는 안정감의 제공자입니다. 내면의 고요함과 평온함으로 주변 모든 이의 마음을 차분하게 만드는 힐링의 존재예요.`,
+                    nurturing: `${userName}님은 다른 사람의 성장과 발전을 세심하게 돌보고 키워주는 마음의 정원사입니다. 인내심과 사랑으로 모든 이의 잠재력이 꽃필 수 있도록 도와주는 성장의 동반자예요.`,
+                    joyful: `${userName}님은 주변 모든 사람에게 기쁨과 즐거움을 전파하는 행복의 전도사입니다. 순수한 기쁨과 밝은 에너지로 모든 순간을 축제처럼 만드는 기쁨의 화신이에요.`,
+                    inspiring: `${userName}님은 다른 사람에게 영감과 동기를 불러일으키는 삶의 멘토입니다. 자신의 삶으로 가능성을 증명하며 모든 이에게 희망과 용기를 선사하는 영감의 원천이에요.`,
+                    trustworthy: `${userName}님은 절대적인 신뢰와 믿음을 바탕으로 한 관계의 기반을 만드는 사람입니다. 일관성 있는 행동과 진실한 마음으로 모든 이에게 안전한 관계의 안식처가 되어주는 분이에요.`
                 };
                 
                 const mainTrait = traits[0][0];
@@ -1481,7 +1876,38 @@
                     organized: "체계적이고 완벽한 계획으로 목표를 달성하며, 주변 사람들에게 안정감을 주는 분입니다.",
                     creative: "독창적이고 혁신적인 아이디어로 새로운 가치를 창조하는 창의적 사고의 소유자입니다.",
                     harmonious: "갈등을 조화롭게 해결하고 모든 사람이 함께할 수 있는 분위기를 만드는 능력이 뛰어납니다.",
-                    trustworthy: "일관성 있는 행동과 약속 이행으로 주변 사람들에게 절대적인 신뢰를 받는 분입니다."
+                    easygoing: "어떤 상황에도 유연하게 적응하며, 자연스러운 매력으로 주변을 편안하게 만드는 분입니다.",
+                    artistic: "미적 감각과 창조적 능력으로 일상에 아름다움을 더하는 예술가적 재능을 가지고 있습니다.",
+                    social: "사람들을 자연스럽게 연결하고 모으는 뛰어난 사회적 능력과 친화력을 가진 분입니다.",
+                    attentive: "상대방의 작은 부분까지 세심하게 관찰하고 배려하는 섬세한 마음씨를 가지고 있습니다.",
+                    entertaining: "창의적인 아이디어로 평범한 순간을 특별하게 만드는 엔터테인먼트 감각이 뛰어난 분입니다.",
+                    generous: "자신의 것을 아낌없이 나누며, 베푸는 일에 기쁨을 느끼는 너그러운 마음을 가지고 있습니다.",
+                    practical: "현실적이고 효율적인 해결책을 찾아내는 뛰어난 문제 해결 능력을 가진 분입니다.",
+                    optimistic: "어떤 상황에서도 긍정적인 면을 찾아내며, 희망과 용기를 잃지 않는 강한 정신력을 가지고 있습니다.",
+                    reliable: "약속과 책임을 소중히 여기며, 일관성 있는 행동으로 신뢰를 쌓아가는 분입니다.",
+                    supportive: "다른 사람의 성장과 성공을 진심으로 응원하며, 든든한 지지를 보내는 마음이 따뜻한 분입니다.",
+                    wise: "깊은 경험과 성찰을 바탕으로 현명한 조언과 통찰력을 제공하는 지혜로운 분입니다.",
+                    adventurous: "새로운 도전을 두려워하지 않으며, 변화와 모험을 즐기는 용기 있는 마음을 가지고 있습니다.",
+                    helpful: "필요한 정보와 도움을 아낌없이 제공하며, 다른 사람의 성장에 기여하고 싶어하는 분입니다.",
+                    cheerful: "밝고 유쾌한 에너지로 주변 분위기를 즐겁게 만드는 천성적인 분위기 메이커입니다.",
+                    positive: "긍정적인 시각으로 세상을 바라보며, 밝은 에너지를 전파하는 햇살 같은 존재입니다.",
+                    caring: "다른 사람을 진심으로 돌보고 배려하는 일을 자연스럽게 하는 따뜻한 마음의 소유자입니다.",
+                    philosophical: "삶의 깊은 의미를 탐구하며, 본질적 가치를 중시하는 철학적 사고를 가진 분입니다.",
+                    devoted: "소중한 사람과 가치를 위해 헌신하며, 진실한 마음으로 관계를 소중히 여기는 분입니다.",
+                    affectionate: "감정을 따뜻하게 표현하며, 애정 어린 관심으로 관계의 깊이를 더해가는 분입니다.",
+                    therapeutic: "자연스러운 치유의 능력으로 상처받은 마음을 돌보고 위로해주는 힐링의 존재입니다.",
+                    uplifting: "긍정적인 영향력으로 다른 사람의 기분과 에너지를 끌어올리는 특별한 능력을 가지고 있습니다.",
+                    responsive: "소통에 적극적이며, 상대방의 말에 진심으로 반응하고 공감하는 대화의 달인입니다.",
+                    witty: "지적이고 재치있는 유머로 모든 상황을 즐겁게 만드는 센스와 재치의 소유자입니다.",
+                    informative: "유용하고 정확한 정보를 체계적으로 정리하여 전달하는 소통 능력이 뛰어난 분입니다.",
+                    gentle: "부드럽고 따뜻한 마음으로 상대방에게 안정감과 평안함을 선사하는 온화한 성품을 가지고 있습니다.",
+                    mediator: "서로 다른 의견을 조율하고 갈등을 평화롭게 해결하는 뛰어난 중재 능력을 가진 분입니다.",
+                    understanding: "다양한 관점을 이해하고 받아들이는 넓은 포용력과 공감 능력을 가진 분입니다.",
+                    peaceful: "내면의 평온함으로 주변에 안정감을 주며, 조화로운 분위기를 만드는 평화로운 존재입니다.",
+                    nurturing: "다른 사람의 성장과 발전을 세심하게 도우며, 잠재력을 키워주는 따뜻한 돌봄의 마음을 가지고 있습니다.",
+                    joyful: "순수한 기쁨과 즐거움을 나누며, 주변 모든 이의 하루를 밝게 만드는 행복의 전령입니다.",
+                    inspiring: "자신의 삶과 행동으로 다른 사람에게 영감과 동기를 주는 삶의 멘토이자 롤모델입니다.",
+                    trustworthy: "진실하고 일관된 행동으로 절대적인 신뢰를 쌓아가며, 관계의 든든한 기반이 되는 분입니다."
                 };
                 
                 return meanings[trait] || "독특하고 매력적인 성향으로 주변 사람들에게 긍정적인 영향을 주는 분입니다.";
@@ -1762,29 +2188,118 @@ ${link}
             });
         };
 
-        // 애플리케이션 초기화
+        // 애플리케이션 초기화 (안전성 및 성능 최적화)
         const initializeApp = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userName = urlParams.get('user');
-            const viewType = urlParams.get('view');
-            
-            if (userName && viewType === 'results') {
-                // 당사자가 결과를 보려는 경우
-                ScreenManager.viewResults(userName);
-            } else if (userName) {
-                // 설문 참여 모드
-                ScreenManager.showSurvey(userName);
-            } else {
-                // 설문 생성 모드
-                ScreenManager.showSetup();
+            try {
+                if (AppState.initialized) {
+                    console.warn('애플리케이션이 이미 초기화되었습니다.');
+                    return;
+                }
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const userName = urlParams.get('user');
+                const viewType = urlParams.get('view');
+                
+                if (userName && viewType === 'results') {
+                    // 당사자가 결과를 보려는 경우
+                    try {
+                        const decodedUserName = decodeURIComponent(userName);
+                        if (decodedUserName && decodedUserName.length <= 50) {
+                            ScreenManager.viewResults(decodedUserName);
+                        } else {
+                            console.error('유효하지 않은 사용자명:', decodedUserName);
+                            ScreenManager.showSetup();
+                        }
+                    } catch (error) {
+                        console.error('사용자명 디코딩 오류:', error);
+                        ScreenManager.showSetup();
+                    }
+                } else if (userName) {
+                    // 설문 참여 모드
+                    try {
+                        const decodedUserName = decodeURIComponent(userName);
+                        if (decodedUserName && decodedUserName.length <= 50) {
+                            ScreenManager.showSurvey(decodedUserName);
+                        } else {
+                            console.error('유효하지 않은 사용자명:', decodedUserName);
+                            ScreenManager.showSetup();
+                        }
+                    } catch (error) {
+                        console.error('설문 참여 모드 초기화 오류:', error);
+                        ScreenManager.showSetup();
+                    }
+                } else {
+                    // 설문 생성 모드
+                    ScreenManager.showSetup();
+                }
+
+                AppState.initialized = true;
+                
+                // 성능 모니터링 (개발 모드에서만)
+                if (typeof performance !== 'undefined' && performance.mark) {
+                    performance.mark('app-initialized');
+                }
+
+            } catch (error) {
+                console.error('애플리케이션 초기화 오류:', error);
+                Utils.showNotification('애플리케이션을 초기화하는 중 오류가 발생했습니다.\n페이지를 새로고침해주세요.');
+                // 폴백으로 설정 화면 표시
+                try {
+                    ScreenManager.showSetup();
+                } catch (fallbackError) {
+                    console.error('폴백 초기화도 실패:', fallbackError);
+                }
             }
         };
 
-        // DOM 로드 시 실행
+        // DOM 로드 시 실행 (최적화된 초기화)
         document.addEventListener('DOMContentLoaded', () => {
-            setupEventListeners();
-            initializeApp();
+            try {
+                // 이벤트 리스너 먼저 설정
+                setupEventListeners();
+                
+                // 그 다음 앱 초기화
+                initializeApp();
+                
+                // 페이지 가시성 변경 처리 (성능 최적화)
+                if ('visibilityState' in document) {
+                    document.addEventListener('visibilitychange', () => {
+                        if (document.visibilityState === 'visible') {
+                            // 페이지가 다시 보일 때 상태 복구
+                            console.log('페이지가 다시 활성화되었습니다.');
+                        }
+                    }, { passive: true });
+                }
+
+                // 서비스 워커 등록 (PWA 지원 - 선택적)
+                if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+                    navigator.serviceWorker.register('/sw.js').catch(error => {
+                        console.log('Service Worker 등록 실패:', error);
+                    });
+                }
+
+            } catch (error) {
+                console.error('DOM 로드 이벤트 처리 오류:', error);
+                Utils.showNotification('페이지 로딩 중 오류가 발생했습니다.');
+            }
         });
+
+        // 윈도우 언로드 시 정리 작업
+        window.addEventListener('unload', () => {
+            Utils.cleanup();
+        }, { passive: true });
+
+        // 전역 에러 핸들러
+        window.addEventListener('error', (event) => {
+            console.error('전역 에러 발생:', event.error);
+            // 사용자에게는 표시하지 않음 (로그만 기록)
+        }, { passive: true });
+
+        // Promise 거부 핸들러
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('처리되지 않은 Promise 거부:', event.reason);
+            event.preventDefault(); // 콘솔 에러 방지
+        }, { passive: true });
     </script>
 </body>
 </html>
