@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 동료들이 보는 나의 진짜 모습</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 30px 30px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .subtitle strong {
+            color: #667eea;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e1e8ff;
+            border-radius: 50px;
+            background: #f8faff;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .create-section, .survey-section, .result-section {
+            display: none;
+        }
+
+        .create-section.active, .survey-section.active, .result-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e8ff;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: #f8faff;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn.secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option {
+            background: #f8faff;
+            border: 2px solid #e1e8ff;
+            border-radius: 12px;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .option:hover::before {
+            left: 100%;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f3ff;
+            transform: translateY(-2px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .option-emoji {
+            font-size: 1.5rem;
+            margin-right: 12px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .option-text {
+            display: inline-block;
+            vertical-align: middle;
+            max-width: calc(100% - 2.5rem);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e1e8ff;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .result-card {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #e1e8ff;
+        }
+
+        .result-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .result-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .result-description p {
+            margin-bottom: 8px;
+        }
+
+        .trait-result {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .trait-info {
+            flex: 1;
+        }
+
+        .trait-name {
+            font-weight: 700;
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .trait-desc {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .trait-percentage {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-left: 15px;
+        }
+
+        .share-section {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e8ff;
+        }
+
+        .share-text {
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .share-link {
+            background: #f8faff;
+            border: 2px solid #e1e8ff;
+            border-radius: 12px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            word-break: break-all;
+            color: #667eea;
+        }
+
+        .encouragement {
+            background: linear-gradient(135deg, #fff8f0, #fef7ff);
+            border: 1px solid #fde5ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            color: #8b5a3c;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .encouragement strong {
+            color: #667eea;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 20px;
+            }
+            
+            .header {
+                padding: 30px 25px 25px;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .title {
+                font-size: 1.7rem;
+            }
+            
+            .mode-selector {
+                flex-direction: column;
+            }
+
+            .option {
+                padding: 15px;
+            }
+
+            .trait-result {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .trait-percentage {
+                margin-left: 0;
+                align-self: flex-end;
+            }
+        }
+
+        .floating-emoji {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translateY(-20px) rotate(10deg);
+                opacity: 0.6;
+            }
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 떠다니는 이모지들 -->
+    <div class="floating-emoji" style="top: 10%; left: 10%; animation-delay: 0s;">💕</div>
+    <div class="floating-emoji" style="top: 20%; right: 15%; animation-delay: 2s;">✨</div>
+    <div class="floating-emoji" style="bottom: 30%; left: 20%; animation-delay: 4s;">🥰</div>
+    <div class="floating-emoji" style="bottom: 20%; right: 10%; animation-delay: 6s;">💫</div>
+    <div class="floating-emoji" style="top: 50%; left: 5%; animation-delay: 1s;">🌟</div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">💕 동료들이 보는 나</h1>
+            <p class="subtitle">
+                <strong>진짜 소중한 당신을 위한 특별한 시간</strong> ✨<br>
+                동료들의 따뜻한 시선으로 발견하는<br>
+                나의 숨겨진 매력과 빛나는 모습들 💎
+            </p>
+            
+            <div class="mode-selector">
+                <div class="mode-btn active" onclick="switchMode('create')">💝 내 매력 발굴하기</div>
+                <div class="mode-btn" onclick="switchMode('survey')">🥰 소중한 사람 응원하기</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 설문 생성 섹션 -->
+            <div class="create-section active">
+                <div class="encouragement">
+                    💫 <strong>당신은 이미 충분히 특별하고 소중한 존재예요!</strong><br>
+                    동료들의 시선에서 발견될<br>
+                    당신의 반짝이는 모습들이 정말 기대돼요 ✨
+                </div>
+                
+                <div class="form-group">
+                    <label for="userName">🌟 내 닉네임 (실명도 괜찮아요!)</label>
+                    <input type="text" id="userName" placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등">
+                </div>
+                
+                <button class="btn" onclick="createSurvey()">🚀 내 매력 포인트 알아보기</button>
+                
+                <div class="encouragement">
+                    💡 <strong>설문을 만들면 동료들이<br>당신에 대한 따뜻한 마음을 전할 수 있어요!</strong><br>
+                    분명 예상보다 훨씬 사랑받고 있는<br>
+                    자신을 발견하게 될 거예요 💕
+                </div>
+            </div>
+
+            <!-- 설문 참여 섹션 -->
+            <div class="survey-section">
+                <div class="encouragement">
+                    🥰 <strong>소중한 동료를 위한<br>따뜻한 마음 전하기</strong><br>
+                    당신의 진심 어린 답변이 누군가에게는<br>
+                    큰 힘이 되고 용기가 될 거예요 ✨
+                </div>
+                
+                <div class="form-group">
+                    <label for="surveyCode">🔍 설문 코드 입력</label>
+                    <input type="text" id="surveyCode" placeholder="6자리 코드를 입력해주세요">
+                </div>
+                
+                <button class="btn" onclick="joinSurvey()">💕 응원 메시지 보내기</button>
+            </div>
+
+            <!-- 질문 섹션 -->
+            <div class="question-section" style="display: none;">
+                <div class="progress-text" id="progressText">1/8 질문</div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question" id="currentQuestion"></div>
+                    <div class="options" id="optionsContainer"></div>
+                </div>
+            </div>
+
+            <!-- 결과 섹션 -->
+            <div class="result-section">
+                <div class="stats" id="surveyStats"></div>
+                
+                <div class="result-card">
+                    <div class="result-title">✨ 동료들이 발견한<br>나의 빛나는 모습들</div>
+                    <div class="result-description" id="resultDescription"></div>
+                    <div id="resultContent"></div>
+                </div>
+                
+                <div class="share-section">
+                    <p class="share-text">
+                        🔗 <strong>더 많은 동료들에게<br>사랑받는 내 모습 발견하기</strong><br>
+                        아래 링크를 공유해서<br>
+                        더 많은 따뜻한 시선들을 모아보세요! 💝
+                    </p>
+                    <div class="share-link" id="shareLink"></div>
+                    <button class="btn secondary" onclick="copyLink()">📋 링크 복사해서 공유하기</button>
+                    <button class="btn" onclick="createNewSurvey()">🆕 새로운 매력 발굴하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // MZ감성 넘치는 재미있는 설문 질문들
+        const questions = [
+            {
+                text: "🌅 첫 출근할 때부터 지금까지,<br>이 사람의 오라는?",
+                options: [
+                    { emoji: "☀️", text: "365일 비타민D 풀충전 햇살 인간", trait: "sunshine" },
+                    { emoji: "🌙", text: "차분하고 신비로운 달빛 감성", trait: "mysterious" },
+                    { emoji: "⚡", text: "에너지 드링크 체질 번개맨", trait: "energetic" },
+                    { emoji: "🌸", text: "보기만 해도 기분 좋아지는 벚꽃 엔딩", trait: "healing" }
+                ]
+            },
+            {
+                text: "💼 업무 스타일을<br>동물로 비유하면?",
+                options: [
+                    { emoji: "🐆", text: "치타처럼 빠르고 정확한 스피드러너", trait: "speedy" },
+                    { emoji: "🦉", text: "올빼미처럼 꼼꼼하고 현명한 전략가", trait: "wise" },
+                    { emoji: "🐝", text: "꿀벌처럼 부지런하고 협동적인 팀플레이어", trait: "teamwork" },
+                    { emoji: "🦋", text: "나비처럼 창의적이고 아름다운 아이디어 메이커", trait: "creative" }
+                ]
+            },
+            {
+                text: "🗣️ 회의할 때<br>이 사람의 포지션은?",
+                options: [
+                    { emoji: "🎤", text: "마이크 잡으면 TED 토크 급 발표력", trait: "presenter" },
+                    { emoji: "🧠", text: "한 마디 하면 모두가 '아하!' 하는 인사이트 킹", trait: "insightful" },
+                    { emoji: "😌", text: "분위기 읽고 적재적소에 타이밍 갑", trait: "tactful" },
+                    { emoji: "👂", text: "경청의 달인, 모든 말을 다 받아주는 든든한 앵커", trait: "listener" }
+                ]
+            },
+            {
+                text: "☕ 점심시간 or 쉬는 시간의<br>이 사람은?",
+                options: [
+                    { emoji: "🎪", text: "어디서든 웃음 꽃이 피는 분위기 메이커", trait: "entertainer" },
+                    { emoji: "📱", text: "소소한 일상 TMI로 재미를 주는 스토리텔러", trait: "storyteller" },
+                    { emoji: "🧘‍♀️", text: "혼자만의 시간으로 에너지 충전하는 힐러", trait: "recharger" },
+                    { emoji: "🤗", text: "누구든 편하게 다가갈 수 있는 인간 카페", trait: "approachable" }
+                ]
+            },
+            {
+                text: "💥 갑작스러운 변수가<br>생겼을 때?",
+                options: [
+                    { emoji: "🏃‍♀️", text: "1초 만에 플랜B 꺼내는 만능 해결사", trait: "flexible" },
+                    { emoji: "🧮", text: "차근차근 분석하고 완벽한 해답 제시하는 전략가", trait: "analytical" },
+                    { emoji: "🤝", text: "팀원들 챙기면서 함께 헤쳐나가는 리더쉽", trait: "caring" },
+                    { emoji: "🧊", text: "어떤 상황에도 흔들리지 않는 멘탈 갑 of 갑", trait: "stable" }
+                ]
+            },
+            {
+                text: "🌟 동료들이 힘들 때<br>이 사람이 해주는 역할은?",
+                options: [
+                    { emoji: "🔥", text: "다시 일어설 수 있는 용기를 주는 동기부여 마스터", trait: "motivator" },
+                    { emoji: "🤗", text: "따뜻한 위로로 마음을 어루만져주는 힐링 요정", trait: "comforter" },
+                    { emoji: "💡", text: "실질적인 해결책을 찾아주는 문제해결 천재", trait: "problemsolver" },
+                    { emoji: "😄", text: "웃음으로 스트레스를 날려버리는 개그맨", trait: "comedian" }
+                ]
+            },
+            {
+                text: "🎯 이 사람의<br>가장 킬링 포인트는?",
+                options: [
+                    { emoji: "💎", text: "믿고 맡길 수 있는 신뢰도 MAX 인간", trait: "trustworthy" },
+                    { emoji: "🎨", text: "생각지도 못한 참신한 아이디어로 놀라게 하는 크리에이터", trait: "innovative" },
+                    { emoji: "❤️", text: "진심이 느껴지는 따뜻한 마음의 소유자", trait: "warmhearted" },
+                    { emoji: "🔥", text: "열정이 전염되는 에너지 바이러스", trait: "passionate" }
+                ]
+            },
+            {
+                text: "💫 한 줄로 정의하는<br>이 사람은?",
+                options: [
+                    { emoji: "🏆", text: "같은 팀이라서 다행이다 싶은 든든한 동반자", trait: "reliable" },
+                    { emoji: "🌈", text: "있는 것만으로도 주변이 밝아지는 행운의 요정", trait: "lucky" },
+                    { emoji: "🧙‍♀️", text: "불가능을 가능으로 만드는 업무 마법사", trait: "magical" },
+                    { emoji: "💝", text: "만나서 정말 다행이라는 생각이 드는 소중한 사람", trait: "precious" }
+                ]
+            }
+        ];
+
+        // 특성별 따뜻한 설명
+        const traitDescriptions = {
+            sunshine: { name: "햇살 비타민", desc: "당신이 있는 곳은 언제나 따뜻하고 밝아요" },
+            mysterious: { name: "달빛 감성", desc: "신비로우면서도 차분한 매력의 소유자" },
+            energetic: { name: "에너지 충전기", desc: "당신의 에너지가 모두에게 전해져요" },
+            healing: { name: "힐링 요정", desc: "보기만 해도 마음이 편안해지는 존재" },
+            speedy: { name: "스피드 마스터", desc: "빠르면서도 정확한 당신의 능력에 감탄해요" },
+            wise: { name: "지혜의 현자", desc: "깊이 있는 사고로 모두를 이끄는 리더" },
+            teamwork: { name: "협업 달인", desc: "함께 일할 때 진가를 발휘하는 팀플레이어" },
+            creative: { name: "창의력 폭발", desc: "아름다운 아이디어로 모두를 놀라게 해요" },
+            presenter: { name: "발표 천재", desc: "당신의 발표는 언제나 인상 깊어요" },
+            insightful: { name: "인사이트 킹", desc: "핵심을 찌르는 통찰력의 소유자" },
+            tactful: { name: "센스 만점", desc: "완벽한 타이밍으로 분위기를 읽어내요" },
+            listener: { name: "경청의 달인", desc: "모든 이야기를 따뜻하게 들어주는 사람" },
+            entertainer: { name: "분위기 메이커", desc: "당신 덕분에 회사가 즐거워져요" },
+            storyteller: { name: "스토리텔러", desc: "재미있는 이야기로 모두를 웃게 만들어요" },
+            recharger: { name: "에너지 충전 마스터", desc: "혼자만의 시간도 소중히 여기는 지혜" },
+            approachable: { name: "인간 카페", desc: "누구나 편하게 다가갈 수 있는 따뜻함" },
+            flexible: { name: "만능 해결사", desc: "어떤 상황에도 유연하게 대처하는 능력자" },
+            analytical: { name: "분석의 달인", desc: "체계적인 사고로 완벽한 해답을 찾아내요" },
+            caring: { name: "배려 깊은 리더", desc: "모두를 챙기며 함께 나아가는 진정한 리더" },
+            stable: { name: "멘탈 갑", desc: "흔들리지 않는 안정감으로 모두의 든든한 버팀목" },
+            motivator: { name: "동기부여 마스터", desc: "당신의 말 한마디가 큰 힘이 되어요" },
+            comforter: { name: "힐링 요정", desc: "따뜻한 위로로 상처받은 마음을 치유해줘요" },
+            problemsolver: { name: "문제해결 천재", desc: "어려운 문제도 척척 해결하는 능력자" },
+            comedian: { name: "웃음 제조기", desc: "웃음으로 모든 스트레스를 날려버려요" },
+            trustworthy: { name: "신뢰도 MAX", desc: "당신만큼 믿을 만한 사람을 찾기 어려워요" },
+            innovative: { name: "아이디어 크리에이터", desc: "참신한 발상으로 모두를 놀라게 해요" },
+            warmhearted: { name: "따뜻한 마음", desc: "진심이 느껴지는 당신의 마음이 소중해요" },
+            passionate: { name: "열정 바이러스", desc: "당신의 열정이 모두에게 전염되어요" },
+            reliable: { name: "든든한 동반자", desc: "같은 팀이라서 정말 다행이에요" },
+            lucky: { name: "행운의 요정", desc: "당신이 있으면 모든 일이 잘 풀려요" },
+            magical: { name: "업무 마법사", desc: "불가능을 가능으로 만드는 마법 같은 능력" },
+            precious: { name: "소중한 보물", desc: "만나서 정말 다행인 특별한 사람" }
+        };
+
+        // 격려 메시지들
+        const encouragementMessages = [
+            "💕 동료들이 당신을 이렇게 생각하고 있었다니!<br>정말 사랑스럽고 특별한 존재시네요 ✨",
+            "🌟 이 결과를 보니 당신이 얼마나 소중한 사람인지<br>다시 한번 느끼게 되어요 💎",
+            "✨ 동료들의 따뜻한 시선에서 발견된<br>당신의 빛나는 모습들이 정말 아름다워요 🌈",
+            "💫 이런 평가를 받는다는 건<br>당신이 얼마나 멋진 사람인지 보여주는 거예요! 🏆"
+        ];
+
+        // 앱 상태
+        let currentMode = 'create';
+        let currentSurvey = null;
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let surveys = {}; // 메모리에 저장 (실제로는 서버DB 필요)
+
+        // 모드 전환
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // 버튼 스타일 업데이트
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 섹션 표시
+            document.querySelectorAll('.create-section, .survey-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            if (mode === 'create') {
+                document.querySelector('.create-section').classList.add('active');
+            } else {
+                document.querySelector('.survey-section').classList.add('active');
+            }
+        }
+
+        // 설문 생성
+        function createSurvey() {
+            const userName = document.getElementById('userName').value.trim();
+            
+            if (!userName) {
+                alert('닉네임을 입력해주세요! 😊');
+                return;
+            }
+            
+            // 6자리 랜덤 코드 생성
+            const surveyCode = Math.random().toString(36).substr(2, 6).toUpperCase();
+            
+            // 설문 데이터 저장
+            surveys[surveyCode] = {
+                name: userName,
+                responses: [],
+                traits: {},
+                createdAt: new Date().toISOString()
+            };
+            
+            // 결과 화면으로 이동
+            showResults(surveyCode);
+        }
+
+        // 설문 참여
+        function joinSurvey() {
+            const surveyCode = document.getElementById('surveyCode').value.trim().toUpperCase();
+            
+            if (!surveyCode) {
+                alert('설문 코드를 입력해주세요! 🔍');
+                return;
+            }
+            
+            if (!surveys[surveyCode]) {
+                alert('존재하지 않는 설문 코드입니다! 😅\n코드를 다시 확인해주세요.');
+                return;
+            }
+            
+            // 설문 시작
+            currentSurvey = surveyCode;
+            currentQuestionIndex = 0;
+            answers = [];
+            startSurvey();
+        }
+
+        // 설문 시작
+        function startSurvey() {
+            document.querySelector('.survey-section').style.display = 'none';
+            document.querySelector('.question-section').style.display = 'block';
+            showQuestion();
+        }
+
+        // 질문 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('currentQuestion').innerHTML = question.text;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `
+                    <span class="option-emoji">${option.emoji}</span>
+                    <span class="option-text">${option.text}</span>
+                `;
+                optionDiv.onclick = () => selectOption(index, optionDiv);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            updateProgress();
+        }
+
+        // 옵션 선택
+        function selectOption(index, element) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            const question = questions[currentQuestionIndex];
+            answers[currentQuestionIndex] = question.options[index].trait;
+            
+            // 0.8초 후 자동 다음 질문
+            setTimeout(() => {
+                nextQuestion();
+            }, 800);
+        }
+
+        // 다음 질문
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                submitSurvey();
+            }
+        }
+
+        // 진행률 업데이트
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.querySelector('.progress-fill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${currentQuestionIndex + 1}/${questions.length} 질문`;
+        }
+
+        // 설문 제출
+        function submitSurvey() {
+            // 응답 저장
+            surveys[currentSurvey].responses.push({
+                answers: answers,
+                timestamp: new Date().toISOString()
+            });
+            
+            // 특성별 집계
+            answers.forEach(trait => {
+                if (!surveys[currentSurvey].traits[trait]) {
+                    surveys[currentSurvey].traits[trait] = 0;
+                }
+                surveys[currentSurvey].traits[trait]++;
+            });
+            
+            // 완료 메시지
+            alert('🎉 소중한 응원 메시지를 보내주셔서 감사합니다!\n\n당신의 따뜻한 마음이 누군가에게 큰 힘이 될 거예요 💕');
+            
+            // 초기 화면으로 돌아가기
+            location.reload();
+        }
+
+        // 결과 표시
+        function showResults(surveyCode) {
+            const survey = surveys[surveyCode];
+            const totalResponses = survey.responses.length;
+            
+            // 통계 표시
+            const statsContainer = document.getElementById('surveyStats');
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalResponses}</div>
+                    <div class="stat-label">응원 메시지</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${surveyCode}</div>
+                    <div class="stat-label">공유 코드</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">💕</div>
+                    <div class="stat-label">${survey.name}</div>
+                </div>
+            `;
+            
+            // 결과 설명
+            const resultDescription = document.getElementById('resultDescription');
+            if (totalResponses === 0) {
+                resultDescription.innerHTML = `
+                    <p><strong>아직 동료들의 따뜻한 시선을 기다리고 있어요!</strong></p>
+                    <p>링크를 공유해서 동료들이 당신에 대해<br>
+                    어떻게 생각하는지 알아보세요 🚀</p>
+                    <p>분명 예상보다 훨씬 사랑받고 있는<br>
+                    자신을 발견하게 될 거예요! ✨</p>
+                `;
+            } else {
+                const randomMessage = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+                resultDescription.innerHTML = `<p>${randomMessage}</p>`;
+            }
+            
+            // 결과 내용
+            const resultContainer = document.getElementById('resultContent');
+            if (totalResponses === 0) {
+                resultContainer.innerHTML = '';
+            } else {
+                // 특성별 퍼센트 계산 및 표시
+                const sortedTraits = Object.entries(survey.traits)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5); // 상위 5개만 표시
+                
+                resultContainer.innerHTML = sortedTraits.map(([trait, count]) => {
+                    const percentage = Math.round((count / totalResponses) * 100);
+                    const traitInfo = traitDescriptions[trait];
+                    return `
+                        <div class="trait-result">
+                            <div class="trait-info">
+                                <div class="trait-name">💎 ${traitInfo.name}</div>
+                                <div class="trait-desc">${traitInfo.desc}</div>
+                            </div>
+                            <div class="trait-percentage">${percentage}%</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // 공유 링크
+            const currentUrl = window.location.origin + window.location.pathname;
+            document.getElementById('shareLink').textContent = `${currentUrl}?code=${surveyCode}`;
+            
+            // 결과 섹션 표시
+            document.querySelector('.create-section').style.display = 'none';
+            document.querySelector('.result-section').classList.add('active');
+        }
+
+        // 링크 복사
+        function copyLink() {
+            const link = document.getElementById('shareLink').textContent;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showCopySuccess();
+                });
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = link;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopySuccess();
+            }
+        }
+
+        function showCopySuccess() {
+            alert('✅ 링크가 복사되었습니다!\n\n동료들에게 공유해서 따뜻한 응원을 받아보세요! 💕');
+        }
+
+        // 새 설문 만들기
+        function createNewSurvey() {
+            if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
+                location.reload();
+            }
+        }
+
+        // URL 파라미터 확인 (설문 코드가 있으면 자동으로 설문 모드로)
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const surveyCode = urlParams.get('code');
+            
+            if (surveyCode && surveys[surveyCode]) {
+                // 설문 참여 모드로 전환
+                switchMode('survey');
+                document.getElementById('surveyCode').value = surveyCode;
+            }
+        });
+
+        // 페이지 이탈 방지 (설문 진행 중일 때)
+        window.addEventListener('beforeunload', (e) => {
+            if (currentSurvey && currentQuestionIndex > 0 && currentQuestionIndex < questions.length) {
+                e.preventDefault();
+                e.returnValue = '설문이 아직 완료되지 않았습니다. 정말 나가시겠어요?';
+            }
+        });
+    </script>
+</body>
+</html>
