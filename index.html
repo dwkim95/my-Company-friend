@@ -63,45 +63,15 @@
             margin-bottom: 25px;
         }
 
-        .subtitle strong {
-            color: #667eea;
-        }
-
-        .mode-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .mode-btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: 2px solid #e1e8ff;
-            border-radius: 50px;
-            background: #f8faff;
-            color: #667eea;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .mode-btn.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-color: transparent;
-        }
-
         .content {
             padding: 30px;
         }
 
-        .create-section, .survey-section, .result-section {
+        .setup-section, .survey-section, .result-section {
             display: none;
         }
 
-        .create-section.active, .survey-section.active, .result-section.active {
+        .setup-section.active, .survey-section.active, .result-section.active {
             display: block;
         }
 
@@ -284,10 +254,6 @@
             font-size: 1rem;
         }
 
-        .result-description p {
-            margin-bottom: 8px;
-        }
-
         .trait-result {
             display: flex;
             justify-content: space-between;
@@ -391,6 +357,23 @@
             margin-top: 5px;
         }
 
+        .survey-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .target-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .survey-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+
         /* 반응형 */
         @media (max-width: 768px) {
             .container {
@@ -408,10 +391,6 @@
             
             .title {
                 font-size: 1.7rem;
-            }
-            
-            .mode-selector {
-                flex-direction: column;
             }
 
             .option {
@@ -450,16 +429,25 @@
             }
         }
 
-        .warning {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            color: #856404;
-            font-size: 0.9rem;
-            line-height: 1.5;
+        .welcome-screen {
             text-align: center;
+        }
+
+        .loading-animation {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .loading-dots {
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
         }
     </style>
 </head>
@@ -479,54 +467,45 @@
                 동료들의 따뜻한 시선으로 발견하는<br>
                 나의 숨겨진 매력과 빛나는 모습들 💎
             </p>
-            
-            <div class="mode-selector">
-                <div class="mode-btn active" onclick="switchMode('create')">💝 내 매력 발굴하기</div>
-                <div class="mode-btn" onclick="switchMode('survey')">🥰 소중한 사람 응원하기</div>
-            </div>
         </div>
 
         <div class="content">
-            <!-- 설문 생성 섹션 -->
-            <div class="create-section active">
-                <div class="encouragement">
-                    💫 <strong>당신은 이미 충분히 특별하고 소중한 존재예요!</strong><br>
-                    동료들의 시선에서 발견될<br>
-                    당신의 반짝이는 모습들이 정말 기대돼요 ✨
-                </div>
-                
-                <div class="form-group">
-                    <label for="userName">🌟 내 닉네임 (실명도 괜찮아요!)</label>
-                    <input type="text" id="userName" placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등">
-                </div>
-                
-                <button class="btn" onclick="createSurvey()">🚀 내 매력 포인트 알아보기</button>
-                
-                <div class="encouragement">
-                    💡 <strong>설문을 만들면 동료들이<br>당신에 대한 따뜻한 마음을 전할 수 있어요!</strong><br>
-                    분명 예상보다 훨씬 사랑받고 있는<br>
-                    자신을 발견하게 될 거예요 💕
+            <!-- 초기 설정 화면 -->
+            <div class="setup-section active">
+                <div class="welcome-screen">
+                    <div class="encouragement">
+                        💫 <strong>당신은 이미 충분히 특별하고 소중한 존재예요!</strong><br>
+                        동료들의 시선에서 발견될<br>
+                        당신의 반짝이는 모습들이 정말 기대돼요 ✨
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userName">🌟 내 닉네임 (실명도 괜찮아요!)</label>
+                        <input type="text" id="userName" placeholder="예: 귀여운 김또리, 김민수, 밝은에너지 등">
+                    </div>
+                    
+                    <button class="btn" onclick="createSurvey()">🚀 내 전용 링크 만들기</button>
+                    
+                    <div class="encouragement">
+                        💡 <strong>링크를 만들면 동료들이 클릭 한 번으로<br>
+                        바로 당신에 대한 설문에 참여할 수 있어요!</strong><br>
+                        카톡이나 슬랙으로 링크만 보내면 끝! 🎯
+                    </div>
                 </div>
             </div>
 
-            <!-- 설문 참여 섹션 -->
+            <!-- 설문 참여 화면 -->
             <div class="survey-section">
-                <div class="encouragement">
-                    🥰 <strong>소중한 동료를 위한<br>따뜻한 마음 전하기</strong><br>
-                    당신의 진심 어린 답변이 누군가에게는<br>
-                    큰 힘이 되고 용기가 될 거예요 ✨
+                <div class="survey-intro">
+                    <div class="target-name" id="targetName"></div>
+                    <div class="survey-desc">
+                        <strong>이 소중한 분에 대해<br>
+                        당신이 느끼는 솔직한 생각을 들려주세요!</strong> 💕<br>
+                        당신의 따뜻한 시선이<br>
+                        누군가에게는 큰 힘이 될 거예요 ✨
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="surveyCode">🔍 설문 코드 입력</label>
-                    <input type="text" id="surveyCode" placeholder="6자리 코드를 입력해주세요">
-                </div>
-                
-                <button class="btn" onclick="joinSurvey()">💕 응원 메시지 보내기</button>
-            </div>
-
-            <!-- 질문 섹션 -->
-            <div class="question-section" style="display: none;">
                 <div class="progress-text" id="progressText">1/8 질문</div>
                 <div class="progress-bar">
                     <div class="progress-fill"></div>
@@ -536,9 +515,13 @@
                     <div class="question" id="currentQuestion"></div>
                     <div class="options" id="optionsContainer"></div>
                 </div>
+
+                <div class="loading-animation" id="loadingAnimation">
+                    <div class="loading-dots">답변을 저장하고 있어요... ✨</div>
+                </div>
             </div>
 
-            <!-- 결과 섹션 -->
+            <!-- 결과 화면 -->
             <div class="result-section">
                 <div class="stats" id="surveyStats"></div>
                 
@@ -677,288 +660,3 @@
 
         // 격려 메시지들
         const encouragementMessages = [
-            "💕 동료들이 당신을 이렇게 생각하고 있었다니!<br>정말 사랑스럽고 특별한 존재시네요 ✨",
-            "🌟 이 결과를 보니 당신이 얼마나 소중한 사람인지<br>다시 한번 느끼게 되어요 💎",
-            "✨ 동료들의 따뜻한 시선에서 발견된<br>당신의 빛나는 모습들이 정말 아름다워요 🌈",
-            "💫 이런 평가를 받는다는 건<br>당신이 얼마나 멋진 사람인지 보여주는 거예요! 🏆"
-        ];
-
-        // 앱 상태
-        let currentMode = 'create';
-        let currentSurvey = null;
-        let currentQuestionIndex = 0;
-        let answers = [];
-        let surveys = {}; // 메모리에 저장 (실제로는 서버DB 필요)
-
-        // 모드 전환
-        function switchMode(mode) {
-            currentMode = mode;
-            
-            // 버튼 스타일 업데이트
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // 섹션 표시
-            document.querySelectorAll('.create-section, .survey-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            if (mode === 'create') {
-                document.querySelector('.create-section').classList.add('active');
-            } else {
-                document.querySelector('.survey-section').classList.add('active');
-            }
-        }
-
-        // 설문 생성
-        function createSurvey() {
-            const userName = document.getElementById('userName').value.trim();
-            
-            if (!userName) {
-                alert('닉네임을 입력해주세요! 😊');
-                return;
-            }
-            
-            // 6자리 랜덤 코드 생성
-            const surveyCode = Math.random().toString(36).substr(2, 6).toUpperCase();
-            
-            // 설문 데이터 저장
-            surveys[surveyCode] = {
-                name: userName,
-                responses: [],
-                traits: {},
-                createdAt: new Date().toISOString()
-            };
-            
-            // 결과 화면으로 이동
-            showResults(surveyCode);
-        }
-
-        // 설문 참여
-        function joinSurvey() {
-            const surveyCode = document.getElementById('surveyCode').value.trim().toUpperCase();
-            
-            if (!surveyCode) {
-                alert('설문 코드를 입력해주세요! 🔍');
-                return;
-            }
-            
-            if (!surveys[surveyCode]) {
-                alert('존재하지 않는 설문 코드입니다! 😅\n코드를 다시 확인해주세요.');
-                return;
-            }
-            
-            // 설문 시작
-            currentSurvey = surveyCode;
-            currentQuestionIndex = 0;
-            answers = [];
-            startSurvey();
-        }
-
-        // 설문 시작
-        function startSurvey() {
-            document.querySelector('.survey-section').style.display = 'none';
-            document.querySelector('.question-section').style.display = 'block';
-            showQuestion();
-        }
-
-        // 질문 표시
-        function showQuestion() {
-            const question = questions[currentQuestionIndex];
-            document.getElementById('currentQuestion').innerHTML = question.text;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.innerHTML = `
-                    <span class="option-emoji">${option.emoji}</span>
-                    <span class="option-text">${option.text}</span>
-                `;
-                optionDiv.onclick = () => selectOption(index, optionDiv);
-                optionsContainer.appendChild(optionDiv);
-            });
-            
-            updateProgress();
-        }
-
-        // 옵션 선택
-        function selectOption(index, element) {
-            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            
-            const question = questions[currentQuestionIndex];
-            answers[currentQuestionIndex] = question.options[index].trait;
-            
-            // 0.8초 후 자동 다음 질문
-            setTimeout(() => {
-                nextQuestion();
-            }, 800);
-        }
-
-        // 다음 질문
-        function nextQuestion() {
-            currentQuestionIndex++;
-            
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();
-            } else {
-                submitSurvey();
-            }
-        }
-
-        // 진행률 업데이트
-        function updateProgress() {
-            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
-            document.querySelector('.progress-fill').style.width = progress + '%';
-            document.getElementById('progressText').textContent = `${currentQuestionIndex + 1}/${questions.length} 질문`;
-        }
-
-        // 설문 제출
-        function submitSurvey() {
-            // 응답 저장
-            surveys[currentSurvey].responses.push({
-                answers: answers,
-                timestamp: new Date().toISOString()
-            });
-            
-            // 특성별 집계
-            answers.forEach(trait => {
-                if (!surveys[currentSurvey].traits[trait]) {
-                    surveys[currentSurvey].traits[trait] = 0;
-                }
-                surveys[currentSurvey].traits[trait]++;
-            });
-            
-            // 완료 메시지
-            alert('🎉 소중한 응원 메시지를 보내주셔서 감사합니다!\n\n당신의 따뜻한 마음이 누군가에게 큰 힘이 될 거예요 💕');
-            
-            // 초기 화면으로 돌아가기
-            location.reload();
-        }
-
-        // 결과 표시
-        function showResults(surveyCode) {
-            const survey = surveys[surveyCode];
-            const totalResponses = survey.responses.length;
-            
-            // 통계 표시
-            const statsContainer = document.getElementById('surveyStats');
-            statsContainer.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-number">${totalResponses}</div>
-                    <div class="stat-label">응원 메시지</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">${surveyCode}</div>
-                    <div class="stat-label">공유 코드</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">💕</div>
-                    <div class="stat-label">${survey.name}</div>
-                </div>
-            `;
-            
-            // 결과 설명
-            const resultDescription = document.getElementById('resultDescription');
-            if (totalResponses === 0) {
-                resultDescription.innerHTML = `
-                    <p><strong>아직 동료들의 따뜻한 시선을 기다리고 있어요!</strong></p>
-                    <p>링크를 공유해서 동료들이 당신에 대해<br>
-                    어떻게 생각하는지 알아보세요 🚀</p>
-                    <p>분명 예상보다 훨씬 사랑받고 있는<br>
-                    자신을 발견하게 될 거예요! ✨</p>
-                `;
-            } else {
-                const randomMessage = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
-                resultDescription.innerHTML = `<p>${randomMessage}</p>`;
-            }
-            
-            // 결과 내용
-            const resultContainer = document.getElementById('resultContent');
-            if (totalResponses === 0) {
-                resultContainer.innerHTML = '';
-            } else {
-                // 특성별 퍼센트 계산 및 표시
-                const sortedTraits = Object.entries(survey.traits)
-                    .sort((a, b) => b[1] - a[1])
-                    .slice(0, 5); // 상위 5개만 표시
-                
-                resultContainer.innerHTML = sortedTraits.map(([trait, count]) => {
-                    const percentage = Math.round((count / totalResponses) * 100);
-                    const traitInfo = traitDescriptions[trait];
-                    return `
-                        <div class="trait-result">
-                            <div class="trait-info">
-                                <div class="trait-name">💎 ${traitInfo.name}</div>
-                                <div class="trait-desc">${traitInfo.desc}</div>
-                            </div>
-                            <div class="trait-percentage">${percentage}%</div>
-                        </div>
-                    `;
-                }).join('');
-            }
-            
-            // 공유 링크
-            const currentUrl = window.location.origin + window.location.pathname;
-            document.getElementById('shareLink').textContent = `${currentUrl}?code=${surveyCode}`;
-            
-            // 결과 섹션 표시
-            document.querySelector('.create-section').style.display = 'none';
-            document.querySelector('.result-section').classList.add('active');
-        }
-
-        // 링크 복사
-        function copyLink() {
-            const link = document.getElementById('shareLink').textContent;
-            
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showCopySuccess();
-                });
-            } else {
-                const textArea = document.createElement('textarea');
-                textArea.value = link;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showCopySuccess();
-            }
-        }
-
-        function showCopySuccess() {
-            alert('✅ 링크가 복사되었습니다!\n\n동료들에게 공유해서 따뜻한 응원을 받아보세요! 💕');
-        }
-
-        // 새 설문 만들기
-        function createNewSurvey() {
-            if (confirm('새로운 설문을 만드시겠어요? 🆕')) {
-                location.reload();
-            }
-        }
-
-        // URL 파라미터 확인 (설문 코드가 있으면 자동으로 설문 모드로)
-        window.addEventListener('load', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const surveyCode = urlParams.get('code');
-            
-            if (surveyCode && surveys[surveyCode]) {
-                // 설문 참여 모드로 전환
-                switchMode('survey');
-                document.getElementById('surveyCode').value = surveyCode;
-            }
-        });
-
-        // 페이지 이탈 방지 (설문 진행 중일 때)
-        window.addEventListener('beforeunload', (e) => {
-            if (currentSurvey && currentQuestionIndex > 0 && currentQuestionIndex < questions.length) {
-                e.preventDefault();
-                e.returnValue = '설문이 아직 완료되지 않았습니다. 정말 나가시겠어요?';
-            }
-        });
-    </script>
-</body>
-</html>
